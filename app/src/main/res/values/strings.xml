@@ -14,6 +14,14 @@
     <string name="temperature">Температура:</string>
     <string name="press_button_when">Нажми на большую кнопку, когда\n перестанешь различать мерцания</string>
     <string name="ready">Готово</string>
+    <string name="left">Левый</string>
+    <string name="right">Правый</string>
+    <string name="straight">Прямой</string>
+    <string name="reversed">Обратный</string>
+    <string name="other">Другой</string>
+    <string name="low">Низкая</string>
+    <string name="average">Средняя</string>
+    <string name="high">Высокая</string>
 
 
 

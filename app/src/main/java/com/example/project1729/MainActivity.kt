@@ -1,13 +1,13 @@
 package com.example.project1729
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.ScrollView
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.project1729.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Кнопки выбора тестируемого глаза
         binding.testingEyeButton1.setOnClickListener {
             testingEyeButtonPressed(1)
         }
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             testingEyeButtonPressed(2)
         }
 
-
+        //Кнопки выбора метода измерения
         binding.measurementMethodButton1.setOnClickListener {
             measurementMethodButtonPressed(1)
         }
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             measurementMethodButtonPressed(3)
         }
 
-
+        //Кнопки выбора интенсивности
         binding.radiationIntensityButton1.setOnClickListener {
             radiationIntensityButtonPressed(1)
         }
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             radiationIntensityButtonPressed(3)
         }
 
+        //Кнопки выбора цвета
         binding.redButton.setOnClickListener {
             diodeColorChanged(1)
         }
@@ -69,7 +71,34 @@ class MainActivity : AppCompatActivity() {
         binding.whiteButton.setOnClickListener {
             diodeColorChanged(4)
         }
+
+
+        //Позунок регулировки интесивности
+        binding.radiationIntentsitySlider.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            var currentProgress = 0
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+//                when (progress){
+//                    in 0..33 -> radiationIntensityButtonChange(1)
+//                    in 34..66 -> radiationIntensityButtonChange(2)
+//                    in 67..100 -> radiationIntensityButtonChange(3)
+//                }
+                currentProgress = progress
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                when (currentProgress){
+                    in 0..33 -> radiationIntensityButtonChange(1)
+                    in 34..66 -> radiationIntensityButtonChange(2)
+                    in 67..100 -> radiationIntensityButtonChange(3)
+                }
+            }
+        })
+
     }
+
 
 
     fun testingEyeButtonPressed(btnNum: Int){
@@ -121,6 +150,37 @@ class MainActivity : AppCompatActivity() {
         val btn1 = binding.radiationIntensityButton1
         val btn2 = binding.radiationIntensityButton2
         val btn3 = binding.radiationIntensityButton3
+        val seekBar = binding.radiationIntentsitySlider
+
+        when (btnNum) {
+            1 -> {
+                btn1.setBackgroundColor(getResources().getColor(R.color.white))
+                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
+                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
+                seekBar.progress = 20
+            }
+            2 -> {
+                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
+                btn2.setBackgroundColor(getResources().getColor(R.color.white))
+                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
+                seekBar.progress = 50
+            }
+
+            3 -> {
+                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
+                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
+                btn3.setBackgroundColor(getResources().getColor(R.color.white))
+                seekBar.progress = 80
+            }
+        }
+    }
+
+    //Подстройка кнопок под ползунок
+    fun radiationIntensityButtonChange(btnNum: Int){
+        val btn1 = binding.radiationIntensityButton1
+        val btn2 = binding.radiationIntensityButton2
+        val btn3 = binding.radiationIntensityButton3
+
 
         when (btnNum) {
             1 -> {

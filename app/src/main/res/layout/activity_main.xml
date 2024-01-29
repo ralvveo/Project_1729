@@ -130,8 +130,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="#e9e9ee"
-            android:text="Левый" />
+            android:backgroundTint="@color/grey1"
+            android:text="@string/left" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:text="Правый"
+            android:text="@string/right"
             style="@style/peekerItemStyle"
             />
     </LinearLayout>
@@ -186,8 +186,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="#e9e9ee"
-            android:text="Прямой"
+            android:backgroundTint="@color/grey1"
+            android:text="@string/straight"
             style="@style/peekerItemStyle"
             />
 
@@ -202,8 +202,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="#e9e9ee"
-            android:text="Обратный"
+            android:backgroundTint="@color/grey1"
+            android:text="@string/reversed"
             style="@style/peekerItemStyle"
             />
 
@@ -219,7 +219,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:text="Другой"
+            android:text="@string/other"
             style="@style/peekerItemStyle"
             />
     </LinearLayout>
@@ -243,7 +243,7 @@
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/radiationIntentsitySlider"
-        android:progressTint="#DB00FF"
+        android:progressTint="@color/pinky"
         android:thumb= "@drawable/thumb"
         android:layout_width="match_parent"
         android:layout_height="32dp"
@@ -274,8 +274,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="#e9e9ee"
-            android:text="Низкая"
+            android:backgroundTint="@color/grey1"
+            android:text="@string/low"
             style="@style/peekerItemStyle"
             />
 
@@ -290,8 +290,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="#e9e9ee"
-            android:text="Средняя"
+            android:backgroundTint="@color/grey1"
+            android:text="@string/average"
             style="@style/peekerItemStyle"
             />
 
@@ -307,7 +307,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
-            android:text="Высокая"
+            android:text="@string/high"
             style="@style/peekerItemStyle"
             />
 
@@ -424,7 +424,7 @@
         android:fontFamily="@font/raleway_bold"
         android:text="@string/stop"
         app:cornerRadius="10dp"
-        android:backgroundTint="#DB00FF"
+        android:backgroundTint="@color/pinky"
         />
 
 
