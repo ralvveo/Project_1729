@@ -1,6 +1,7 @@
 package com.example.project1729
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -72,7 +73,18 @@ class MainActivity : AppCompatActivity() {
             diodeColorChanged(4)
         }
 
+        //Кнопка измерения КЧСМ
+        binding.measureKCHSMButton.setOnClickListener {
+            val displayIntent = Intent(this, MeasureActivity::class.java)
+            startActivity(displayIntent)
+        }
 
+        //Кнопка блютуза
+
+        binding.availableDevicesButton.setOnClickListener {
+            val displayIntent = Intent(this, BluetoothActivity::class.java)
+            startActivity(displayIntent)
+        }
         //Позунок регулировки интесивности
         binding.radiationIntentsitySlider.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             var currentProgress = 0

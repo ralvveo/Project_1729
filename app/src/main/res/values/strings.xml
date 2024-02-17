@@ -22,6 +22,10 @@
     <string name="low">Низкая</string>
     <string name="average">Средняя</string>
     <string name="high">Высокая</string>
+    <string name="connected_devices">Сопряжённые устройства</string>
+    <string name="searching_devices">Поиск устройств....</string>
+    <string name="no_connected_devices">Нет сопряжённых устройств...</string>
+    <string name="no_found_devices">Нет найденных устройств...</string>
 
 
 

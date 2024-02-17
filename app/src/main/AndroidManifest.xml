@@ -20,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MeasureActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".BluetoothActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
