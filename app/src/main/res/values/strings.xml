@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Project#1729</string>
     <string name="app_title">Измерение КЧСМ</string>
+    <string name="settings_title">Настройки</string>
+    <string name="history_title">История измерений</string>
     <string name="connection_status">Статус соединения: Не подключено</string>
     <string name="available_devices">Доступные устройства</string>
     <string name="testing_eye">Тестируемый глаз</string>
@@ -26,6 +28,14 @@
     <string name="searching_devices">Поиск устройств....</string>
     <string name="no_connected_devices">Нет сопряжённых устройств...</string>
     <string name="no_found_devices">Нет найденных устройств...</string>
+    <string name="dark_theme">Тёмная тема</string>
+    <string name="date_and_time">Дата и время</string>
+    <string name="device">Прибор</string>
+    <string name="eye">Глаз</string>
+    <string name="KCHSM_">КЧСМ</string>
+
+
+
 
 
 

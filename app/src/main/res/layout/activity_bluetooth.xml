@@ -15,7 +15,7 @@
         android:layout_marginEnd="20dp"
         app:cornerRadius="20dp"
         android:background="@drawable/shape"
-        android:backgroundTint="@color/darkBlue"
+        android:backgroundTint="@color/darkBlueWhite80"
         />
 
     <TextView
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toStartOf="@id/bluetoothIcon"
         android:layout_marginBottom="5dp"
         android:text="@string/connected_devices"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:fontFamily="@font/raleway_semibold"
         android:textSize="18sp"
         app:layout_constraintHorizontal_bias="0.5"
@@ -60,7 +60,7 @@
         android:layout_marginEnd="20dp"
         app:cornerRadius="20dp"
         android:background="@drawable/shape"
-        android:backgroundTint="@color/lightBlue"
+        android:backgroundTint="@color/lightBlueWhite80"
         />
 
     <TextView
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="@id/firstPlaceholder"
         android:layout_marginBottom="5dp"
         android:text="@string/no_connected_devices"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:fontFamily="@font/raleway_semibold"
         android:textSize="18sp"
         />
@@ -93,7 +93,7 @@
         android:layout_marginEnd="20dp"
         app:cornerRadius="20dp"
         android:background="@drawable/shape"
-        android:backgroundTint="@color/darkBlue"
+        android:backgroundTint="@color/darkBlueWhite80"
         />
 
     <TextView
@@ -106,7 +106,7 @@
         app:layout_constraintEnd_toStartOf="@id/searchIcon"
         android:layout_marginBottom="5dp"
         android:text="@string/searching_devices"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:fontFamily="@font/raleway_semibold"
         android:textSize="18sp"
         android:layout_marginStart="30dp"
@@ -137,7 +137,7 @@
         android:layout_marginEnd="20dp"
         app:cornerRadius="20dp"
         android:background="@drawable/shape"
-        android:backgroundTint="@color/lightBlue"
+        android:backgroundTint="@color/lightBlueWhite80"
         />
 
     <TextView
@@ -149,8 +149,8 @@
         app:layout_constraintStart_toStartOf="@id/secondPlaceholder"
         app:layout_constraintEnd_toEndOf="@id/secondPlaceholder"
         android:layout_marginBottom="5dp"
-        android:text="@string/no_connected_devices"
-        android:textColor="@color/white"
+        android:text="@string/no_found_devices"
+        android:textColor="@color/whiteBlack"
         android:fontFamily="@font/raleway_semibold"
         android:textSize="18sp"
         />

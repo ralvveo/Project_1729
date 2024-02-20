@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blackWhite">#FFFFFF</color>
+    <color name="blackWhite80">#dedede</color>
+    <color name="whiteBlack">#1A1B22</color>
+    <color name="grey2White80">#dedede</color>
+    <color name="grey1White80">#dedede</color>
+    <color name="blueWhite80">#dedede</color>
+    <color name="purpleWhite80">#dedede</color>
+    <color name="lightYellowYellow">#FFB800</color>
+    <color name="lightPinkyPinky">#FF0099</color>
+    <color name="darkBlueWhite80">#dedede</color>
+    <color name="lightBlueWhite80">#dedede</color>
+    <color name="blackBlack">#1A1B22</color>
+</resources>

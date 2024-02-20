@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:textSize="15sp"
         android:paddingBottom="10dp"
         android:fontFamily="@font/raleway_regular"
@@ -46,13 +46,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:textSize="20sp"
         android:paddingBottom="10dp"
         android:fontFamily="@font/raleway_bold"
         android:text="@string/ready"
         app:cornerRadius="10dp"
-        android:backgroundTint="#FFB800"
+        android:backgroundTint="@color/yellow"
         />
 
     <Button
@@ -65,13 +65,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:textSize="25sp"
         android:paddingBottom="10dp"
         android:fontFamily="@font/raleway_bold"
         android:text="@string/stop"
         app:cornerRadius="10dp"
-        android:backgroundTint="#FF0099"
+        android:backgroundTint="@color/pinky"
         />
 
 

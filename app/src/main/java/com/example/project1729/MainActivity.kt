@@ -3,9 +3,9 @@ package com.example.project1729
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.project1729.databinding.ActivityMainBinding
 
@@ -80,11 +80,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Кнопка блютуза
-
         binding.availableDevicesButton.setOnClickListener {
             val displayIntent = Intent(this, BluetoothActivity::class.java)
             startActivity(displayIntent)
         }
+
+        //Кнопка настройки
+        binding.settingsButton.setOnClickListener {
+            val displayIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(displayIntent)
+        }
+
+        //Кнопка история
+        binding.historyButton.setOnClickListener {
+            val displayIntent = Intent(this, HistoryActivity::class.java)
+            startActivity(displayIntent)
+        }
+
         //Позунок регулировки интесивности
         binding.radiationIntentsitySlider.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             var currentProgress = 0
@@ -118,13 +130,19 @@ class MainActivity : AppCompatActivity() {
         val btn2 = binding.testingEyeButton2
         when (btnNum) {
             1 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.white))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
+                btn1.setBackgroundColor(getResources().getColor(R.color.whiteBlack))
+                btn2.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+
+                btn1.setTextColor((getResources().getColor(R.color.blackWhite)))
+                btn2.setTextColor((getResources().getColor(R.color.black)))
 
             }
             2 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.white))
+                btn1.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+                btn2.setBackgroundColor(getResources().getColor(R.color.whiteBlack))
+
+                btn1.setTextColor((getResources().getColor(R.color.black)))
+                btn2.setTextColor((getResources().getColor(R.color.blackWhite)))
 
             }
         }
@@ -137,22 +155,15 @@ class MainActivity : AppCompatActivity() {
 
         when (btnNum) {
             1 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.white))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
+                buttonChange(btnActive = btn1, btnPassive1 = btn2, btnPassive2 = btn3)
 
             }
             2 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.white))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
-
+                buttonChange(btnActive = btn2, btnPassive1 = btn1, btnPassive2 = btn3)
             }
 
             3 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.white))
+                buttonChange(btnActive = btn3, btnPassive1 = btn1, btnPassive2 = btn2)
 
             }
         }
@@ -166,22 +177,16 @@ class MainActivity : AppCompatActivity() {
 
         when (btnNum) {
             1 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.white))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
+                buttonChange(btnActive = btn1, btnPassive1 = btn2, btnPassive2 = btn3)
                 seekBar.progress = 20
             }
             2 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.white))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
+                buttonChange(btnActive = btn2, btnPassive1 = btn1, btnPassive2 = btn3)
                 seekBar.progress = 50
             }
 
             3 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.white))
+                buttonChange(btnActive = btn3, btnPassive1 = btn1, btnPassive2 = btn2)
                 seekBar.progress = 80
             }
         }
@@ -196,25 +201,28 @@ class MainActivity : AppCompatActivity() {
 
         when (btnNum) {
             1 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.white))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
-
+                buttonChange(btnActive = btn1, btnPassive1 = btn2, btnPassive2 = btn3)
             }
             2 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.white))
-                btn3.setBackgroundColor(getResources().getColor(R.color.grey1))
-
+                buttonChange(btnActive = btn2, btnPassive1 = btn1, btnPassive2 = btn3)
             }
 
             3 -> {
-                btn1.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn2.setBackgroundColor(getResources().getColor(R.color.grey1))
-                btn3.setBackgroundColor(getResources().getColor(R.color.white))
-
+                buttonChange(btnActive = btn3, btnPassive1 = btn1, btnPassive2 = btn2)
             }
         }
+
+
+    }
+    fun buttonChange(btnActive: Button, btnPassive1: Button, btnPassive2: Button){
+        btnActive.setBackgroundColor(getResources().getColor(R.color.whiteBlack))
+        btnPassive1.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+        btnPassive2.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+
+        btnActive.setTextColor((getResources().getColor(R.color.blackWhite)))
+        btnPassive1.setTextColor((getResources().getColor(R.color.black)))
+        btnPassive2.setTextColor((getResources().getColor(R.color.black)))
+
     }
 
 

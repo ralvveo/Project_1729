@@ -32,11 +32,39 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/blackWhite"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
 
         />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintTop_toTopOf="@+id/appTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/appTitle"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/settings_btn"
+        android:foreground="?attr/selectableItemBackground"
+
+        />
+
+    <ImageButton
+        android:id="@+id/historyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/leftBorder"
+        app:layout_constraintTop_toTopOf="@+id/appTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/appTitle"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/measure_history_btn"
+        android:foreground="?attr/selectableItemBackground"
+        />
+
 
     <ImageView
         android:id="@+id/firstContainer"
@@ -92,7 +120,7 @@
         android:fontFamily="@font/raleway_semibold"
         android:text="@string/available_devices"
         app:cornerRadius="10dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/blackBlack"
         />
 
 
@@ -104,7 +132,7 @@
         app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@+id/firstContainer"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/blackWhite80"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
 
@@ -130,7 +158,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/grey1"
+            android:backgroundTint="@color/whiteBlack"
+            android:textColor="@color/blackWhite"
             android:text="@string/left" />
 
         <ImageView
@@ -145,7 +174,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/grey1White80"
             android:text="@string/right"
             style="@style/peekerItemStyle"
             />
@@ -160,7 +189,7 @@
         app:layout_constraintTop_toBottomOf="@+id/testingEyeSelector"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/blackWhite80"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
 
@@ -186,8 +215,9 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/grey1"
+            android:backgroundTint="@color/whiteBlack"
             android:text="@string/straight"
+            android:textColor="@color/blackWhite"
             style="@style/peekerItemStyle"
             />
 
@@ -202,7 +232,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/grey1"
+            android:backgroundTint="@color/grey1White80"
             android:text="@string/reversed"
             style="@style/peekerItemStyle"
             />
@@ -218,7 +248,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/grey1White80"
             android:text="@string/other"
             style="@style/peekerItemStyle"
             />
@@ -234,7 +264,7 @@
         app:layout_constraintTop_toBottomOf="@+id/measurementMethodSelector"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/blackWhite80"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
 
@@ -243,7 +273,7 @@
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/radiationIntentsitySlider"
-        android:progressTint="@color/pinky"
+        android:progressTint="@color/purple"
         android:thumb= "@drawable/thumb"
         android:layout_width="match_parent"
         android:layout_height="32dp"
@@ -274,7 +304,8 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/grey1"
+            android:backgroundTint="@color/whiteBlack"
+            android:textColor="@color/blackWhite"
             android:text="@string/low"
             style="@style/peekerItemStyle"
             />
@@ -290,7 +321,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/grey1"
+            android:backgroundTint="@color/grey1White80"
             android:text="@string/average"
             style="@style/peekerItemStyle"
             />
@@ -306,7 +337,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/grey1White80"
             android:text="@string/high"
             style="@style/peekerItemStyle"
             />
@@ -398,7 +429,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
         app:layout_constraintTop_toBottomOf="@+id/secondContainer"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:textSize="16sp"
         android:paddingBottom="10dp"
         android:paddingStart="5dp"
@@ -406,7 +437,7 @@
         android:fontFamily="@font/raleway_bold"
         android:text="@string/measure_kchsm"
         app:cornerRadius="10dp"
-        android:backgroundTint="#4176FF"
+        android:backgroundTint="@color/blueWhite80"
         />
 
     <Button
@@ -416,7 +447,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@+id/rightBorder"
         app:layout_constraintTop_toBottomOf="@+id/secondContainer"
-        android:textColor="@color/white"
+        android:textColor="@color/whiteBlack"
         android:textSize="24sp"
         android:paddingTop="0dp"
         android:paddingStart="5dp"
@@ -424,7 +455,7 @@
         android:fontFamily="@font/raleway_bold"
         android:text="@string/stop"
         app:cornerRadius="10dp"
-        android:backgroundTint="@color/pinky"
+        android:backgroundTint="@color/purpleWhite80"
         />
 
 
