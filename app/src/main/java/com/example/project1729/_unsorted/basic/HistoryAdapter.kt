@@ -1,8 +1,9 @@
-package com.example.project1729
+package com.example.project1729._unsorted.basic
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project1729.R
 
 class HistoryAdapter(
     private val history: List <Measurement>

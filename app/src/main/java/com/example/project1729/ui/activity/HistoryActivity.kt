@@ -1,8 +1,10 @@
-package com.example.project1729
+package com.example.project1729.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.project1729._unsorted.basic.HistoryAdapter
+import com.example.project1729._unsorted.basic.Measurement
 import com.example.project1729.databinding.ActivityHistoryBinding
 
 class HistoryActivity : AppCompatActivity() {
