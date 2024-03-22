@@ -1,14 +1,14 @@
-package com.example.project1729
+package com.example.project1729._unsorted.basic
 
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toDrawable
 
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.project1729.R
 
 
 class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

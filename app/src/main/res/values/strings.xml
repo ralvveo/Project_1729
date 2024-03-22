@@ -10,7 +10,7 @@
     <string name="radiation_intensity">Интенсивность излучения</string>
     <string name="diode_color">Цвет светодиода</string>
     <string name="measure_kchsm">Измерить КЧСМ</string>
-    <string name="stop">СТОП</string>
+    <string name="stop">Подключиться</string>
     <string name="KCHSM">КЧСМ:</string>
     <string name="pressure">Давление:</string>
     <string name="temperature">Температура:</string>
@@ -33,6 +33,11 @@
     <string name="device">Прибор</string>
     <string name="eye">Глаз</string>
     <string name="KCHSM_">КЧСМ</string>
+    <string name="paired_devices">Сопряженные устройства</string>
+    <string name="search_devices">Поиск устройств…</string>
+    <string name="no_paired_devices">Нет сопряженных устройств…</string>
+    <string name="no_searched_devices">Нет найденных устройств…</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 
