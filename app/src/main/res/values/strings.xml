@@ -38,6 +38,11 @@
     <string name="no_paired_devices">Нет сопряженных устройств…</string>
     <string name="no_searched_devices">Нет найденных устройств…</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="dialog_alert">Вы точно хотите удалить историю измерений?</string>
+    <string name="dialog_alert_cannot_be_undone">Это действие нельзя\nбудет отменить</string>
+    <string name="history_deleted">История измерений очищена.</string>
+
 
 
 

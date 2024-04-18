@@ -1,73 +1,25 @@
 package com.example.project1729.ui.activity
 
+import android.R as androidR
+import com.example.project1729.R
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.project1729._unsorted.basic.HistoryAdapter
-import com.example.project1729._unsorted.basic.Measurement
 import com.example.project1729.databinding.ActivityHistoryBinding
+import com.example.project1729.domain.converter.MeasurementDispayConverter
+import com.example.project1729.domain.model.ConvertedMeasurement
+import com.example.project1729.domain.model.Measurement
+import com.example.project1729.ui.view_model.HistoryViewModel
+
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
-
-    val historyList : MutableList<Measurement> = mutableListOf()
-
-    val test1: Measurement = Measurement(dateAndTime = "18.02.2024 13:03",
-        device = "98:D3:31:FB:12:A9",
-        eye = "Правый",
-        measurementMethod = "Прямой",
-        diodeColor = "Красный",
-        KCHSM = "145",
-        backgroundColor = "blue")
-
-    val test2: Measurement = Measurement(dateAndTime = "02.02.2024 9:01",
-        device = "98:D3:31:FB:12:A9",
-        eye = "Правый",
-        measurementMethod = "Обратный",
-        diodeColor = "Синий",
-        KCHSM = "205",
-        backgroundColor = "yellow")
-
-    val test3: Measurement = Measurement(dateAndTime = "27.01.2024 21:04",
-        device = "35:FC:5F:BF:BD:CB",
-        eye = "Левый",
-        measurementMethod = "Прямой",
-        diodeColor = "Белый",
-        KCHSM = "145",
-        backgroundColor = "pinky")
-
-    val test4: Measurement = Measurement(dateAndTime = "27.01.2024 21:04",
-        device = "35:FC:5F:BF:BD:CB",
-        eye = "Левый",
-        measurementMethod = "Прямой",
-        diodeColor = "Белый",
-        KCHSM = "145",
-        backgroundColor = "purple")
-
-    val test5: Measurement = Measurement(dateAndTime = "27.01.2024 21:04",
-        device = "35:FC:5F:BF:BD:CB",
-        eye = "Левый",
-        measurementMethod = "Прямой",
-        diodeColor = "Белый",
-        KCHSM = "145",
-        backgroundColor = "blue")
-
-    val test6: Measurement = Measurement(dateAndTime = "27.01.2024 21:04",
-        device = "35:FC:5F:BF:BD:CB",
-        eye = "Левый",
-        measurementMethod = "Прямой",
-        diodeColor = "Белый",
-        KCHSM = "145",
-        backgroundColor = "yellow")
-
-
-    val lastPlaceholder: Measurement = Measurement(dateAndTime = "27.01.2024 21:04",
-        device = "35:FC:5F:BF:BD:CB",
-        eye = "Левый",
-        measurementMethod = "Прямой",
-        diodeColor = "Белый",
-        KCHSM = "145",
-        backgroundColor = "null")
+    private lateinit var viewModel: HistoryViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,16 +27,46 @@ class HistoryActivity : AppCompatActivity() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        historyList.add(test1)
-        historyList.add(test2)
-        historyList.add(test3)
-        historyList.add(test4)
-        historyList.add(test5)
-        historyList.add(test6)
-
-
+        viewModel = ViewModelProvider(this, HistoryViewModel.factory())[HistoryViewModel::class.java]
+        viewModel.getHistoryLiveData().observe(this){historyList ->
+            render(historyList)
+        }
+        //Кнопка Очистить историю
+        binding.clearHistoryButton.setOnClickListener {
+            showClearHistoryAlert()
+        }
         //История измерений
-        binding.historyList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.historyList.adapter = HistoryAdapter(historyList)
+        binding.historyList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+    }
+
+    private fun render(historyList: MutableList<Measurement>){
+        val convertedHistoryList = mutableListOf<ConvertedMeasurement>()
+        for (i in historyList){
+            convertedHistoryList.add(MeasurementDispayConverter.convert(i))
+        }
+        binding.historyList.adapter = HistoryAdapter(convertedHistoryList)
+        if (historyList.isNotEmpty())
+            binding.clearHistoryButton.visibility = View.VISIBLE
+        else
+            binding.clearHistoryButton.visibility = View.GONE
+
+    }
+
+    private fun showClearHistoryAlert() {
+        AlertDialog.Builder(this) //set icon
+            .setIcon(androidR.drawable.ic_dialog_alert) //set title
+            .setTitle(R.string.dialog_alert) //set message
+            .setMessage(R.string.dialog_alert_cannot_be_undone) //set positive button
+            .setPositiveButton(
+                "Да",
+                DialogInterface.OnClickListener { dialogInterface, i -> //set what would happen when positive button is clicked
+                    viewModel.clearHistory()
+                    Toast.makeText(getApplicationContext(),R.string.history_deleted ,Toast.LENGTH_LONG).show();
+                }) //set negative button
+            .setNegativeButton(
+                "Нет",
+                DialogInterface.OnClickListener { dialogInterface, i -> //set what should happen when negative button is clicked
+                })
+            .show()
     }
 }

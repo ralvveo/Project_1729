@@ -1,8 +1,12 @@
 package com.example.project1729.creator
 
-import com.example.project1729._unsorted.basic.App
-import com.example.project1729.data.ThemeSwitcherRepositoryImpl
-import com.example.project1729.domain.ThemeSwitcherRepository
+import android.bluetooth.BluetoothAdapter
+import com.example.project1729.App
+import com.example.project1729.bt.bluetooth.BluetoothController
+import com.example.project1729.data.repository.HistoryUpdaterRepositoryImpl
+import com.example.project1729.data.repository.ThemeSwitcherRepositoryImpl
+import com.example.project1729.domain.repository.HistoryUpdaterRepository
+import com.example.project1729.domain.repository.ThemeSwitcherRepository
 
 object Creator {
 
@@ -11,8 +15,16 @@ object Creator {
         applicationContext = newApplicationContext
     }
 
+    fun provideHistoryUpdater(): HistoryUpdaterRepository{
+        return HistoryUpdaterRepositoryImpl(context = applicationContext)
+    }
 
-    fun provideThemeSwitcher(): ThemeSwitcherRepository{
+
+    fun provideBluetoothController(adapter: BluetoothAdapter): BluetoothController {
+        return BluetoothController(context = applicationContext, adapter = adapter)
+    }
+
+    fun provideThemeSwitcher(): ThemeSwitcherRepository {
         return ThemeSwitcherRepositoryImpl(applicationContext)
     }
 }

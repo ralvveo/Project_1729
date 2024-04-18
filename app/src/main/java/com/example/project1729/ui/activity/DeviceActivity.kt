@@ -18,9 +18,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.project1729._unsorted.bt.basic.BluetoothConstants
-import com.example.project1729._unsorted.bt.basic.ItemAdapter
-import com.example.project1729._unsorted.bt.basic.ListItem
+import com.example.project1729.bt.basic.BluetoothConstants
+import com.example.project1729.bt.basic.ItemAdapter
+import com.example.project1729.bt.basic.ListItem
 import com.example.bt.checkBtPermission
 import com.example.project1729.R
 import com.example.project1729.databinding.ActivityDeviceBinding
@@ -97,7 +97,8 @@ class DeviceActivity : AppCompatActivity(), ItemAdapter.Listener {
                     )
                 )
             }
-            binding.textNoPaired.visibility = if(list.isEmpty()) View.VISIBLE else View.GONE
+            binding.secondPlaceholder.visibility = if(list.isEmpty()) View.VISIBLE else View.GONE
+            binding.secondPlaceholderText.visibility = if(list.isEmpty()) View.VISIBLE else View.GONE
             itemAdapter.submitList(list)
         } catch (e: SecurityException){
 
@@ -112,7 +113,7 @@ class DeviceActivity : AppCompatActivity(), ItemAdapter.Listener {
 
     private fun bluetoothState(){
         if (bAdapter?.isEnabled == true) {
-            binding.imBtOn.setBackgroundColor(getResources().getColor(R.color.green))
+            //binding.imBtOn.background = getDrawable(R.drawable.bluetooth_icon_active)
         //changeButtonColor(binding.imBtOn, Color.GREEN)
         getPairedDevices()}
     }
@@ -122,11 +123,12 @@ class DeviceActivity : AppCompatActivity(), ItemAdapter.Listener {
             ActivityResultContracts.StartActivityForResult()
         ){
             if (it.resultCode == Activity.RESULT_OK){
-                binding.imBtOn.setBackgroundColor(getResources().getColor(R.color.green))
+                //binding.imBtOn.background = getDrawable(R.drawable.bluetooth_icon_active)
                 //changeButtonColor(binding.imBtOn, Color.GREEN)
                 Snackbar.make(binding.root, "Bluetooth включен.", Snackbar.LENGTH_LONG).show()
                 getPairedDevices()
             } else {
+                //binding.imBtOn.background = getDrawable(R.drawable.bluetooth_icon)
                 Snackbar.make(binding.root, "Необходимо включить bluetooth!", Snackbar.LENGTH_LONG).show()
             }
         }

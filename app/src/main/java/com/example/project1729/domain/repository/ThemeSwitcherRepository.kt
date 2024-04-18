@@ -1,4 +1,4 @@
-package com.example.project1729.domain
+package com.example.project1729.domain.repository
 
 interface ThemeSwitcherRepository {
     fun switchTheme()

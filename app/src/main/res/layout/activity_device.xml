@@ -1,142 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/firstContainerBT"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="5dp"
-        android:backgroundTint="#D67FDF"
-        app:cardCornerRadius="6dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cornerRadius="20dp"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/darkBlueWhite80"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/text_paired"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/paired_devices"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-
-            <ImageButton
-                android:id="@+id/im_bt_on"
-                android:layout_width="42dp"
-                android:layout_height="30dp"
-                android:background="@null"
-                app:srcCompat="@drawable/red_cross" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+    <TextView
+        android:id="@+id/connectedDevices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintTop_toTopOf="@id/firstContainerBT"
+        app:layout_constraintBottom_toBottomOf="@id/firstContainerBT"
+        app:layout_constraintStart_toStartOf="@id/firstContainerBT"
+        app:layout_constraintEnd_toStartOf="@id/im_bt_on"
+        android:layout_marginBottom="5dp"
+        android:text="@string/connected_devices"
+        android:textColor="@color/whiteBlack"
+        android:fontFamily="@font/raleway_semibold"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+
+    <ImageView
+        android:id="@+id/im_bt_on"
+        android:layout_width="16dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="@id/firstContainerBT"
+        app:layout_constraintBottom_toBottomOf="@id/firstContainerBT"
+        app:layout_constraintStart_toEndOf="@id/connectedDevices"
+        app:layout_constraintEnd_toEndOf="@id/firstContainerBT"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:background="@drawable/bluetooth_icon"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcViewPaired"
-        android:layout_width="373dp"
-        android:layout_height="242dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.44" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:backgroundTint="#D67FDF"
-        app:cardCornerRadius="6dp"
+        android:layout_height="242dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toBottomOf="@+id/firstContainerBT"
+        app:layout_constraintBottom_toTopOf="@+id/secondContainerBT"
+        app:layout_constraintVertical_bias="0.2" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/search_devices"
-                android:textColor="#000000"
-                android:textSize="20sp" />
 
-            <ImageButton
-                android:id="@+id/im_bt_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                app:srcCompat="@drawable/search_icon" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/firstPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="@id/firstContainerBT"
+        app:layout_constraintBottom_toBottomOf="@id/secondContainerBT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cornerRadius="20dp"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/lightBlueWhite80"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/firstPlaceholderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/firstPlaceholder"
+        app:layout_constraintBottom_toBottomOf="@id/firstPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/firstPlaceholder"
+        app:layout_constraintEnd_toEndOf="@id/firstPlaceholder"
+        android:layout_marginBottom="5dp"
+        android:text="@string/no_connected_devices"
+        android:textColor="@color/whiteBlack"
+        android:fontFamily="@font/raleway_semibold"
+        android:textSize="18sp"
+        android:visibility="gone"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/secondContainerBT"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cornerRadius="20dp"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/darkBlueWhite80"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcViewSearched"
-        android:layout_width="371dp"
+        android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.422"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/secondContainerBT" />
 
     <TextView
-        android:id="@+id/text_no_paired"
+        android:id="@+id/searchingDevices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_paired_devices"
-        app:layout_constraintBottom_toBottomOf="@+id/rcViewPaired"
-        app:layout_constraintEnd_toEndOf="@+id/rcViewPaired"
-        app:layout_constraintStart_toStartOf="@+id/rcViewPaired"
-        app:layout_constraintTop_toTopOf="@+id/rcViewPaired" />
+        app:layout_constraintTop_toTopOf="@id/secondContainerBT"
+        app:layout_constraintBottom_toBottomOf="@id/secondContainerBT"
+        app:layout_constraintStart_toStartOf="@id/secondContainerBT"
+        app:layout_constraintEnd_toStartOf="@id/im_bt_search"
+        android:layout_marginBottom="5dp"
+        android:text="@string/searching_devices"
+        android:textColor="@color/whiteBlack"
+        android:fontFamily="@font/raleway_semibold"
+        android:textSize="18sp"
+        android:layout_marginStart="30dp"
+        />
+
+    <ImageView
+        android:id="@+id/im_bt_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/secondContainerBT"
+        app:layout_constraintBottom_toBottomOf="@id/secondContainerBT"
+        app:layout_constraintStart_toEndOf="@id/searchingDevices"
+        app:layout_constraintEnd_toEndOf="@id/secondContainerBT"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/search_icon"
+        android:layout_marginEnd="30dp"
+        />
+
+    <ImageView
+        android:id="@+id/secondPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/secondContainerBT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cornerRadius="20dp"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/lightBlueWhite80"
+        android:visibility="gone"
+        />
 
     <TextView
-        android:id="@+id/text_no_searshed"
+        android:id="@+id/secondPlaceholderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_searched_devices"
-        app:layout_constraintBottom_toBottomOf="@+id/rcViewSearched"
-        app:layout_constraintEnd_toEndOf="@+id/rcViewSearched"
-        app:layout_constraintStart_toStartOf="@+id/rcViewSearched"
-        app:layout_constraintTop_toTopOf="@+id/rcViewSearched" />
+        app:layout_constraintTop_toTopOf="@id/secondPlaceholder"
+        app:layout_constraintBottom_toBottomOf="@id/secondPlaceholder"
+        app:layout_constraintStart_toStartOf="@id/secondPlaceholder"
+        app:layout_constraintEnd_toEndOf="@id/secondPlaceholder"
+        android:layout_marginBottom="5dp"
+        android:text="@string/no_found_devices"
+        android:textColor="@color/whiteBlack"
+        android:fontFamily="@font/raleway_semibold"
+        android:textSize="18sp"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

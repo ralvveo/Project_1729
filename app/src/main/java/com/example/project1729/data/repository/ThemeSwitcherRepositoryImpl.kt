@@ -1,9 +1,9 @@
-package com.example.project1729.data
+package com.example.project1729.data.repository
 
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.project1729.domain.ThemeSwitcherRepository
+import com.example.project1729.domain.repository.ThemeSwitcherRepository
 
 class ThemeSwitcherRepositoryImpl(val context: Context) : ThemeSwitcherRepository {
 

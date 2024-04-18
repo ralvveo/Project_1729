@@ -1,4 +1,4 @@
-package com.example.project1729._unsorted.basic
+package com.example.project1729.ui.activity
 
 import android.view.View
 import android.widget.TextView
@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project1729.R
+import com.example.project1729.domain.model.ConvertedMeasurement
+import com.example.project1729.domain.model.Measurement
 
 
 class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,10 +22,11 @@ class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val KCHSM: TextView = itemView.findViewById(R.id.KCHSMValue)
     private val historyItem: ConstraintLayout = itemView.findViewById(R.id.historyItem)
 
+
     val context = this.itemView.context
 
-    fun bind(model: Measurement){
 
+    fun bind(model: ConvertedMeasurement){
         date.text = model.dateAndTime
         device.text = model.device
         eye.text = model.eye

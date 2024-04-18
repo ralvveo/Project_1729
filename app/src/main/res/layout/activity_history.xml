@@ -33,15 +33,40 @@
         android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         >
+        <LinearLayout
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/historyList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+
+            <Button
+                android:id="@+id/clear_history_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clear_history"
+                android:textColor="@color/whiteBlack"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:backgroundTint="@color/blackWhite"
+                android:letterSpacing="0"
+                android:layout_gravity="center_horizontal"
+                />
+        </LinearLayout>
+
 
     </ScrollView>
+
 
 
 

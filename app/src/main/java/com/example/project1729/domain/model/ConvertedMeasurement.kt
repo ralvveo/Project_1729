@@ -1,6 +1,6 @@
-package com.example.project1729._unsorted.basic
+package com.example.project1729.domain.model
 
-data class Measurement (
+data class ConvertedMeasurement (
     val dateAndTime: String,
     val device: String,
     val eye: String,
@@ -9,4 +9,3 @@ data class Measurement (
     val KCHSM: String,
     val backgroundColor: String,
 )
-
