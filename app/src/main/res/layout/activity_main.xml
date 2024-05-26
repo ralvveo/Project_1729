@@ -496,7 +496,7 @@
         android:textColor="@color/black"
         android:textSize="35sp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="25Гц"
+        android:text="——"
         />
 
     <TextView
@@ -525,7 +525,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="1КПа"
+        android:text="——"
         />
 
     <TextView
@@ -552,7 +552,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_medium"
-        android:text="76°C"
+        android:text="——"
         />
 
 

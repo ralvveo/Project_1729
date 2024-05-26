@@ -11,7 +11,12 @@ class App : Application() {
 
     companion object{
         var bluetoothConnected = false
+        var inputMessages = ""
+        var resultKCHSM = ""
+        var resultTemp = ""
+        var resultPressure = ""
         lateinit var bluetoothController: BluetoothController
+        var currentMessagesLength = 0
     }
 
     override fun onCreate(){
