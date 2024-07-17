@@ -13,13 +13,14 @@ import com.example.project1729.R
 import com.example.project1729.bt.bluetooth.BluetoothController
 import com.example.project1729.databinding.ActivityMainBinding
 import com.example.project1729.ui.view_model.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class MainActivity : AppCompatActivity(), BluetoothController.Listener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-
+    private val viewModel by viewModel <MainViewModel>()
     private var flag = 1
     private var mes1 = "1"
     private var mes2 = "1"
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this, MainViewModel.factory())[MainViewModel::class.java]
 
         viewModel.getState().observe(this){state ->
             render(state)

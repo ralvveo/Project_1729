@@ -4,38 +4,32 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.project1729.App
-import com.example.project1729.App.Companion.bluetoothConnected
 import com.example.project1729.App.Companion.bluetoothController
 import com.example.project1729.App.Companion.currentMessagesLength
 import com.example.project1729.App.Companion.inputMessages
 import com.example.project1729.App.Companion.resultKCHSM
-import com.example.project1729.App.Companion.resultPressure
-import com.example.project1729.App.Companion.resultTemp
 import com.example.project1729.bt.bluetooth.BluetoothController
-import com.example.project1729.creator.Creator
 import com.example.project1729.domain.model.Measurement
-import kotlinx.coroutines.Dispatchers
+import com.example.project1729.domain.repository.HistoryUpdaterRepository
+import com.example.project1729.domain.repository.ThemeSwitcherRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.text.SimpleDateFormat
 import java.util.Locale
-import kotlin.random.Random
 
-class MainViewModel : ViewModel(), BluetoothController.Listener  {
+class MainViewModel : ViewModel(), BluetoothController.Listener, KoinComponent  {
 
     private var mes1 = "1"
     private var mes2 = "1"
     private var mes3 = "1"
 
     private val state = MutableLiveData<MutableMap<String, String>>()
-    private val themeSwitcher = Creator.provideThemeSwitcher()
-    private val historyUpdater = Creator.provideHistoryUpdater()
+    private val themeSwitcher: ThemeSwitcherRepository by inject()
+    private val historyUpdater: HistoryUpdaterRepository by inject()
 
 
     init{
@@ -176,18 +170,28 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
             )
 
     }
+    val currentDateAndTime = System.currentTimeMillis()
+    val formatedDateAndTime = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault()).format(currentDateAndTime)
+    val colorList = listOf("yellow", "pinky", "blue", "purple")
+    val deviceList = listOf("98:D3:31:FB:12:A9", "84:D4:45:FG:11:H7", "54:D1:76:DV:09:E1")
+    val measurement1 = Measurement(
+
+        dateAndTime = formatedDateAndTime,
+        device = deviceList.random(),
+        eye = getState().value?.get(EYE) ?: LEFT,
+        measurementMethod = getState().value?.get(METHOD) ?: STRAIGHT,
+        diodeColor = getState().value?.get(DIODECOLOR) ?: RED,
+        KCHSM = getState().value?.get(KCHSM) ?: "32",
+        backgroundColor = colorList.random()
+    )
+
     fun startMeasure(){
         bluetoothController.sendMessage("h")
         repeat(10){Log.d("SENDA", "SENDA")}
+
+        //historyUpdater.addToHistory(measurement1)
     }
     companion object {
-        fun factory(): ViewModelProvider.Factory {
-            return viewModelFactory {
-                initializer {
-                    MainViewModel()
-                }
-            }
-        }
         const val BLUETOOTH = "bluetooth"
         const val EYE = "eye"
         const val METHOD = "method"
@@ -302,18 +306,6 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
         }
 
 
-        if (currentTemp != resultTemp) {
-            resultTemp = currentTemp
-            state?.value?.set(TEMPERATURE, "$resultTemp°С") ?: "20°С"
-            repeat(10) { Log.d("SETTEMP", "$resultMessageTemp") }
-            state.postValue(state.value)
-        }
-        if (currentPressure != resultPressure) {
-            resultPressure = currentPressure
-            state?.value?.set(PRESSURE, "${resultPressure}кПа") ?: "100кПа"
-            repeat(10) { Log.d("SETPRESSURE", "$resultMessagePressure") }
-            state.postValue(state.value)
-        }
 
         if (currentKCHSM != resultKCHSM) {
             resultKCHSM = currentKCHSM

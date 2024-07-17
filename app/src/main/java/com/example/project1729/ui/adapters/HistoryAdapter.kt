@@ -1,11 +1,11 @@
-package com.example.project1729.ui.activity
+package com.example.project1729.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project1729.R
 import com.example.project1729.domain.model.ConvertedMeasurement
-import com.example.project1729.domain.model.Measurement
+import com.example.project1729.ui.adapters.HistoryViewHolder
 
 class HistoryAdapter(
     private val history: List <ConvertedMeasurement>

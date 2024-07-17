@@ -1,10 +1,8 @@
 package com.example.project1729.bt.bluetooth
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
 import android.content.Context
 import com.example.bt.bluetooth.ConnectThread
-import com.example.project1729.App
 import com.example.project1729.bt.basic.BluetoothConstants
 
 class BluetoothController(context: Context, private val adapter: BluetoothAdapter) {

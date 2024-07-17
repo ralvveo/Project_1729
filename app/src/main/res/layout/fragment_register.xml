@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainLightBlue"
+    tools:context="com.example.project1729.ui.fragment.StartFragment">
+
+
+
+
+    <ImageView
+        android:id="@+id/registerImage"
+        android:layout_width="190dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/picture_2"
+        />
+
+    <TextView
+        android:id="@+id/registerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registerImage"
+        android:layout_marginTop="8dp"
+        android:text="@string/register_title"
+        style="@style/screenTitleStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registerTitle"
+        android:layout_marginTop="16dp"
+        android:text="@string/register_text"
+        style="@style/screenTextStyle"
+        />
+
+    <EditText
+        android:id="@+id/registerEnterFIO"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/register_hint1"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerText"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterYear"
+        android:maxLength="50"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerEnterFIOActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_hint1"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterFIO"
+        app:layout_constraintStart_toStartOf="@id/registerEnterFIO"
+        app:layout_constraintTop_toTopOf="@id/registerEnterFIO"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+
+    <EditText
+        android:id="@+id/registerEnterYear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/register_hint2"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEnterFIO"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterDiagnoz"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerEnterYearActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_hint2_dop"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterYear"
+        app:layout_constraintStart_toStartOf="@id/registerEnterYear"
+        app:layout_constraintTop_toTopOf="@id/registerEnterYear"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+    <EditText
+        android:id="@+id/registerEnterDiagnoz"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/register_hint3"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEnterYear"
+        app:layout_constraintBottom_toTopOf="@+id/registerEnterLogin"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerEnterDiagnozActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_hint3_dop"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterDiagnoz"
+        app:layout_constraintStart_toStartOf="@id/registerEnterDiagnoz"
+        app:layout_constraintTop_toTopOf="@id/registerEnterDiagnoz"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+    <EditText
+        android:id="@+id/registerEnterLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/register_hint4"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEnterDiagnoz"
+        app:layout_constraintBottom_toTopOf="@+id/registerEnterPassword"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerEnterLoginActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_hint4"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterLogin"
+        app:layout_constraintStart_toStartOf="@id/registerEnterLogin"
+        app:layout_constraintTop_toTopOf="@id/registerEnterLogin"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+    <EditText
+        android:id="@+id/registerEnterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/register_hint5"
+        android:inputType="text|textPassword|textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEnterLogin"
+        app:layout_constraintBottom_toTopOf="@+id/registerButtonRegister"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/registerEnterPasswordActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_hint5"
+        app:layout_constraintBottom_toTopOf="@id/registerEnterPassword"
+        app:layout_constraintStart_toStartOf="@id/registerEnterPassword"
+        app:layout_constraintTop_toTopOf="@id/registerEnterPassword"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+    <ImageButton
+        android:id="@+id/registerButtonRegister"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_inactive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="32dp"
+
+        />
+
+    <TextView
+        android:id="@+id/loginButtonLoginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/registerButtonRegister"
+        app:layout_constraintEnd_toEndOf="@+id/registerButtonRegister"
+        app:layout_constraintTop_toTopOf="@+id/registerButtonRegister"
+        app:layout_constraintBottom_toBottomOf="@+id/registerButtonRegister"
+        android:text="@string/register"
+        android:textSize="16sp"
+        style="@style/buttonStyle1"
+
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainLoading"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/mainBlue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainLightBlue"
+    tools:context="com.example.project1729.ui.fragment.StartFragment">
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:text="@string/login_text"
+        style="@style/screenTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/loginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginText"
+        android:layout_marginBottom="20dp"
+        android:text="@string/login_title"
+        style="@style/screenTitleStyle"
+        />
+
+    <ImageView
+        android:id="@+id/loginImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginTitle"
+        android:background="@drawable/picture_3"
+        />
+
+    <EditText
+        android:id="@+id/loginEnterLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/login_hint1"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginText"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/loginEnterLoginActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_hint1"
+        app:layout_constraintBottom_toTopOf="@id/loginEnterLogin"
+        app:layout_constraintStart_toStartOf="@id/loginEnterLogin"
+        app:layout_constraintTop_toTopOf="@id/loginEnterLogin"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+
+    <EditText
+        android:id="@+id/loginEnterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/login_hint2"
+        android:inputType="text|textPassword|textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginEnterLogin"
+        style="@style/editTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/loginEnterPasswordActiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_hint2"
+        app:layout_constraintBottom_toTopOf="@id/loginEnterPassword"
+        app:layout_constraintStart_toStartOf="@id/loginEnterPassword"
+        app:layout_constraintTop_toTopOf="@id/loginEnterPassword"
+        android:visibility="gone"
+        style="@style/editTextActiveTextStyle"
+        />
+
+
+    <ImageButton
+        android:id="@+id/loginButtonLogin"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_inactive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginEnterPassword"
+        android:layout_marginTop="40dp"
+
+        />
+
+    <TextView
+        android:id="@+id/loginButtonLoginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/loginButtonLogin"
+        app:layout_constraintEnd_toEndOf="@id/loginButtonLogin"
+        app:layout_constraintTop_toTopOf="@id/loginButtonLogin"
+        app:layout_constraintBottom_toBottomOf="@id/loginButtonLogin"
+        android:text="@string/start_login"
+        style="@style/buttonStyle1"
+
+        />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainLoading"
+        android:visibility="gone"
+        >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/mainBlue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

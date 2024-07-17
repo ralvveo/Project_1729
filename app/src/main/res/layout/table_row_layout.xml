@@ -1,0 +1,73 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tableDate"
+        style="@style/TableTextStyle"
+        android:text="@string/table_date" />
+
+    <TextView
+        android:id="@+id/tableKCHSM"
+        style="@style/TableTextStyle"
+        android:text="@string/table_kchsm" />
+
+    <TextView
+        android:id="@+id/tableEye"
+        style="@style/TableTextStyle"
+        android:text="@string/table_eye" />
+
+    <TextView
+        android:id="@+id/tableMethod"
+        style="@style/TableTextStyle"
+        android:text="@string/table_method" />
+
+    <TextView
+        android:id="@+id/tableSaturation"
+        style="@style/TableTextStyle"
+        android:text="@string/table_saturation" />
+
+    <TextView
+        android:id="@+id/tableColor"
+        style="@style/TableTextStyle"
+        android:text="@string/table_color" />
+
+    <TextView
+        android:id="@+id/tableSize"
+        style="@style/TableTextStyle"
+        android:text="@string/table_size" />
+
+    <TextView
+        android:id="@+id/tableBrightness"
+        style="@style/TableTextStyle"
+        android:text="@string/table_brigthness" />
+
+    <TextView
+        android:id="@+id/tablePressure"
+        style="@style/TableTextStyle"
+        android:text="@string/table_pressure" />
+
+    <TextView
+        android:id="@+id/tableTemperature"
+        style="@style/TableTextStyle"
+        android:text="@string/table_temperature" />
+
+    <TextView
+        android:id="@+id/tableHumidity"
+        style="@style/TableTextStyle"
+        android:text="@string/table_humidity" />
+
+    <TextView
+        android:id="@+id/tableLoading"
+        style="@style/TableTextStyle"
+        android:text="@string/table_loading" />
+
+    <TextView
+        android:id="@+id/tableLoadingDuration"
+        style="@style/TableTextStyle"
+        android:text="@string/table_loading_duration" />
+
+    <TextView
+        android:id="@+id/tableTraining"
+        style="@style/TableTextStyle"
+        android:text="@string/table_training" />
+
+</TableRow>

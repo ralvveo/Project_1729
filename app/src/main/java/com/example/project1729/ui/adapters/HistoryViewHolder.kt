@@ -1,4 +1,4 @@
-package com.example.project1729.ui.activity
+package com.example.project1729.ui.adapters
 
 import android.view.View
 import android.widget.TextView

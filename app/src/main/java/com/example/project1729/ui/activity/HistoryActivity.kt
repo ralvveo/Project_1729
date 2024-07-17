@@ -8,18 +8,19 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project1729.databinding.ActivityHistoryBinding
 import com.example.project1729.domain.converter.MeasurementDispayConverter
 import com.example.project1729.domain.model.ConvertedMeasurement
 import com.example.project1729.domain.model.Measurement
+import com.example.project1729.ui.adapters.HistoryAdapter
 import com.example.project1729.ui.view_model.HistoryViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var viewModel: HistoryViewModel
+    private val viewModel by viewModel <HistoryViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class HistoryActivity : AppCompatActivity() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, HistoryViewModel.factory())[HistoryViewModel::class.java]
+
         viewModel.getHistoryLiveData().observe(this){historyList ->
             render(historyList)
         }

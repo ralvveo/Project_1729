@@ -18,7 +18,7 @@
     <color name="blackWhite80">#000000</color>
     <color name="whiteBlack">#FFFFFF</color>
     <color name="grey2White80">#b2b2b2</color>
-    <color name="grey1White80">#e9e9ee</color>
+    <color name="grey1White80">#b2b2b2</color>
     <color name="blueWhite80">#4176FF</color>
     <color name="purpleWhite80">#DB00FF</color>
     <color name="lightYellowYellow">#fcdc88</color>
@@ -27,6 +27,12 @@
     <color name="lightBlueWhite80">#a0bbff</color>
     <color name="blackBlack">#FF000000</color>
 
+    <color name="mainBg">#e8e8d1</color>
 
+
+
+    <color name="mainLightBlue">#50D2F3</color>
+    <color name="mainBlue">#3772E7</color>
+    <color name="mainLoading">#A0000000</color>
 
 </resources>
