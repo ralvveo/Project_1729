@@ -1,6 +1,7 @@
 package com.example.project1729.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +15,17 @@ import com.example.project1729.databinding.FragmentRegisterBinding
 import com.example.project1729.domain.model.UserRegister
 import com.example.project1729.domain.state.TryRegisterState
 import com.example.project1729.ui.view_model.RegisterViewModel
+import com.example.project1729.utils.VoiceAssistant
+import com.example.project1729.voiceAssistent.VoiceCommandHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : Fragment(), VoiceCommandHandler {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel by viewModel<RegisterViewModel>()
+    private var voiceAssistant: VoiceAssistant? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,6 +36,22 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.registerButtonRegister.isEnabled = false
+
+        voiceAssistant = VoiceAssistant(requireContext(), findNavController(), this)
+
+        binding.startButtonVoiceAssistant.setOnClickListener {
+            Log.d("VoiceAssistant", "Ready for speech")
+
+            if (voiceAssistant!!.isVoiceAssistantEnabled()) {
+                voiceAssistant!!.stopListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "stop")
+            } else {
+                voiceAssistant!!.startListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "start")
+            }
+        }
 
         viewModel.getRegisterLiveData().observe(viewLifecycleOwner){state ->
             render(state)
@@ -56,6 +76,32 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun updateFioField(fio: String) {
+        binding.registerEnterFIO.setText(fio)
+        viewModel.changeFioText(fio)
+    }
+
+    override fun updateYearField(year: String) {
+        binding.registerEnterYear.setText(year)
+        viewModel.changeYearText(year)
+    }
+
+    override fun updateDiagnosisField(diagnosis: String) {
+        binding.registerEnterDiagnoz.setText(diagnosis)
+        viewModel.changeDiagnozText(diagnosis)
+    }
+
+    override fun updateLoginField(login: String) {
+        Log.d("VoiceAssistant", "Update Login")
+        binding.registerEnterLogin.setText(login)
+        viewModel.changeLoginText(login)
+    }
+
+    override fun updatePasswordField(password: String) {
+        Log.d("VoiceAssistant", "Update Password")
+        binding.registerEnterPassword.setText(password)
+        viewModel.changePasswordText(password)
+    }
 
     private fun render(state: UserRegister){
 

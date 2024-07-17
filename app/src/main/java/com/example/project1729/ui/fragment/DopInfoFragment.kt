@@ -13,12 +13,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.project1729.R
 import com.example.project1729.databinding.FragmentDopInfoBinding
 import com.example.project1729.ui.view_model.DopInfoViewModel
+import com.example.project1729.utils.VoiceAssistant
+import com.example.project1729.voiceAssistent.VoiceCommandHandler
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DopInfoFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class DopInfoFragment : Fragment(), VoiceCommandHandler, AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentDopInfoBinding
     private val viewModel by viewModel<DopInfoViewModel>()
+    private var voiceAssistant: VoiceAssistant? = null
     private var stress = "Нет нагрузки"
     private var stressDuration = "-"
     private var eyeTraining = "No"
@@ -30,6 +33,21 @@ class DopInfoFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        voiceAssistant = VoiceAssistant(requireContext(), findNavController(), this)
+
+        binding.startButtonVoiceAssistant.setOnClickListener {
+            Log.d("VoiceAssistant", "Ready for speech")
+
+            if (voiceAssistant!!.isVoiceAssistantEnabled()) {
+                voiceAssistant!!.stopListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "stop")
+            } else {
+                voiceAssistant!!.startListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "start")
+            }
+        }
 // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter.createFromResource(requireActivity(), R.array.stress_array, R.layout.color_spinner_layout).also { adapter ->
             // Specify the layout to use when the list of choices appears.
@@ -107,5 +125,23 @@ class DopInfoFragment : Fragment(), AdapterView.OnItemSelectedListener {
             5 -> stress = "Другое"
         }
     }
+    override fun updateLoginField(login: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
 
+    override fun updatePasswordField(password: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
+
+    override fun updateDiagnosisField(diagnosis: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
+
+    override fun updateYearField(year: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
+
+    override fun updateFioField(fio: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
 }

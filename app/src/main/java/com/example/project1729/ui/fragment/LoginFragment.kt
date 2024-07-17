@@ -16,14 +16,17 @@ import com.example.project1729.databinding.FragmentLoginBinding
 import com.example.project1729.domain.model.UserLogin
 import com.example.project1729.domain.state.TryLoginState
 import com.example.project1729.ui.view_model.LoginViewModel
+import com.example.project1729.utils.VoiceAssistant
+import com.example.project1729.voiceAssistent.VoiceCommandHandler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), VoiceCommandHandler {
 
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModel<LoginViewModel>()
+    private var voiceAssistant: VoiceAssistant? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -37,6 +40,22 @@ class LoginFragment : Fragment() {
 
         binding.loginEnterLogin.doOnTextChanged { text, _, _, _ -> viewModel.changeLoginText(text.toString())  }
         binding.loginEnterPassword.doOnTextChanged { text, _, _, _ -> viewModel.changePasswordText(text.toString())  }
+
+        voiceAssistant = VoiceAssistant(requireContext(), findNavController(), this)
+
+        binding.startButtonVoiceAssistant.setOnClickListener {
+            Log.d("VoiceAssistant", "Ready for speech")
+
+            if (voiceAssistant!!.isVoiceAssistantEnabled()) {
+                voiceAssistant!!.stopListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "stop")
+            } else {
+                voiceAssistant!!.startListening()
+                voiceAssistant!!.toggleVoiceAssistant()
+                Log.d("VoiceAssistant", "start")
+            }
+        }
 
         viewModel.getLoginLiveData().observe(viewLifecycleOwner){state ->
             render(state)
@@ -102,6 +121,27 @@ class LoginFragment : Fragment() {
         }
     }
 
+    override fun updateLoginField(login: String) {
+        Log.d("VoiceAssistant", "Update Login")
+        binding.loginEnterLogin.setText(login)
+        viewModel.changeLoginText(login)
+    }
 
+    override fun updatePasswordField(password: String) {
+        Log.d("VoiceAssistant", "Update Password")
+        binding.loginEnterPassword.setText(password)
+        viewModel.changePasswordText(password)
+    }
 
+    override fun updateDiagnosisField(diagnosis: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
+
+    override fun updateYearField(year: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
+
+    override fun updateFioField(fio: String) {
+        Log.d("VoiceAssistant", "Don't use this method")
+    }
 }

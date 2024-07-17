@@ -1,11 +1,14 @@
 package com.example.project1729.ui.activity
 
+import android.Manifest.permission.RECORD_AUDIO
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.project1729.App.Companion.bluetoothConnected
 import com.example.project1729.App.Companion.bluetoothController
@@ -18,7 +21,6 @@ import org.koin.core.parameter.parametersOf
 
 
 class MainActivity : AppCompatActivity(), BluetoothController.Listener {
-
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModel <MainViewModel>()
     private var flag = 1
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         viewModel.getState().observe(this){state ->
             render(state)
         }
-
         //Кнопка списка устройств
         binding.availableDevicesButton.setOnClickListener {
             val displayIntent = Intent(this, DeviceActivity::class.java)

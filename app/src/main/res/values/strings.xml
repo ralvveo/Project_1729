@@ -45,7 +45,7 @@
 
     <string name="start_text">Войдите или зарегистрируйтесь, чтобы\nначать пользоваться приложением</string>
     <string name="start_title">Начало</string>
-    <string name="start_login">Войти</string>
+    <string name="start_login">Авторизоваться</string>
     <string name="start_register">Регистрация</string>
 
 
@@ -74,7 +74,7 @@
     <string name="table">Таблица</string>
     <string name="graph">График</string>
 
-    <string name="start_check">Начать измерение</string>
+    <string name="start_check">Старт</string>
 
     <string name="dop_info_title">Доп информация</string>
     <string name="dop_info_text">Введите дополнительную информацию\nперед началом измерения</string>
