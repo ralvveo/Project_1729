@@ -12,7 +12,6 @@ import org.koin.core.context.startKoin
 
 class App : Application() {
 
-
     companion object{
         var bluetoothConnected = false
         var inputMessages = ""
