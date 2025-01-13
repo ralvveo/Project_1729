@@ -2,22 +2,26 @@ package com.example.project1729.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.project1729.App.Companion.bluetoothConnected
 import com.example.project1729.App.Companion.bluetoothController
 import com.example.project1729.R
 import com.example.project1729.bt.bluetooth.BluetoothController
-import com.example.project1729.databinding.ActivityMainBinding
+import com.example.project1729.databinding.FragmentMainBinding
 import com.example.project1729.ui.view_model.MainViewModel
+import com.example.project1729.ui.view_model.MainViewModel.Companion.AUTO
 
 
-class MainActivity : AppCompatActivity(), BluetoothController.Listener {
+class MainFragment : Fragment(), BluetoothController.Listener {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: MainViewModel
 
     private var flag = 1
@@ -25,20 +29,24 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
     private var mes2 = "1"
     private var mes3 = "1"
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, MainViewModel.factory())[MainViewModel::class.java]
 
-        viewModel.getState().observe(this){state ->
+        viewModel.getState().observe(viewLifecycleOwner){state ->
             render(state)
         }
 
         //Кнопка списка устройств
         binding.availableDevicesButton.setOnClickListener {
-            val displayIntent = Intent(this, DeviceActivity::class.java)
+            val displayIntent = Intent(requireActivity(), DeviceActivity::class.java)
             startActivity(displayIntent)
         }
 
@@ -57,29 +65,35 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         }
 
         //Кнопки выбора метода измерения
-        binding.measurementMethodButton1.setOnClickListener {
-            viewModel.measurementMethodButtonPressed(1)
-        }
 
-        binding.measurementMethodButton2.setOnClickListener {
+        binding.measurementMethodButton1.setOnClickListener {
             viewModel.measurementMethodButtonPressed(2)
         }
 
-        binding.measurementMethodButton3.setOnClickListener {
+        binding.measurementMethodButton2.setOnClickListener {
             viewModel.measurementMethodButtonPressed(3)
         }
 
+        binding.measurementMethodButton3.setOnClickListener {
+            viewModel.measurementMethodButtonPressed(4)
+        }
+
         //Кнопки выбора интенсивности
-        binding.radiationIntensityButton1.setOnClickListener {
+
+        binding.radiationIntensityButtonAuto.setOnClickListener {
             viewModel.radiationIntensityButtonPressed(1)
         }
 
-        binding.radiationIntensityButton2.setOnClickListener {
+        binding.radiationIntensityButton1.setOnClickListener {
             viewModel.radiationIntensityButtonPressed(2)
         }
 
-        binding.radiationIntensityButton3.setOnClickListener {
+        binding.radiationIntensityButton2.setOnClickListener {
             viewModel.radiationIntensityButtonPressed(3)
+        }
+
+        binding.radiationIntensityButton3.setOnClickListener {
+            viewModel.radiationIntensityButtonPressed(4)
         }
 
         //Кнопки выбора цвета
@@ -110,13 +124,15 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
 
         //Кнопка настройки
         binding.settingsButton.setOnClickListener {
-            val displayIntent = Intent(this, SettingsActivity::class.java)
-            startActivity(displayIntent)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.rootFragmentContainerView, SettingsFragment())
+                .addToBackStack("SettingsFragment")
+                .commit()
         }
 
         //Кнопка история
         binding.historyButton.setOnClickListener {
-            val displayIntent = Intent(this, HistoryActivity::class.java)
+            val displayIntent = Intent(requireActivity(), HistoryActivity::class.java)
             startActivity(displayIntent)
         }
 
@@ -137,23 +153,24 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
             }
         })
 
+
     }
 
     private fun render(state: MutableMap<String,String>){
-        binding.redButton.background = getDrawable(R.drawable.red_btn_inactive)
-        binding.greenButton.background = getDrawable(R.drawable.green_btn_inactive)
-        binding.blueButton.background = getDrawable(R.drawable.blue_btn_inactive)
-        binding.whiteButton.background = getDrawable(R.drawable.white_btn_inactive)
+        binding.redButton.background = requireActivity().getDrawable(R.drawable.red_btn_inactive)
+        binding.greenButton.background = requireActivity().getDrawable(R.drawable.green_btn_inactive)
+        binding.blueButton.background = requireActivity().getDrawable(R.drawable.blue_btn_inactive)
+        binding.whiteButton.background = requireActivity().getDrawable(R.drawable.white_btn_inactive)
         when (state[BLUETOOTH]){
              CONNECTED -> {
                  binding.connectionStatusText.text = "Статус соединения: Подключено"
                  binding.stopButton.text = "Отключиться"
-                 binding.connectionStatusIcon.background = getDrawable(R.drawable.green_tick)
+                 binding.connectionStatusIcon.background = requireActivity().getDrawable(R.drawable.green_tick)
              }
              NOTCONNECTED -> {
                  binding.connectionStatusText.text = "Статус соединения: Не подключено"
                  binding.stopButton.text = "Подключиться"
-                 binding.connectionStatusIcon.background = getDrawable(R.drawable.red_cross)
+                 binding.connectionStatusIcon.background = requireActivity().getDrawable(R.drawable.red_cross)
            }
         }
 
@@ -175,6 +192,7 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         }
 
         when (state[METHOD]){
+
             STRAIGHT -> {
                 buttonChange(btnActive = binding.measurementMethodButton1, btnPassive1 = binding.measurementMethodButton2, btnPassive2 = binding.measurementMethodButton3)
             }
@@ -187,25 +205,30 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         }
 
         when (state[INTENSITY]){
+            AUTO -> {
+                buttonChangeFour(btnActive = binding.radiationIntensityButtonAuto, btnPassive1 = binding.radiationIntensityButton1, btnPassive2 = binding.radiationIntensityButton2, btnPassive3 = binding.radiationIntensityButton3)
+                binding.radiationIntentsitySlider.progress = 50
+            }
+
             LOW -> {
-                buttonChange(btnActive = binding.radiationIntensityButton1, btnPassive1 = binding.radiationIntensityButton2, btnPassive2 = binding.radiationIntensityButton3)
+                buttonChangeFour(btnActive = binding.radiationIntensityButton1, btnPassive1 = binding.radiationIntensityButtonAuto, btnPassive2 = binding.radiationIntensityButton2, btnPassive3 = binding.radiationIntensityButton3)
                 binding.radiationIntentsitySlider.progress = 20
             }
             MIDDLE -> {
-                buttonChange(btnActive = binding.radiationIntensityButton2, btnPassive1 = binding.radiationIntensityButton1, btnPassive2 = binding.radiationIntensityButton3)
+                buttonChangeFour(btnActive = binding.radiationIntensityButton2, btnPassive1 = binding.radiationIntensityButton1, btnPassive2 = binding.radiationIntensityButtonAuto, btnPassive3 = binding.radiationIntensityButton3)
                 binding.radiationIntentsitySlider.progress = 50
             }
             HIGH -> {
-                buttonChange(btnActive = binding.radiationIntensityButton3, btnPassive1 = binding.radiationIntensityButton1, btnPassive2 = binding.radiationIntensityButton2)
+                buttonChangeFour(btnActive = binding.radiationIntensityButton3, btnPassive1 = binding.radiationIntensityButton1, btnPassive2 = binding.radiationIntensityButtonAuto, btnPassive3 = binding.radiationIntensityButton2)
                 binding.radiationIntentsitySlider.progress = 80
             }
         }
 
         when (state[DIODECOLOR]){
-            RED -> binding.redButton.background = getDrawable(R.drawable.red_btn_active)
-            GREEN -> binding.greenButton.background = getDrawable(R.drawable.green_btn_active)
-            BLUE -> binding.blueButton.background = getDrawable(R.drawable.blue_btn_active)
-            WHITE -> binding.whiteButton.background = getDrawable(R.drawable.white_btn_active)
+            RED -> binding.redButton.background = requireActivity().getDrawable(R.drawable.red_btn_active)
+            GREEN -> binding.greenButton.background = requireActivity().getDrawable(R.drawable.green_btn_active)
+            BLUE -> binding.blueButton.background = requireActivity().getDrawable(R.drawable.blue_btn_active)
+            WHITE -> binding.whiteButton.background = requireActivity().getDrawable(R.drawable.white_btn_active)
         }
         binding.temperatureValue.text = state[TEMPERATURE]
         binding.pressureValue.text = state[PRESSURE]
@@ -238,11 +261,22 @@ class MainActivity : AppCompatActivity(), BluetoothController.Listener {
         btnActive.setTextColor((getResources().getColor(R.color.blackWhite)))
         btnPassive1.setTextColor((getResources().getColor(R.color.black)))
         btnPassive2.setTextColor((getResources().getColor(R.color.black)))
-
     }
 
+    private fun buttonChangeFour(btnActive: Button, btnPassive1: Button, btnPassive2: Button, btnPassive3: Button){
+        btnActive.setBackgroundColor(getResources().getColor(R.color.whiteBlack))
+        btnPassive1.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+        btnPassive2.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+        btnPassive3.setBackgroundColor(getResources().getColor(R.color.grey1White80))
+        btnActive.setTextColor((getResources().getColor(R.color.blackWhite)))
+        btnPassive1.setTextColor((getResources().getColor(R.color.black)))
+        btnPassive2.setTextColor((getResources().getColor(R.color.black)))
+        btnPassive3.setTextColor((getResources().getColor(R.color.black)))
+    }
+
+
     override fun onReceive(message: String) {
-        runOnUiThread {
+        requireActivity().runOnUiThread {
             when(message) {
                 "bluetooth connected" -> {
                     bluetoothConnected = true

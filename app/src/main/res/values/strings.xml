@@ -7,7 +7,7 @@
     <string name="available_devices">Доступные устройства</string>
     <string name="testing_eye">Тестируемый глаз</string>
     <string name="measurement_method">Метод измерения</string>
-    <string name="radiation_intensity">Интенсивность излучения</string>
+    <string name="radiation_intensity">Интенсивность</string>
     <string name="diode_color">Цвет светодиода</string>
     <string name="measure_kchsm">Измерить КЧСМ</string>
     <string name="stop">Подключиться</string>
@@ -42,6 +42,7 @@
     <string name="dialog_alert">Вы точно хотите удалить историю измерений?</string>
     <string name="dialog_alert_cannot_be_undone">Это действие нельзя\nбудет отменить</string>
     <string name="history_deleted">История измерений очищена.</string>
+    <string name="auto">Авто</string>
 
 
 

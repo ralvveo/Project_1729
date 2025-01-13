@@ -11,6 +11,10 @@ class App : Application() {
 
     companion object{
         var bluetoothConnected = false
+        var inputMessages = ""
+        var resultKCHSM = ""
+        var resultTemp = ""
+        var resultPressure = ""
         lateinit var bluetoothController: BluetoothController
     }
 

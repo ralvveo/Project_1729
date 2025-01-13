@@ -9,6 +9,10 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.project1729.App
 import com.example.project1729.App.Companion.bluetoothController
+import com.example.project1729.App.Companion.inputMessages
+import com.example.project1729.App.Companion.resultKCHSM
+import com.example.project1729.App.Companion.resultPressure
+import com.example.project1729.App.Companion.resultTemp
 import com.example.project1729.bt.bluetooth.BluetoothController
 import com.example.project1729.creator.Creator
 import com.example.project1729.domain.model.Measurement
@@ -23,12 +27,10 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
     private var mes3 = "1"
 
     private val state = MutableLiveData<MutableMap<String, String>>()
-    private val themeSwitcher = Creator.provideThemeSwitcher()
     private val historyUpdater = Creator.provideHistoryUpdater()
 
 
     init{
-        themeSwitcher.setTheme()
         state.value = DEFAULT_STATE
     }
 
@@ -67,15 +69,20 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
     fun measurementMethodButtonPressed(btnNum : Int){
         when (btnNum){
             1 -> {
+                state.value?.set(METHOD, AUTO)
+                bluetoothController.sendMessage("ma")
+            }
+            2 -> {
                 state.value?.set(METHOD, STRAIGHT)
                 bluetoothController.sendMessage("ms")
             }
-            2 -> {
+
+            3 -> {
                 state.value?.set(METHOD, REVERSED)
                 bluetoothController.sendMessage("mr")
             }
 
-            3 -> {
+            4 -> {
                 state.value?.set(METHOD, OTHER)
                 bluetoothController.sendMessage("mo")
             }
@@ -86,14 +93,18 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
     fun radiationIntensityButtonPressed(btnNum : Int){
         when (btnNum){
             1 -> {
+                state.value?.set(INTENSITY, AUTO)
+                bluetoothController.sendMessage("qa")
+            }
+            2 -> {
                 state.value?.set(INTENSITY, LOW)
                 bluetoothController.sendMessage("q20")
             }
-            2 -> {
+            3 -> {
                 state.value?.set(INTENSITY, MIDDLE)
                 bluetoothController.sendMessage("q50")
             }
-            3 -> {
+            4 -> {
                 state.value?.set(INTENSITY, HIGH)
                 bluetoothController.sendMessage("q80")
             }
@@ -155,7 +166,7 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
             eye = getState().value?.get(EYE) ?: LEFT,
             measurementMethod = getState().value?.get(METHOD) ?: STRAIGHT,
             diodeColor = getState().value?.get(DIODECOLOR) ?: RED,
-            KCHSM = getState().value?.get(KCHSM) ?: "0",
+            KCHSM = getState().value?.get(KCHSM) ?: "0Гц",
             backgroundColor = colorList.random()
             )
 
@@ -167,6 +178,212 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
         val test = measureGenerator()
         historyUpdater.addToHistory(test)
     }
+    private var resultMessageTemp = ""
+    private var resultMessagePressure = ""
+    private var resultMessageKCHSM = ""
+    private var stepFlagTemp = 0
+    private var stepFlagPressure = 0
+    private var stepFlagKCHSM = 0
+    private var whatFlag:String = ""
+
+    override fun onReceive(message: String) {
+        when (message) {
+            "bluetooth connected" -> {
+                App.bluetoothConnected = true
+                changeConnectionState(App.bluetoothConnected)
+                bluetoothController.sendMessage("+")
+            }
+
+            "bluetooth no connected" -> {
+                App.bluetoothConnected = false
+                changeConnectionState(App.bluetoothConnected)
+            }
+
+            else -> {
+                inputMessages += "message"
+                analyzeMessageChange()
+            }
+        }
+    }
+
+
+    private fun analyzeMessageChange(){
+        var currentTemp = ""
+        var currentPressure = ""
+        var currentKCHSM = ""
+        val currentMessagesLength = inputMessages.length
+        for (i in 0..<currentMessagesLength){
+            when (inputMessages[i]){
+                't' -> {
+                    if (currentMessagesLength - i >= 3){
+                        currentTemp = "${inputMessages[i+1]}${inputMessages[i+2]}"
+                    }
+                }
+                'p' -> {
+                    if (currentMessagesLength - i >= 3){
+                        currentPressure = "${inputMessages[i+1]}${inputMessages[i+2]}${inputMessages[i+3]}${inputMessages[i+4]}"
+                    }
+                }
+
+                'k' -> {
+                    if (currentMessagesLength - i >= 3){
+                        currentKCHSM = "${inputMessages[i+1]}${inputMessages[i+2]}"
+                    }
+                }
+            }
+        }
+
+        if (currentTemp != resultTemp){
+            resultTemp = currentTemp
+            state?.value?.set(TEMPERATURE, "$resultMessageTemp°С") ?: "20°С"
+            repeat(10) { Log.d("SETTEMP", "$resultMessageTemp") }
+            state.postValue(state.value)
+        }
+        if (currentPressure != resultPressure){
+            resultPressure = currentPressure
+            state?.value?.set(PRESSURE, "${resultMessagePressure}кПа") ?: "100кПа"
+            repeat(10) { Log.d("SETPRESSURE", "$resultMessagePressure") }
+            state.postValue(state.value)
+        }
+        if (currentKCHSM != resultKCHSM){
+            resultKCHSM = currentKCHSM
+            state?.value?.set(KCHSM, "${resultMessageKCHSM}Гц") ?: "0Гц"
+            repeat(10) { Log.d("SETKCHSM", "$resultMessageKCHSM") }
+            state.postValue(state.value)
+        }
+
+
+
+    }
+//                when (message[0]) {
+//
+//                    't' -> {
+//                        whatFlag = "TEMP"
+//                    }
+//
+//                    'p' -> {
+//                        whatFlag = "PRESSURE"
+//                    }
+//
+//                    'k' -> {
+//                        whatFlag = "KCHSM"
+//                        repeat(10){
+//                            Log.d("KCHSM", "KCHSM")
+//                        }
+//                    }
+//                }
+
+//                when (whatFlag) {
+//                    "TEMP" -> {
+//                        when (stepFlagTemp){
+//                            0 -> {
+//                                resultMessageTemp = ""
+//                                stepFlagTemp = 1
+//                            }
+//
+//                            1 -> {
+//                                if (message != "t") {
+//                                    resultMessageTemp = message
+//
+//                                }
+//                                stepFlagTemp = 2
+//                            }
+//
+//                            2 -> {
+//                                if (message != "t") {
+//
+//                                    resultMessageTemp += message
+//                                    state?.value?.set(TEMPERATURE, "$resultMessageTemp°С") ?: "100"
+//                                    repeat(10) { Log.d("SETTEMP", "$resultMessageTemp") }
+//
+//                                    state.postValue(state.value)
+//                                    resultMessageTemp = ""
+//                                }
+//                                stepFlagTemp = 0
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                    "PRESSURE" -> {
+//                        when (stepFlagPressure){
+//                            0 -> {
+//                                resultMessagePressure= ""
+//                                stepFlagPressure = 1
+//                            }
+//
+//                            1 -> {
+//                                if (message != "p") {
+//                                    resultMessagePressure = message
+//
+//                                }
+//                                stepFlagPressure = 2
+//                            }
+//
+//                            2 -> {
+//                                if (message != "p") {
+//                                    resultMessagePressure += message
+//                                    state?.value?.set(PRESSURE, "${resultMessagePressure}кПа") ?: "100"
+//                                    repeat(10) { Log.d("SETPRESSURE", "$resultMessagePressure") }
+//                                    state.postValue(state.value)
+//                                    resultMessagePressure = ""
+//                                }
+//                                stepFlagPressure = 0
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//
+//
+//
+//                    "KCHSM" -> {
+//                        when (stepFlagKCHSM){
+//                            0 -> {
+//                                resultMessageKCHSM= ""
+//                                stepFlagKCHSM = 1
+//                            }
+//
+//                            1 -> {
+//                                if (message != "k") {
+//                                    resultMessageKCHSM = message
+//
+//                                }
+//                                stepFlagKCHSM = 2
+//                            }
+//
+//                            2 -> {
+//                                if (message != "k") {
+//                                    resultMessageKCHSM += message
+//                                    state?.value?.set(KCHSM, "${resultMessageKCHSM}Гц") ?: "0"
+//                                    repeat(10) { Log.d("SETKCHSM", "$resultMessageKCHSM") }
+//                                    state.postValue(state.value)
+//                                    resultMessageKCHSM = ""
+//                                }
+//                                stepFlagKCHSM = 0
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//
+//
+//
+//                    else -> {}
+//                }
+
+
+
+
+
+
+
+                //{binding.tvStatus2.text = message}
+
+
     companion object {
         fun factory(): ViewModelProvider.Factory {
             return viewModelFactory {
@@ -191,6 +408,7 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
         const val LEFT = "left"
         const val RIGHT = "right"
 
+        const val AUTO = "auto"
         const val STRAIGHT = "straight"
         const val REVERSED = "reversed"
         const val OTHER = "other"
@@ -210,168 +428,12 @@ class MainViewModel : ViewModel(), BluetoothController.Listener  {
             EYE to LEFT,
             METHOD to STRAIGHT,
             INTENSITYSLIDER to "0",
-            INTENSITY to LOW,
+            INTENSITY to AUTO,
             DIODECOLOR to RED,
-            KCHSM to "25",
-            PRESSURE to "1",
-            TEMPERATURE to "76"
+            KCHSM to "--Гц",
+            PRESSURE to "--кПа",
+            TEMPERATURE to "--°С"
         )
-    }
-    private var resultMessageTemp = ""
-    private var resultMessagePressure = ""
-    private var resultMessageKCHSM = ""
-    private var stepFlagTemp = 0
-    private var stepFlagPressure = 0
-    private var stepFlagKCHSM = 0
-    private var whatFlag:String = ""
-    override fun onReceive(message: String) {
-        when(message) {
-            "bluetooth connected" -> {
-                    App.bluetoothConnected = true
-                    changeConnectionState(App.bluetoothConnected)
-                    //binding.stopButton.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.red)
-                    //binding.stopButton.text = "Disconnect"
-            }
-            "bluetooth no connected" -> {
-                App.bluetoothConnected = false
-                changeConnectionState(App.bluetoothConnected)
-                    //binding.stopButton.backgroundTintList = AppCompatResources.getColorStateList(this, R.color.green)
-                    //binding.stopButton.text = "Connect"
-
-            }
-
-            else -> {
-                when (message[0]) {
-
-                    't' -> {
-                        whatFlag = "TEMP"
-                    }
-
-                    'p' -> {
-                        whatFlag = "PRESSURE"
-                    }
-
-                    'k' -> {
-                        whatFlag = "KCHSM"
-                        repeat(10){
-                            Log.d("KCHSM", "KCHSM")
-                        }
-                    }
-                }
-
-                when (whatFlag) {
-                    "TEMP" -> {
-                        when (stepFlagTemp){
-                            0 -> {
-                                resultMessageTemp = ""
-                                stepFlagTemp = 1
-                            }
-
-                            1 -> {
-                                if (message != "t") {
-                                    resultMessageTemp = message
-
-                                }
-                                stepFlagTemp = 2
-                            }
-
-                            2 -> {
-                                if (message != "t") {
-
-                                    resultMessageTemp += message
-                                    state?.value?.set(TEMPERATURE, "$resultMessageTemp°С") ?: "100"
-                                    repeat(10) { Log.d("SETTEMP", "$resultMessageTemp") }
-
-                                    state.postValue(state.value)
-                                    resultMessageTemp = ""
-                                }
-                                stepFlagTemp = 0
-                            }
-
-                        }
-
-                    }
-
-                    "PRESSURE" -> {
-                        when (stepFlagPressure){
-                            0 -> {
-                                resultMessagePressure= ""
-                                stepFlagPressure = 1
-                            }
-
-                            1 -> {
-                                if (message != "p") {
-                                    resultMessagePressure = message
-
-                                }
-                                stepFlagPressure = 2
-                            }
-
-                            2 -> {
-                                if (message != "p") {
-                                    resultMessagePressure += message
-                                    state?.value?.set(PRESSURE, "${resultMessagePressure}кПа") ?: "100"
-                                    repeat(10) { Log.d("SETPRESSURE", "$resultMessagePressure") }
-                                    state.postValue(state.value)
-                                    resultMessagePressure = ""
-                                }
-                                stepFlagPressure = 0
-                            }
-
-                        }
-
-                    }
-
-
-
-
-                    "KCHSM" -> {
-                        when (stepFlagKCHSM){
-                            0 -> {
-                                resultMessageKCHSM= ""
-                                stepFlagKCHSM = 1
-                            }
-
-                            1 -> {
-                                if (message != "k") {
-                                    resultMessageKCHSM = message
-
-                                }
-                                stepFlagKCHSM = 2
-                            }
-
-                            2 -> {
-                                if (message != "k") {
-                                    resultMessageKCHSM += message
-                                    state?.value?.set(KCHSM, "${resultMessageKCHSM}Гц") ?: "0"
-                                    repeat(10) { Log.d("SETKCHSM", "$resultMessageKCHSM") }
-                                    state.postValue(state.value)
-                                    resultMessageKCHSM = ""
-                                }
-                                stepFlagKCHSM = 0
-                            }
-
-                        }
-
-                    }
-
-
-
-
-                    else -> {}
-                }
-
-
-
-
-
-
-
-                //{binding.tvStatus2.text = message}
-
-                }
-            }
-
     }
 
 }
