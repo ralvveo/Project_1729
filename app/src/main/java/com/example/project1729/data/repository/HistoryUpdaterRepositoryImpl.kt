@@ -25,8 +25,14 @@ class HistoryUpdaterRepositoryImpl(private val context: Context) : HistoryUpdate
 
     override fun addToHistory(measurement: Measurement){
         val trackList = readHistory().toMutableList()
-        trackList.add(measurement)
-        writeToHistory(trackList.toList())
+        val currentTimes = mutableListOf<String>()
+        for (i in trackList)
+            currentTimes.add(i.dateAndTime)
+        if (measurement.dateAndTime !in currentTimes){
+            trackList.add(measurement)
+            writeToHistory(trackList.toList())
+        }
+       
     }
 
     override fun writeToHistory(historyList: List<Measurement>){

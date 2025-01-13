@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainLightBlue"
+    tools:context="com.example.project1729.ui.fragment.StartFragment">
+
+    <TextView
+        android:id="@+id/dopInfoText"
+        style="@style/screenTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="@string/dop_info_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dopInfoTitle"
+        style="@style/screenTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/dop_info_title"
+        app:layout_constraintBottom_toTopOf="@id/dopInfoText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/dopInfoImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:background="@drawable/picture_3"
+        app:layout_constraintBottom_toTopOf="@id/dopInfoTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/dopInfoStressSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rounded_corner_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dopInfoText"
+
+        />
+
+    <TextView
+        android:id="@+id/dopInfoStressActiveText"
+        style="@style/editTextActiveTextStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/mainLightBlue"
+        android:text="@string/dop_info_question1"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@id/dopInfoStressSpinner"
+        app:layout_constraintStart_toStartOf="@id/dopInfoStressSpinner"
+        app:layout_constraintTop_toTopOf="@id/dopInfoStressSpinner" />
+
+
+
+    <TextView
+        android:id="@+id/dopInfoChargeText"
+        style="@style/screenTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:background="@color/mainLightBlue"
+        android:text="@string/dop_info_question3"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textAlignment="textStart"
+        app:layout_constraintTop_toBottomOf="@id/dopInfoStressSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/dopInfoStressDuration"
+        style="@style/editTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:visibility="visible"
+        android:hint="@string/dop_info_question2"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dopInfoStressSpinner" />
+
+    <TextView
+        android:id="@+id/dopInfoStressDurationActiveText"
+        style="@style/editTextActiveTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dop_info_question2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/dopInfoStressDuration"
+        app:layout_constraintStart_toStartOf="@id/dopInfoStressDuration"
+        app:layout_constraintTop_toTopOf="@id/dopInfoStressDuration" />
+
+
+    <RadioGroup
+        android:id="@+id/dopInfoRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/dopInfoChargeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/mainBlue"
+
+
+        >
+
+        <RadioButton
+            android:id="@+id/dopInfoRadioYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes"
+            android:textColor="@color/white"
+            android:theme="@style/radioButtonStyle"/>
+
+        <RadioButton
+            android:id="@+id/dopInfoRadioNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no"
+            android:textColor="@color/white"
+            android:theme="@style/radioButtonStyle"/>
+    </RadioGroup>
+
+
+    <ImageButton
+        android:id="@+id/dopInfoButtonStart"
+        style="@style/buttonStyle1"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/btn_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/dopInfoButtonStartText"
+        style="@style/buttonStyle1"
+        android:layout_width="166dp"
+        android:layout_height="26dp"
+        android:text="@string/start_check"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/dopInfoButtonStart"
+        app:layout_constraintEnd_toEndOf="@id/dopInfoButtonStart"
+        app:layout_constraintStart_toStartOf="@+id/dopInfoButtonStart"
+        app:layout_constraintTop_toTopOf="@id/dopInfoButtonStart"
+
+        />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mainLoading"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/mainBlue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

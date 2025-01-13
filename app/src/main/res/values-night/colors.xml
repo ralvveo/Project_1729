@@ -12,4 +12,9 @@
     <color name="darkBlueWhite80">#dedede</color>
     <color name="lightBlueWhite80">#dedede</color>
     <color name="blackBlack">#1A1B22</color>
+
+    <color name="mainBg">#1A1B22</color>
+
+    <color name="mainLightBlue">#50D2F3</color>
+    <color name="mainBlue">#3772E7</color>
 </resources>

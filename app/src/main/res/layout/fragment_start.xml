@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainLightBlue"
+    tools:context="com.example.project1729.ui.fragment.StartFragment">
+
+    <TextView
+        android:id="@+id/startText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:text="@string/start_text"
+        style="@style/screenTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/startTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/startText"
+        android:layout_marginBottom="20dp"
+        android:text="@string/start_title"
+        style="@style/screenTitleStyle"
+        />
+
+    <ImageView
+        android:id="@+id/startImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/startTitle"
+        android:background="@drawable/picture_1"
+        />
+
+    <ImageButton
+        android:id="@+id/startButtonLogin"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startText"
+        android:layout_marginTop="40dp"
+        />
+
+    <TextView
+        android:id="@+id/startButtonLoginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/startButtonLogin"
+        app:layout_constraintEnd_toEndOf="@id/startButtonLogin"
+        app:layout_constraintTop_toTopOf="@id/startButtonLogin"
+        app:layout_constraintBottom_toBottomOf="@id/startButtonLogin"
+        android:text="@string/start_login"
+        style="@style/buttonStyle1"
+
+        />
+
+    <ImageButton
+        android:id="@+id/startButtonRegister"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startButtonLogin"
+        android:layout_marginTop="28dp"
+        />
+
+    <TextView
+        android:id="@+id/startButtonRegisterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/startButtonRegister"
+        app:layout_constraintEnd_toEndOf="@id/startButtonRegister"
+        app:layout_constraintTop_toTopOf="@id/startButtonRegister"
+        app:layout_constraintBottom_toBottomOf="@id/startButtonRegister"
+        android:text="@string/start_register"
+        style="@style/buttonStyle1"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
