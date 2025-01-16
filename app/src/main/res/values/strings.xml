@@ -50,7 +50,7 @@
 
 
     <string name="login_text">Введите логин и пароль,\nзаданные при регистрации</string>
-    <string name="login_title">Вход</string>
+    <string name="login_title">Вход в аккаунт</string>
     <string name="login_hint1">Логин</string>
     <string name="login_hint2">Пароль</string>
 
@@ -113,4 +113,44 @@
 
     <string name="left_eye">Левый глаз</string>
     <string name="right_eye">Правый глаз</string>
+
+    <string name="menu_title">Меню</string>
+    <string name="menu_text">Выберите нужный пункт</string>
+    <string name="menu_first_title">Цветоощущение</string>
+    <string name="menu_second_title">Острота зрения</string>
+    <string name="menu_third_title">Состояние глазного дна</string>
+    <string name="menu_fourth_title">Измерение КЧСМ</string>
+    <string name="menu_first_descr">Проверка способности различать цвета, особенно красный, зеленый и синий</string>
+    <string name="menu_second_descr">Измерение остроты зрения, определяющей способность видеть четко</string>
+    <string name="menu_third_descr">Оценка состояния задней части глаза, включая сетчатку, зрительный нерв и сосуды</string>
+    <string name="menu_fourth_descr">Измерения показателя, характеризующего состояние зрительного анализатора</string>
+
+    <string name="rabkin_guide_text">Пройдите короткий тест для проверки\nвашей способности различать цвета</string>
+    <string name="rabkin_guide_guide">•  Вводите то, что видите на экране\n\n•  Числа записывайте одним числом (Например: 96). Если ответов несколько, вводите их через пробел (Например: треугольник квадрат). Если нет ничего, поставьте прочерк (-)\n\n•  Не всматривайтесь долго, если плохо видите рисунок. Лучше пропустите этот вопрос. Так результаты теста будут точнее\n\n•  Рекомендуется пройти тест несколько раз для получения более точного результата</string>
+    <string name="rabkin_guide_guide2">•  Числа записывайте одним числом\n(Например: 96).\n\n•  Для быстрого ввода фигур нажимайте на кнопки-подсказки\n\n•  Если ответов несколько, вводите их через пробел\n(Например: треугольник квадрат).\n\n•  Если нет ничего, поставьте прочерк (-)\n\n</string>
+    <string name="start_testing">Начать тестирование</string>
+
+    <string name="your_answer">Ваш ответ:</string>
+    <string name="what_do_you_see">Что вы видите на картинке?</string>
+    <string name="next">Далее</string>
+
+    <string name="rabkin_results_title">Результаты</string>
+    <string name="rabkin_results_text">Ознакомьтесь с вашими результатами\nтеста по проверке цветоощущения</string>
+    <string name="rabkin_results_text2">Ваш результат теста:</string>
+    <string name="rabkin_results_info_text">•  Для просмотра подробной информации нажмите на ваш результат\n\n•  Результаты теста могут быть неточными\n\n•  При повторении результатов рекомендуется обратиться к врачу\n\n•  Рекомендуется пройти тест несколько раз</string>
+    <string name="rabkin_deiteranopy">Дейтеранопия</string>
+    <string name="rabkin_protanopy">Протанопия</string>
+    <string name="rabkin_dihromasuim">Дихромазия</string>
+    <string name="rabkin_okay">Всё хорошо</string>
+    <string name="finish">Завершить</string>
+
+    <string name="rabkin_results_guide_okay">Ваше цветовосприятие соотвествует нормальному цветовосприятию обычного человека.\nС вашим зрением всё отлично!</string>
+    <string name="rabkin_results_guide_dihromazy">Это расстройтво зрения, при котором человек способен воспринимать только два вида цветов. В зависимости от воспринимаемых цветов, дихромазия делится на дейтеранопию, протанопию и тританопию.\nПопробуйте пройти этот тест ещё раз, и, если результат повторится, советуем обратиться к специалисту.</string>
+    <string name="rabkin_results_guide_deiteranopy">Это нарушение цветового восприятия, при котором человек не способен воспринимать оттенки зелёного спектра.\nПопробуйте пройти этот тест ещё раз, и, если результат повторится, советуем обратиться к специалисту.</string>
+    <string name="rabkin_results_guide_protanopy">Это нарушение цветового восприятия, при котором человек не способен воспринимать оттенки красного спектра.\nПопробуйте пройти этот тест ещё раз, и, если результат повторится, советуем обратиться к специалисту.</string>
+
+    <string name="triangle">треугольник</string>
+    <string name="square">квадрат</string>
+    <string name="circle">круг</string>
+
 </resources>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainLightBlue"
+    android:background="@color/white"
     tools:context="com.example.project1729.ui.fragment.StartFragment">
 
     <TextView
@@ -60,7 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/mainLightBlue"
+        android:background="@color/white"
+        android:textColor="@color/black"
         android:text="@string/dop_info_question1"
         android:textAlignment="textStart"
         app:layout_constraintBottom_toTopOf="@id/dopInfoStressSpinner"
@@ -75,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
-        android:background="@color/mainLightBlue"
+        android:background="@color/white"
         android:text="@string/dop_info_question3"
         android:textSize="16sp"
         android:fontFamily="@font/montserrat_regular"
@@ -128,7 +129,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yes"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            app:buttonTint="@color/black"
             android:theme="@style/radioButtonStyle"/>
 
         <RadioButton
@@ -136,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            app:buttonTint="@color/black"
             android:theme="@style/radioButtonStyle"/>
     </RadioGroup>
 

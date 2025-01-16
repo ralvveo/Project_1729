@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/startFragment"
@@ -23,8 +23,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_checkFragment"
-            app:destination="@id/checkFragment" />
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -55,4 +55,43 @@
         android:name="com.example.project1729.ui.fragment.DopInfoFragment"
         android:label="fragment_dop_info"
         tools:layout="@layout/fragment_dop_info" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.project1729.ui.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_rabkinGuideFragment"
+            app:destination="@id/rabkinGuideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinGuideFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinGuideFragment"
+        android:label="fragment_rabkin_guide"
+        tools:layout="@layout/fragment_rabkin_guide" >
+        <action
+            android:id="@+id/action_rabkinGuideFragment_to_rabkinTestFragment"
+            app:destination="@id/rabkinTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinTestFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinTestFragment"
+        android:label="fragment_rabkin_test"
+        tools:layout="@layout/fragment_rabkin_test" >
+        <action
+            android:id="@+id/action_rabkinTestFragment_self"
+            app:destination="@id/rabkinTestFragment" />
+        <action
+            android:id="@+id/action_rabkinTestFragment_to_rabkinResultsFragment"
+            app:destination="@id/rabkinResultsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinResultsFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinResultsFragment"
+        android:label="fragment_rabkin_results"
+        tools:layout="@layout/fragment_rabkin_results" >
+        <action
+            android:id="@+id/action_rabkinResultsFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 </navigation>

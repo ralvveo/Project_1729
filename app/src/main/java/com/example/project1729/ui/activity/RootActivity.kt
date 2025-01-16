@@ -28,13 +28,24 @@ class RootActivity : AppCompatActivity(){
         val bottomNavigationView = binding.bottomNavigationView
         bottomNavigationView.setupWithNavController(navController)
 
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when (destination.id) {
+//                R.id.startFragment, R.id.loginFragment, R.id.registerFragment, R.id.dopInfoFragment, R.id.menuFragment-> {
+//                    bottomNavigationView.visibility = View.GONE
+//                }
+//                else -> {
+//                    bottomNavigationView.visibility = View.VISIBLE
+//                }
+//            }
+//        }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.startFragment, R.id.loginFragment, R.id.registerFragment, R.id.dopInfoFragment-> {
-                    bottomNavigationView.visibility = View.GONE
+                R.id.resultsFragment, R.id.checkFragment, R.id.settingsFragment-> {
+                    bottomNavigationView.visibility = View.VISIBLE
                 }
                 else -> {
-                    bottomNavigationView.visibility = View.VISIBLE
+                    bottomNavigationView.visibility = View.GONE
                 }
             }
         }

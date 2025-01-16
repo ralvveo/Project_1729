@@ -1,10 +1,12 @@
 package com.example.project1729.di
 
+import com.example.project1729.domain.model.RabkinTest
 import com.example.project1729.ui.view_model.CheckViewModel
 import com.example.project1729.ui.view_model.DopInfoViewModel
 import com.example.project1729.ui.view_model.HistoryViewModel
 import com.example.project1729.ui.view_model.LoginViewModel
 import com.example.project1729.ui.view_model.MainViewModel
+import com.example.project1729.ui.view_model.RabkinTestViewModel
 import com.example.project1729.ui.view_model.RegisterViewModel
 import com.example.project1729.ui.view_model.ResultsViewModel
 import com.example.project1729.ui.view_model.SettingsViewModel
@@ -43,5 +45,9 @@ val appModule = module{
 
     viewModel<ResultsViewModel>{
         ResultsViewModel()
+    }
+
+    viewModel<RabkinTestViewModel>{
+        RabkinTestViewModel()
     }
 }

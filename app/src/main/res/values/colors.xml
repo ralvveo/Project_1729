@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#F6F6F6</color>
 
     <color name="grey1">#e9e9ee</color>
     <color name="pinky">#FF0099</color>
@@ -13,6 +13,8 @@
     <color name="darkBlue">#002584</color>
     <color name="lightBlue">#a0bbff</color>
     <color name="grey2">#b2b2b2</color>
+    <color name="gray">#AEAFB4</color>
+    <color name="veryLightBlue">#D7E4FF</color>
 
     <color name="blackWhite">#000000</color>
     <color name="blackWhite80">#000000</color>
@@ -34,5 +36,6 @@
     <color name="mainLightBlue">#50D2F3</color>
     <color name="mainBlue">#3772E7</color>
     <color name="mainLoading">#A0000000</color>
+    <color name="overlayColor">#99000000</color>
 
 </resources>

@@ -89,7 +89,7 @@ class DopInfoFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.dopInfoStressDurationActiveText.visibility = View.GONE
                 binding.dopInfoStressSpinner.background = requireActivity().getDrawable(R.drawable.rounded_corner_shape)
                 binding.dopInfoStressDuration.background = requireActivity().getDrawable(R.drawable.rounded_corner_shape)
-                binding.dopInfoStressActiveText.setTextColor(resources.getColor(R.color.white))
+                binding.dopInfoStressActiveText.setTextColor(resources.getColor(R.color.black))
             }
             else -> {
                 binding.dopInfoStressDuration.visibility = View.VISIBLE

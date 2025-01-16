@@ -71,10 +71,12 @@ class LoginFragment : Fragment() {
         if ((state.login.length >= 3) and (state.password.length >= 6)){
             binding.loginButtonLogin.background =  requireActivity().getDrawable(R.drawable.btn_active)
             binding.loginButtonLogin.isEnabled = true
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.white))
             }
         else{
             binding.loginButtonLogin.isEnabled = false
             binding.loginButtonLogin.background =  requireActivity().getDrawable(R.drawable.btn_inactive)
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.gray))
         }
     }
 
@@ -95,7 +97,7 @@ class LoginFragment : Fragment() {
             TryLoginState.Success -> {
                 binding.progressIndicator.visibility = View.GONE
                 Toast.makeText(requireActivity(), "Login Successfull!", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_loginFragment_to_checkFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
             }
 
             TryLoginState.Default -> {}

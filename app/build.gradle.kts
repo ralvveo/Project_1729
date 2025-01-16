@@ -85,4 +85,8 @@ dependencies {
 
     //Graphics
     implementation ("com.diogobernardino:williamchart:3.10.1")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
 }

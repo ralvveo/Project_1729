@@ -111,10 +111,12 @@ class RegisterFragment : Fragment() {
         if ((state.fio.length >= 6) and (state.year.length == 4) and (state.login.length >= 3) and (state.password.length >= 6)){
             binding.registerButtonRegister.background =  requireActivity().getDrawable(R.drawable.btn_active)
             binding.registerButtonRegister.isEnabled = true
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.white))
         }
         else{
             binding.registerButtonRegister.background =  requireActivity().getDrawable(R.drawable.btn_inactive)
             binding.registerButtonRegister.isEnabled = false
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.gray))
         }
     }
 
