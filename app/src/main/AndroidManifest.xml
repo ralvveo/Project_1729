@@ -48,10 +48,6 @@
             android:exported="true"/>
 
         <activity
-            android:name=".ui.activity.SettingsActivity"
-            android:exported="true"/>
-
-        <activity
             android:name=".ui.activity.HistoryActivity"
             android:exported="true"/>
     </application>
