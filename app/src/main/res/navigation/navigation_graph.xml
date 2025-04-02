@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/menuFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/startFragment"
@@ -63,6 +63,12 @@
         <action
             android:id="@+id/action_menuFragment_to_rabkinGuideFragment"
             app:destination="@id/rabkinGuideFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_historyMainFragment"
+            app:destination="@id/historyMainFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_startFragment"
+            app:destination="@id/startFragment" />
     </fragment>
     <fragment
         android:id="@+id/rabkinGuideFragment"
@@ -84,6 +90,9 @@
         <action
             android:id="@+id/action_rabkinTestFragment_to_rabkinResultsFragment"
             app:destination="@id/rabkinResultsFragment" />
+        <action
+            android:id="@+id/action_rabkinTestFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/rabkinResultsFragment"
@@ -94,4 +103,18 @@
             android:id="@+id/action_rabkinResultsFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/historyMainFragment"
+        android:name="com.example.project1729.ui.fragment.HistoryMainFragment"
+        android:label="fragment_history_main"
+        tools:layout="@layout/fragment_history_main" >
+        <action
+            android:id="@+id/action_historyMainFragment_to_historyContentFragment"
+            app:destination="@id/historyContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyContentFragment"
+        android:name="com.example.project1729.ui.fragment.HistoryContentFragment"
+        android:label="fragment_history_content"
+        tools:layout="@layout/fragment_history_content" />
 </navigation>

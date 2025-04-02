@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.Project1729" parent="Base.Theme.Project1729" />
+
+    <style name="MaterialAlertDialog2" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertTextStyle2</item>
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle2</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle2</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle2</item>
+    </style>
 </resources>

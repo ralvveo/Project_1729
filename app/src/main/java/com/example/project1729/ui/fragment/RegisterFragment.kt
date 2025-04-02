@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -22,7 +23,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel by viewModel<RegisterViewModel>()
-
+    private var mode: Int = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
@@ -30,8 +31,13 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        mode = requireActivity().getWindow().getAttributes().softInputMode
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding.registerButtonRegister.isEnabled = false
+
+        binding.rabkinRegisterButtonBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         viewModel.getRegisterLiveData().observe(viewLifecycleOwner){state ->
             render(state)
@@ -89,7 +95,7 @@ class RegisterFragment : Fragment() {
         }
 
 
-        if (state.login.length >= 3){
+        if ((state.login.length >= 3) && (state.login.length <= 10)) {
             binding.registerEnterLogin.background = requireActivity().getDrawable(R.drawable.rounded_corner_shape_active)
             binding.registerEnterLoginActiveText.visibility = View.VISIBLE
         }
@@ -139,5 +145,10 @@ class RegisterFragment : Fragment() {
                 binding.progressIndicator.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onDestroy() {
+        requireActivity().getWindow().setSoftInputMode(mode)
+        super.onDestroy()
     }
 }

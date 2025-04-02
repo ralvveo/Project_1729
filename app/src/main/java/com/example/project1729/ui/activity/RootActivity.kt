@@ -1,5 +1,6 @@
 package com.example.project1729.ui.activity
 
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -23,21 +24,21 @@ class RootActivity : AppCompatActivity(){
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
-
-
+        val navInflater = navController.navInflater
+        val graph = navInflater.inflate(R.navigation.navigation_graph)
         val bottomNavigationView = binding.bottomNavigationView
-        bottomNavigationView.setupWithNavController(navController)
+        val sharedPrefs = getSharedPreferences(PROJECT1729_PREFERENCES, Application.MODE_PRIVATE)
+        val userName = sharedPrefs.getString(USERNAME, NOT_AUTHORIZED)
 
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            when (destination.id) {
-//                R.id.startFragment, R.id.loginFragment, R.id.registerFragment, R.id.dopInfoFragment, R.id.menuFragment-> {
-//                    bottomNavigationView.visibility = View.GONE
-//                }
-//                else -> {
-//                    bottomNavigationView.visibility = View.VISIBLE
-//                }
-//            }
-//        }
+        if (userName == NOT_AUTHORIZED){
+            graph.setStartDestination(R.id.startFragment)
+        }
+        else{
+            graph.setStartDestination(R.id.menuFragment)
+        }
+
+        navController.graph = graph
+        bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -49,6 +50,12 @@ class RootActivity : AppCompatActivity(){
                 }
             }
         }
+    }
+
+    companion object{
+        const val PROJECT1729_PREFERENCES = "PROJECT1729_PREFERENCES"
+        const val USERNAME = "USERNAME"
+        const val NOT_AUTHORIZED = "NOT_AUTHORIZED"
     }
 
 }

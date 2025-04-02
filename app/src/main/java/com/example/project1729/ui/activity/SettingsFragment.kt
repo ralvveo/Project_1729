@@ -21,12 +21,12 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), SettingsViewModel.factory())[SettingsViewModel::class.java]
-        binding.themeSwitcher.isChecked = viewModel.getTheme()
-        //Переключатель темы
-        binding.themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
-            viewModel.switchTheme()
-        }
+//        viewModel = ViewModelProvider(requireActivity(), SettingsViewModel.factory())[SettingsViewModel::class.java]
+//        binding.themeSwitcher.isChecked = viewModel.getTheme()
+//        //Переключатель темы
+//        binding.themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+//            viewModel.switchTheme()
+//        }
     }
 
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.project1729.domain.model.RabkinTest
+import com.example.project1729.domain.model.SivtsevTest
 import com.example.project1729.domain.repository.RabkinRepository
 
 import org.koin.core.component.KoinComponent
@@ -28,7 +29,15 @@ class RabkinTestViewModel: ViewModel(), KoinComponent {
         return rabkinRepository.getRandomRabkinTest()
     }
 
+    fun getRandomSivtsevTest(): SivtsevTest{
+        return rabkinRepository.getRandomSivtsevTest()
+    }
+
     fun doAnswer(rabkinTest: RabkinTest, userAnswer: String): Boolean{
         return rabkinRepository.doAnswer(rabkinTest, userAnswer)
+    }
+
+    fun doAnswer(sivtsevTest: SivtsevTest, userAnswer: String): Boolean{
+        return rabkinRepository.doAnswer(sivtsevTest, userAnswer)
     }
 }

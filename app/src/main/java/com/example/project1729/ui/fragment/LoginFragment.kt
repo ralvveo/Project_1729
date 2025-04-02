@@ -33,6 +33,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.rabkinLoginButtonBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.loginButtonLogin.isEnabled = false
 
         binding.loginEnterLogin.doOnTextChanged { text, _, _, _ -> viewModel.changeLoginText(text.toString())  }

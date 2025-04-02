@@ -11,16 +11,24 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.project1729.R
+import com.example.project1729.data.keys.RABKIN_RESULTS.CURRENT_MEASURE
+import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_DEITERANOPY_ANSWERS
+import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_PROTANOPY_ANSWERS
+import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_RIGHT_ANSWERS
+import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_WRONG_ANSWERS
 import com.example.project1729.data.keys.RABKIN_RESULTS.SHOW_QUESTION
 import com.example.project1729.databinding.FragmentRabkinTestBinding
 import com.example.project1729.domain.model.RabkinTest
+import com.example.project1729.domain.model.SivtsevTest
 import com.example.project1729.ui.view_model.RabkinTestViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,10 +41,17 @@ class RabkinTestFragment : Fragment() {
     private val viewModel by viewModel<RabkinTestViewModel>()
     var justStarted = true
     private var currentText = ""
-    private var currentTest = RabkinTest("", "", "", "")
+    private var currentRabkinTest = RabkinTest("", "", "", "")
+    private var currentSivtsevTest = SivtsevTest("", "", "")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentRabkinTestBinding.inflate(inflater, container, false)
+
+
+        binding.rabkinTestButtonBack.setOnClickListener {
+            showExitDialog()
+        }
+
         initializeFragment()
 
         binding.rabkinTestInput.requestFocus()
@@ -109,7 +124,10 @@ class RabkinTestFragment : Fragment() {
         binding.rabkinTestButton.setOnClickListener {
             val finish = doAnswer()
             if (finish){
-                findNavController().navigate(R.id.action_rabkinTestFragment_to_rabkinResultsFragment)
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(findNavController().graph.startDestinationId, true) // Очищает весь back stack
+                    .build()
+                findNavController().navigate(R.id.action_rabkinTestFragment_to_rabkinResultsFragment, null, navOptions)
             }
             else{
                 findNavController().navigate(R.id.action_rabkinTestFragment_self)
@@ -133,6 +151,49 @@ class RabkinTestFragment : Fragment() {
     }
 
     private fun initializeFragment() {
+
+        if (CURRENT_MEASURE == "rabkin"){
+            binding.rabkintTestBottomSheetText.setText(R.string.rabkin_guide_guide2)
+            binding.rabkinTestButtonCircle.visibility = View.VISIBLE
+            binding.rabkinTestButtonCircleText.visibility = View.VISIBLE
+            binding.rabkinTestButtonSquare.visibility = View.VISIBLE
+            binding.rabkinTestButtonSquareText.visibility = View.VISIBLE
+            binding.rabkinTestButtonTriangle.visibility = View.VISIBLE
+            binding.rabkinTestButtonTriangleText.visibility = View.VISIBLE
+
+            currentRabkinTest = viewModel.getRandomRabkinTest()
+
+            val pictureName = "rabkin_test_${currentRabkinTest.chartNum}"
+            val id = resources.getIdentifier(pictureName, "drawable", requireActivity().packageName)
+            val drawablePic = resources.getDrawable(id)
+
+            Glide.with(binding.rabkinTestImage)
+                .load(drawablePic)
+                .transform(RoundedCorners(40))
+                .transition(DrawableTransitionOptions.withCrossFade(2000))
+                .into(binding.rabkinTestImage)
+        }
+        else{
+
+            currentSivtsevTest = viewModel.getRandomSivtsevTest()
+            val pictureName = "sivtsev_test_${currentSivtsevTest.testNum}"
+            val id = resources.getIdentifier(pictureName, "drawable", requireActivity().packageName)
+            val drawablePic = resources.getDrawable(id)
+            Glide.with(binding.rabkinTestImage)
+                .load(drawablePic)
+                .transform(RoundedCorners(40))
+                .transition(DrawableTransitionOptions.withCrossFade(2000))
+                .into(binding.rabkinTestImage)
+
+            binding.rabkintTestBottomSheetText.setText(R.string.sivtsev_guide_guide2)
+            binding.rabkinTestButtonCircle.visibility = View.GONE
+            binding.rabkinTestButtonCircleText.visibility = View.GONE
+            binding.rabkinTestButtonSquare.visibility = View.GONE
+            binding.rabkinTestButtonSquareText.visibility = View.GONE
+            binding.rabkinTestButtonTriangle.visibility = View.INVISIBLE
+            binding.rabkinTestButtonTriangleText.visibility = View.GONE
+        }
+
         bottomSheetBehavior = BottomSheetBehavior.from(binding.rabkinTestBottomSheet).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
@@ -157,17 +218,7 @@ class RabkinTestFragment : Fragment() {
 
             }
         })
-        currentTest = viewModel.getRandomRabkinTest()
 
-        val pictureName = "rabkin_test_${currentTest.chartNum}"
-        val id = resources.getIdentifier(pictureName, "drawable", requireActivity().packageName)
-        val drawablePic = resources.getDrawable(id)
-
-        Glide.with(binding.rabkinTestImage)
-            .load(drawablePic)
-            .transform(RoundedCorners(40))
-            .transition(DrawableTransitionOptions.withCrossFade(2000))
-            .into(binding.rabkinTestImage)
     }
 
     private fun render(state: RabkinTest){
@@ -186,12 +237,17 @@ class RabkinTestFragment : Fragment() {
 
 
     private fun doAnswer(): Boolean{
-        return viewModel.doAnswer(currentTest, currentText)
+        if (CURRENT_MEASURE == "rabkin"){
+            return viewModel.doAnswer(currentRabkinTest, currentText)
+        }
+        else{
+            return viewModel.doAnswer(currentSivtsevTest, currentText)
+        }
     }
 
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-
+            showExitDialog()
         }
     }
 
@@ -215,5 +271,26 @@ class RabkinTestFragment : Fragment() {
         }
     }
 
+    private fun showExitDialog(){
+        MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialog2)
+            .setTitle(getString(R.string.exit_title)) // Заголовок диалога
+            .setMessage(getString(R.string.exit_descr)) // Описание диалога
+            .setNeutralButton(R.string.no) { dialog, which -> // Добавляет кнопку «Отмена»
+                // Действия, выполняемые при нажатии на кнопку «Отмена»
+            }
+
+            .setPositiveButton(R.string.yes) { dialog, which -> // Добавляет кнопку «Да»
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(findNavController().graph.startDestinationId, true) // Очищает весь back stack
+                    .build()
+                findNavController().navigate(R.id.action_rabkinTestFragment_to_menuFragment, null, navOptions)
+            }
+            .show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        backPressedCallback.isEnabled = false
+    }
 
 }

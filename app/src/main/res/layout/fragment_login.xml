@@ -9,6 +9,16 @@
     android:background="@color/white"
     tools:context="com.example.project1729.ui.fragment.StartFragment">
 
+    <ImageButton
+        android:id="@+id/rabkinLoginButtonBack"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/loginText"
         android:layout_width="wrap_content"

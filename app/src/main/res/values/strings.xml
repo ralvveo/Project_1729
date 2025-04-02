@@ -2,7 +2,6 @@
     <string name="app_name">Project#1729</string>
     <string name="app_title">Измерение КЧСМ</string>
     <string name="settings_title">Настройки</string>
-    <string name="history_title">История измерений</string>
     <string name="connection_status">Статус соединения: Не подключено</string>
     <string name="available_devices">Доступные устройства</string>
     <string name="testing_eye">Тестируемый глаз</string>
@@ -126,10 +125,16 @@
     <string name="menu_third_descr">Оценка состояния задней части глаза, включая сетчатку, зрительный нерв и сосуды</string>
     <string name="menu_fourth_descr">Измерения показателя, характеризующего состояние зрительного анализатора</string>
 
+    <string name="rabkin_guide_title">Цветоощущение</string>
     <string name="rabkin_guide_text">Пройдите короткий тест для проверки\nвашей способности различать цвета</string>
-    <string name="rabkin_guide_guide">•  Вводите то, что видите на экране\n\n•  Числа записывайте одним числом (Например: 96). Если ответов несколько, вводите их через пробел (Например: треугольник квадрат). Если нет ничего, поставьте прочерк (-)\n\n•  Не всматривайтесь долго, если плохо видите рисунок. Лучше пропустите этот вопрос. Так результаты теста будут точнее\n\n•  Рекомендуется пройти тест несколько раз для получения более точного результата</string>
+    <string name="rabkin_guide_guide">•  Вводите то, что видите на экране\n\n•  Числа записывайте одним числом (Например: 96). Если ответов несколько, вводите их через пробел (Например: треугольник квадрат). Если нет ничего, поставьте прочерк (-)\n\n•  Вводите свой ответ сразу. Так результаты теста будут точнее</string>
     <string name="rabkin_guide_guide2">•  Числа записывайте одним числом\n(Например: 96).\n\n•  Для быстрого ввода фигур нажимайте на кнопки-подсказки\n\n•  Если ответов несколько, вводите их через пробел\n(Например: треугольник квадрат).\n\n•  Если нет ничего, поставьте прочерк (-)\n\n</string>
     <string name="start_testing">Начать тестирование</string>
+
+    <string name="sivtsev_guide_title">Острота зрения</string>
+    <string name="sivtsev_guide_text">Пройдите короткий тест для проверки\nостроты вашего зрения</string>
+    <string name="sivtsev_guide_guide">•  Закройте один глаз, снимите ваши очки или линзы\n\n•  Держите устройство на расстоянии вытянутой руки\n\n•  Вводите букву, которую видите на экране. Если нет ничего, поставьте прочерк (-)</string>
+    <string name="sivtsev_guide_guide2">•  Вводите букву, которую видите на экране\n\n•  Если нет ничего или букву не видно, поставьте прочерк (-)\n\n•  Вводите свой ответ сразу. Так результаты теста будут точнее\n\n•  Рекомендуется пройти тест несколько раз для получения более точного результата\n\n</string>
 
     <string name="your_answer">Ваш ответ:</string>
     <string name="what_do_you_see">Что вы видите на картинке?</string>
@@ -154,4 +159,36 @@
     <string name="square">квадрат</string>
     <string name="circle">круг</string>
 
+    <string name="sivtsev_bad">Близорукость</string>
+    <string name="sivtsev_results_text">Ознакомьтесь с вашими результатами\nтеста по проверке остроты зрения</string>
+    <string name="sivtsev_results_guide_bad">Это дефект зрения, при котором человек видит хорошо лишь вблизи. \nПопробуйте пройти этот тест ещё раз, и, если результат повторится, советуем обратиться к специалисту.</string>
+    <string name="sivtsev_results_guide_okay">Ваша острота зрения в норме, отклонений не выявлено.\nС вашим зрением всё отлично!</string>
+
+    <string name="exit_title">Вы действительно хотите прервать тестирование?</string>
+    <string name="exit_descr">Введенные ответы будут утеряны.</string>
+
+    <string name="history_title">История измерений</string>
+    <string name="history_text">Просматривайте и изучайте результаты\nпроведенных тестов и измерений</string>
+
+
+    <string name="history_rabkin_title">Тесты на цветовосприятие</string>
+    <string name="history_sivtsev_title">Тесты на остроту зрения</string>
+    <string name="history_photo_title">Cнимки глазного дна</string>
+    <string name="history_KCHSM_title">Измерения КЧСМ</string>
+    <string name="history_rabkin_text">Здесь находятся результаты\nтестов на цветовосприятие</string>
+    <string name="history_sivtsev_text">Здесь находятся результаты\nтестов на остроту зрения</string>
+    <string name="history_photo_text">Здесь находятся снимки\nглазного дна</string>
+    <string name="history_KCHSM_text">Здесь находятся результаты\nизмерений КЧСМ</string>
+    <string name="history_placeholder_title">Здесь пока ничего нет :(</string>
+    <string name="history_placeholder_text">Пройдите первый тест,\nчтобы увидеть ваш результат</string>
+
+    <string name="delete_title">Удалить все ваши измерения?</string>
+    <string name="delete_descr">Отменить это действие будет невозможно.</string>
+    <string name="delete_confirm">Удалить</string>
+    <string name="delete_cancel">Отмена</string>
+
+    <string name="exit_account_title">Выйти из этого аккаунта?</string>
+    <string name="exit_account_descr">Вы будете перенесены на страницу входа.</string>
+    <string name="exit_account_confirm">Выйти</string>
+    <string name="exit_account_cancel">Остаться</string>
 </resources>
