@@ -25,7 +25,6 @@ import com.example.bt.checkBtPermission
 import com.example.project1729.R
 import com.example.project1729.databinding.ActivityDeviceBinding
 import com.google.android.material.snackbar.Snackbar
-import java.util.*
 
 class DeviceActivity : AppCompatActivity(), ItemAdapter.Listener {
     private var preference: SharedPreferences? = null

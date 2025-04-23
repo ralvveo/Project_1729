@@ -1,7 +1,9 @@
 package com.example.project1729.domain.converter
 
 import com.example.project1729.data.db.entity.CheckEntity
+import com.example.project1729.data.db.entity.TestEntity
 import com.example.project1729.domain.model.Check
+import com.example.project1729.domain.model.Test
 
 object Converter {
 
@@ -46,5 +48,26 @@ object Converter {
             eyeTraining = checkEntity.eyeTraining
 
         )
+    }
+
+    fun convert(testEntity: TestEntity): Test {
+        return Test(
+            testId = testEntity.testId,
+            type = testEntity.type,
+            dateAndTime = testEntity.dateAndTime,
+            result = testEntity.result
+        )
+
+    }
+
+
+    fun convert(test: Test): TestEntity {
+        return TestEntity(
+            testId = test.testId,
+            type = test.type,
+            dateAndTime = test.dateAndTime,
+            result = test.result
+        )
+
     }
 }

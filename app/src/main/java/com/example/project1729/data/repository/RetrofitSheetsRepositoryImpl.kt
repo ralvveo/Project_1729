@@ -1,6 +1,8 @@
 package com.example.project1729.data.repository
 
+import android.app.Application
 import android.content.Context
+import android.provider.ContactsContract.DisplayNameSources.NICKNAME
 import android.view.View
 import com.example.project1729.data.network.SheetsSearchApi
 import com.example.project1729.domain.converter.UserConverter
@@ -9,6 +11,7 @@ import com.example.project1729.domain.model.UserRegister
 import com.example.project1729.domain.repository.RetrofitSheetsRepository
 import com.example.project1729.domain.state.TryLoginState
 import com.example.project1729.domain.state.TryRegisterState
+import com.example.project1729.ui.activity.RootActivity
 import com.example.project1729.utils.md5
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -34,8 +37,15 @@ class RetrofitSheetsRepositoryImpl(val context: Context, val sheetsSearchApi: Sh
 
                 val userLoginList = userList.map{userRegister ->  userConverter.convert(userRegister)}
                 val userMd5 = user.copy(password = user.password.md5())
-                if (userMd5 in userLoginList)
+                if (userMd5 in userLoginList){
+                    val sharedPrefs = context.getSharedPreferences(PROJECT1729_PREFERENCES, Application.MODE_PRIVATE)
+                    sharedPrefs.edit()
+                        .putString(USERNAME, user.login)
+                        .apply()
                     emit(TryLoginState.Success)
+                }
+
+
                 else
                     emit(TryLoginState.Fail)
             }
@@ -74,7 +84,9 @@ class RetrofitSheetsRepositoryImpl(val context: Context, val sheetsSearchApi: Sh
                         user.password.md5()
 
                     )
+
                     emit(TryRegisterState.Success)
+
 
                 } catch (e: Throwable) {
                     emit(TryRegisterState.Error(errorMessage = e.toString()))
@@ -89,5 +101,10 @@ class RetrofitSheetsRepositoryImpl(val context: Context, val sheetsSearchApi: Sh
 
     }
 
+    companion object{
+        const val PROJECT1729_PREFERENCES = "PROJECT1729_PREFERENCES"
+        const val USERNAME = "USERNAME"
+        const val NOT_AUTHORIZED = "NOT_AUTHORIZED"
+    }
 
 }

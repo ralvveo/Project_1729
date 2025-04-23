@@ -6,8 +6,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainLightBlue"
+    android:background="@color/white"
     tools:context="com.example.project1729.ui.fragment.StartFragment">
+
+    <ImageButton
+        android:id="@+id/rabkinLoginButtonBack"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/loginText"
@@ -120,17 +130,6 @@
         style="@style/buttonStyle1"
 
         />
-
-    <Button
-        android:id="@+id/startButtonVoiceAssistant"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/voice"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButtonLoginText" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

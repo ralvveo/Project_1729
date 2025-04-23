@@ -1,11 +1,11 @@
 package com.example.project1729.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -15,18 +15,15 @@ import com.example.project1729.databinding.FragmentRegisterBinding
 import com.example.project1729.domain.model.UserRegister
 import com.example.project1729.domain.state.TryRegisterState
 import com.example.project1729.ui.view_model.RegisterViewModel
-import com.example.project1729.utils.VoiceAssistant
-import com.example.project1729.voiceAssistent.VoiceCommandHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterFragment : Fragment(), VoiceCommandHandler {
+class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel by viewModel<RegisterViewModel>()
-    private var voiceAssistant: VoiceAssistant? = null
-
+    private var mode: Int = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
@@ -34,23 +31,12 @@ class RegisterFragment : Fragment(), VoiceCommandHandler {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        mode = requireActivity().getWindow().getAttributes().softInputMode
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding.registerButtonRegister.isEnabled = false
 
-        voiceAssistant = VoiceAssistant(requireContext(), findNavController(), this)
-
-        binding.startButtonVoiceAssistant.setOnClickListener {
-            Log.d("VoiceAssistant", "Ready for speech")
-
-            if (voiceAssistant!!.isVoiceAssistantEnabled()) {
-                voiceAssistant!!.stopListening()
-                voiceAssistant!!.toggleVoiceAssistant()
-                Log.d("VoiceAssistant", "stop")
-            } else {
-                voiceAssistant!!.startListening()
-                voiceAssistant!!.toggleVoiceAssistant()
-                Log.d("VoiceAssistant", "start")
-            }
+        binding.rabkinRegisterButtonBack.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         viewModel.getRegisterLiveData().observe(viewLifecycleOwner){state ->
@@ -76,32 +62,6 @@ class RegisterFragment : Fragment(), VoiceCommandHandler {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun updateFioField(fio: String) {
-        binding.registerEnterFIO.setText(fio)
-        viewModel.changeFioText(fio)
-    }
-
-    override fun updateYearField(year: String) {
-        binding.registerEnterYear.setText(year)
-        viewModel.changeYearText(year)
-    }
-
-    override fun updateDiagnosisField(diagnosis: String) {
-        binding.registerEnterDiagnoz.setText(diagnosis)
-        viewModel.changeDiagnozText(diagnosis)
-    }
-
-    override fun updateLoginField(login: String) {
-        Log.d("VoiceAssistant", "Update Login")
-        binding.registerEnterLogin.setText(login)
-        viewModel.changeLoginText(login)
-    }
-
-    override fun updatePasswordField(password: String) {
-        Log.d("VoiceAssistant", "Update Password")
-        binding.registerEnterPassword.setText(password)
-        viewModel.changePasswordText(password)
-    }
 
     private fun render(state: UserRegister){
 
@@ -135,7 +95,7 @@ class RegisterFragment : Fragment(), VoiceCommandHandler {
         }
 
 
-        if (state.login.length >= 3){
+        if ((state.login.length >= 3) && (state.login.length <= 10)) {
             binding.registerEnterLogin.background = requireActivity().getDrawable(R.drawable.rounded_corner_shape_active)
             binding.registerEnterLoginActiveText.visibility = View.VISIBLE
         }
@@ -157,10 +117,12 @@ class RegisterFragment : Fragment(), VoiceCommandHandler {
         if ((state.fio.length >= 6) and (state.year.length == 4) and (state.login.length >= 3) and (state.password.length >= 6)){
             binding.registerButtonRegister.background =  requireActivity().getDrawable(R.drawable.btn_active)
             binding.registerButtonRegister.isEnabled = true
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.white))
         }
         else{
             binding.registerButtonRegister.background =  requireActivity().getDrawable(R.drawable.btn_inactive)
             binding.registerButtonRegister.isEnabled = false
+            binding.loginButtonLoginText.setTextColor(requireActivity().getColor(R.color.gray))
         }
     }
 
@@ -183,5 +145,10 @@ class RegisterFragment : Fragment(), VoiceCommandHandler {
                 binding.progressIndicator.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onDestroy() {
+        requireActivity().getWindow().setSoftInputMode(mode)
+        super.onDestroy()
     }
 }

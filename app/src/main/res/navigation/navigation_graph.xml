@@ -23,8 +23,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_checkFragment"
-            app:destination="@id/checkFragment" />
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -55,4 +55,66 @@
         android:name="com.example.project1729.ui.fragment.DopInfoFragment"
         android:label="fragment_dop_info"
         tools:layout="@layout/fragment_dop_info" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.project1729.ui.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_rabkinGuideFragment"
+            app:destination="@id/rabkinGuideFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_historyMainFragment"
+            app:destination="@id/historyMainFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinGuideFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinGuideFragment"
+        android:label="fragment_rabkin_guide"
+        tools:layout="@layout/fragment_rabkin_guide" >
+        <action
+            android:id="@+id/action_rabkinGuideFragment_to_rabkinTestFragment"
+            app:destination="@id/rabkinTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinTestFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinTestFragment"
+        android:label="fragment_rabkin_test"
+        tools:layout="@layout/fragment_rabkin_test" >
+        <action
+            android:id="@+id/action_rabkinTestFragment_self"
+            app:destination="@id/rabkinTestFragment" />
+        <action
+            android:id="@+id/action_rabkinTestFragment_to_rabkinResultsFragment"
+            app:destination="@id/rabkinResultsFragment" />
+        <action
+            android:id="@+id/action_rabkinTestFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rabkinResultsFragment"
+        android:name="com.example.project1729.ui.fragment.RabkinResultsFragment"
+        android:label="fragment_rabkin_results"
+        tools:layout="@layout/fragment_rabkin_results" >
+        <action
+            android:id="@+id/action_rabkinResultsFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyMainFragment"
+        android:name="com.example.project1729.ui.fragment.HistoryMainFragment"
+        android:label="fragment_history_main"
+        tools:layout="@layout/fragment_history_main" >
+        <action
+            android:id="@+id/action_historyMainFragment_to_historyContentFragment"
+            app:destination="@id/historyContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyContentFragment"
+        android:name="com.example.project1729.ui.fragment.HistoryContentFragment"
+        android:label="fragment_history_content"
+        tools:layout="@layout/fragment_history_content" />
 </navigation>

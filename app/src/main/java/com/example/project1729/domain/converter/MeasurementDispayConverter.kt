@@ -2,8 +2,6 @@ package com.example.project1729.domain.converter
 
 import com.example.project1729.domain.model.ConvertedMeasurement
 import com.example.project1729.domain.model.Measurement
-import com.example.project1729.ui.view_model.MainViewModel
-import kotlin.random.Random
 
 object MeasurementDispayConverter {
     fun convert(measurement: Measurement) : ConvertedMeasurement{

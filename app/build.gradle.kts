@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "1.9.22"
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -81,9 +81,13 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    kapt("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
 
     //Graphics
     implementation ("com.diogobernardino:williamchart:3.10.1")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    ksp ("com.github.bumptech.glide:ksp:4.14.2")
 
 }

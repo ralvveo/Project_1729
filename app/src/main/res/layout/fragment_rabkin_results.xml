@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rabkinTestMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.RabkinResultsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/rabkinTestVoiceButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_mic_on"
+            android:background="@drawable/round_button"
+            app:layout_constraintBottom_toTopOf="@+id/rabkinResultsTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rabkinStartButton" />
+
+        <TextView
+            android:id="@+id/rabkinResultsTitle"
+            style="@style/screenTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/rabkin_results_title"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultsText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/rabkinResultsText"
+            style="@style/screenTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            tools:text="@string/rabkin_results_text"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultsText2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsTitle" />
+
+
+        <TextView
+            android:id="@+id/rabkinResultsText2"
+            style="@style/screenTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/rabkin_results_text2"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultsResultText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsText" />
+
+        <ImageButton
+            android:id="@+id/rabkinResultsResults"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/light_blue_card"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultsInfoText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsText2" />
+
+        <TextView
+            android:id="@+id/rabkinResultsResultText"
+            style="@style/buttonStyle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/rabkin_deiteranopy"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/rabkinResultInfoIcon"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/rabkinResultsResults"
+            app:layout_constraintTop_toTopOf="@+id/rabkinResultsResults"
+
+            />
+
+        <ImageView
+            android:id="@+id/rabkinResultInfoIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/icon_info"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinResultsResultText"
+            app:layout_constraintStart_toEndOf="@id/rabkinResultsResultText"
+            app:layout_constraintEnd_toEndOf="@id/rabkinResultsResults"
+            app:layout_constraintTop_toTopOf="@id/rabkinResultsResultText" />
+
+        <ImageView
+            android:id="@+id/rabkinResultsResultImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinResultsResults"
+            app:layout_constraintEnd_toEndOf="@id/rabkinResultsResults"
+            app:layout_constraintStart_toStartOf="@id/rabkinResultsResults"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsResultText" />
+
+
+        <TextView
+            android:id="@+id/rabkinResultsInfoText"
+            style="@style/MenuItemTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/rabkin_results_info_text"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultsFinishButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsResults" />
+
+
+        <ImageButton
+            android:id="@+id/rabkinResultsFinishButton"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_inactive"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultsInfoText"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:id="@+id/rabkinResultsFinishButtonText"
+            style="@style/buttonStyle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/finish"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinResultsFinishButton"
+            app:layout_constraintEnd_toEndOf="@id/rabkinResultsFinishButton"
+            app:layout_constraintStart_toStartOf="@+id/rabkinResultsFinishButton"
+            app:layout_constraintTop_toTopOf="@id/rabkinResultsFinishButton"
+            android:textColor="@color/gray"
+
+            />
+
+        <View
+            android:id="@+id/rabkinResultOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlayColor"
+            android:visibility="gone" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rabkinResultBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottomsheet_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+        <TextView
+            android:id="@+id/rabkinResultBottomSheetTitle"
+            android:text="Всё хорошо!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rabkinResultBottomSheetText"
+            style="@style/buttonStyle1"
+            />
+
+        <TextView
+            android:id="@+id/rabkinResultBottomSheetText"
+            style="@style/MenuItemTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/rabkin_results_guide_okay"
+            app:layout_constraintTop_toBottomOf="@id/rabkinResultBottomSheetTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

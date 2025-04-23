@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/rabkinTestMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.RabkinTestFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <ImageButton
+            android:id="@+id/rabkinTestButtonBack"
+            android:layout_width="24dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/rabkinTestImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rabkinTestButtonBack"
+
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <ImageButton
+            android:id="@+id/rabkinTestButtonTriangle"
+            android:layout_width="115dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_inactive_blue"
+            app:layout_constraintBottom_toTopOf="@id/rabkinTestInput"
+            app:layout_constraintEnd_toStartOf="@id/rabkinTestButtonSquare"
+            app:layout_constraintStart_toStartOf="@id/rabkinTestImage"
+            app:layout_constraintTop_toBottomOf="@id/rabkinTestImage"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            />
+
+        <ImageButton
+            android:id="@+id/rabkinTestButtonSquare"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@drawable/btn_inactive_blue"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintEnd_toStartOf="@id/rabkinTestButtonCircle"
+            app:layout_constraintStart_toEndOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestButtonTriangle"
+            />
+
+
+        <ImageButton
+            android:id="@+id/rabkinTestButtonCircle"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="@drawable/btn_inactive_blue"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintEnd_toEndOf="@id/rabkinTestImage"
+            app:layout_constraintStart_toEndOf="@id/rabkinTestButtonSquare"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestButtonTriangle"
+
+            />
+
+        <TextView
+            android:id="@+id/rabkinTestButtonTriangleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/triangle"
+            app:layout_constraintStart_toStartOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintEnd_toEndOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestButtonTriangle"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestButtonTriangle"
+            android:layout_marginBottom="3dp"
+            style="@style/MiniButtonsTextStyle"
+            />
+
+        <TextView
+            android:id="@+id/rabkinTestButtonSquareText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/square"
+            app:layout_constraintStart_toStartOf="@id/rabkinTestButtonSquare"
+            app:layout_constraintEnd_toEndOf="@id/rabkinTestButtonSquare"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestButtonSquare"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestButtonSquare"
+            android:layout_marginBottom="3dp"
+            style="@style/MiniButtonsTextStyle"
+            />
+
+        <TextView
+            android:id="@+id/rabkinTestButtonCircleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle"
+            app:layout_constraintStart_toStartOf="@id/rabkinTestButtonCircle"
+            app:layout_constraintEnd_toEndOf="@id/rabkinTestButtonCircle"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestButtonCircle"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestButtonCircle"
+            android:layout_marginBottom="3dp"
+            style="@style/MiniButtonsTextStyle"
+            />
+
+        <EditText
+            android:id="@+id/rabkinTestInput"
+            style="@style/editTextStyle2"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:focusable="true"
+            android:hint="@string/what_do_you_see"
+            android:inputType="textNoSuggestions"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rabkinTestButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rabkinTestButtonTriangle" />
+
+        <ImageButton
+            android:id="@+id/rabkinTestButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/arrow_forward_inactive"
+            app:layout_constraintBottom_toBottomOf="@id/rabkinTestInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rabkinTestInput"
+            app:layout_constraintTop_toTopOf="@id/rabkinTestInput"
+
+            />
+
+
+        <View
+            android:id="@+id/rabkinTestOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlayColor"
+            android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/rabkinTestQuestionButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/question_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="20dp"
+        />
+
+        <ImageButton
+            android:id="@+id/rabkinTestVoiceButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="180dp"
+            android:layout_marginBottom="664dp"
+            android:background="@drawable/round_button"
+            android:src="@drawable/ic_mic_on"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rabkinTestBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottomsheet_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        >
+
+        <TextView
+            android:id="@+id/rabkintTestBottomSheetText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/rabkin_guide_guide2"
+            style="@style/MenuItemTextStyle"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

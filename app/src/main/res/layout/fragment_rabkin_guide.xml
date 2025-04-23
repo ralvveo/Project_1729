@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.fragment.RabkinGuideFragment">
+
+    <ImageButton
+        android:id="@+id/rabkinGuideButtonBack"
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/rabkinGuideImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="12dp"
+        tools:src="@drawable/rabkin_preview_pic"
+        app:layout_constraintBottom_toTopOf="@id/rabkinGuideTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/rabkinGuideTitle"
+        style="@style/screenTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        tools:text="@string/menu_first_title"
+        app:layout_constraintBottom_toTopOf="@id/rabkinGuideText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rabkinGuideImage" />
+
+    <TextView
+        android:id="@+id/rabkinGuideText"
+        style="@style/screenTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        tools:text="@string/rabkin_guide_text"
+        app:layout_constraintBottom_toTopOf="@id/rabkinGuideGiude"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rabkinGuideTitle" />
+
+
+    <TextView
+        android:id="@+id/rabkinGuideGiude"
+        style="@style/screenTextStyle"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        tools:text="@string/rabkin_guide_guide"
+        app:layout_constraintBottom_toTopOf="@id/rabkinStartButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rabkinGuideText" />
+
+    <ImageButton
+        android:id="@+id/rabkinStartButton"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:background="@drawable/btn_inactive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rabkinGuideGiude" />
+
+    <TextView
+        android:id="@+id/startButtonLoginText"
+        style="@style/buttonStyle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Начать тестирование"
+        app:layout_constraintBottom_toBottomOf="@id/rabkinStartButton"
+        app:layout_constraintEnd_toEndOf="@id/rabkinStartButton"
+        app:layout_constraintStart_toStartOf="@+id/rabkinStartButton"
+        app:layout_constraintTop_toTopOf="@id/rabkinStartButton"
+        android:textColor="@color/gray"
+        android:layout_marginBottom="4dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/rabkinGuideLoader"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:indeterminateTint="@color/gray"
+        android:alpha="0.5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rabkinStartButton"
+        app:layout_constraintBottom_toBottomOf="@id/rabkinStartButton"
+        />
+
+    <ImageButton
+        android:id="@+id/rabkinTestVoiceButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_mic_on"
+        android:background="@drawable/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rabkinStartButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
