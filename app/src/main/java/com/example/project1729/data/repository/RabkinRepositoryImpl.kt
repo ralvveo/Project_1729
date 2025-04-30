@@ -1,5 +1,7 @@
 package com.example.project1729.data.repository
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.example.project1729.data.db.Database
 import com.example.project1729.data.keys.RABKIN_KEYS.ALL_RABKIN_TESTS
@@ -13,13 +15,14 @@ import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_SHOW_ONLY_FROM_BA
 import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_USED_TESTS
 import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_WRONG_ANSWERS
 import com.example.project1729.data.keys.SIVTSEV_KEYS.ALL_SIVTSEV_TESTS
-import com.example.project1729.data.keys.SIVTSEV_RESULTS
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_CURRENT_LEVEL
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_CURRENT_LEVEL_WRONG
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_CURRENT_TEST
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_MAX_LEVEL
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_NUMBER_TO_SHOW_FROM_LEVEL
 import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_RESULT
+import com.example.project1729.data.model.MeasurementRequest
+import com.example.project1729.data.network.ServerApi
 import com.example.project1729.domain.converter.Converter
 import com.example.project1729.domain.model.RabkinTest
 import com.example.project1729.domain.model.SivtsevTest
@@ -27,14 +30,12 @@ import com.example.project1729.domain.model.Test
 import com.example.project1729.domain.repository.RabkinRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
-import kotlin.coroutines.coroutineContext
 import kotlin.random.Random
 
-class RabkinRepositoryImpl(private val database: Database) : RabkinRepository {
+class RabkinRepositoryImpl(private val database: Database, val context: Context, val serverApi: ServerApi) : RabkinRepository {
     override fun getRandomRabkinTest(): RabkinTest {
         var rabkinTest: RabkinTest
         if (RABKIN_SHOW_ONLY_FROM_BASE) {
@@ -172,8 +173,22 @@ class RabkinRepositoryImpl(private val database: Database) : RabkinRepository {
     }
 
     override fun saveMeasure(type: String, result: String) {
-        val sdf = SimpleDateFormat("dd.MM.yy HH:mm")
-        val currentDate = sdf.format(Date())
+        val currentDate = SimpleDateFormat("dd.MM.yy HH:mm").format(Date())
+        //Remote Saving
+        val sharedPrefs = context.getSharedPreferences(PROJECT1729_PREFERENCES, Application.MODE_PRIVATE)
+        val userID = sharedPrefs.getString(USERID, "1")
+        var newType = ""
+        if (type == "Rabkin"){
+            newType = "цветоощущение"
+        }
+        if (type == "Sivtsev"){
+            newType = "острота"
+        }
+
+        val currentMeasurement = MeasurementRequest(userID = userID?.toInt() ?: 1, type = newType, result = resultConverter(result), date = currentDate)
+        saveMeasurement(currentMeasurement)
+
+        //Local saving
         val currentTest = Test(testId = 0, type = type, result = resultConverter(result), dateAndTime = currentDate)
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch{
@@ -193,4 +208,21 @@ class RabkinRepositoryImpl(private val database: Database) : RabkinRepository {
         }
     }
 
+    private fun saveMeasurement(measurementRequest: MeasurementRequest) {
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            try {
+                val response = serverApi.addMeasurement(measurementRequest)
+
+            } catch (e: Throwable) {
+                Log.d("Error", e.toString())
+            }
+
+        }
+    }
+
+    companion object{
+        const val USERID = "USERID"
+        const val PROJECT1729_PREFERENCES = "PROJECT1729_PREFERENCES"
+    }
 }

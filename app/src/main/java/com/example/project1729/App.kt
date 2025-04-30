@@ -22,6 +22,7 @@ class App : Application() {
         var currentMessagesLength = 0
         val MAIN_URL = "https://script.google.com/macros/s/AKfycbwEiSKLnvtF1kZ1UH2__J-y2H0FCh9LF8zsXRAqNw4y54p4IBdV2UvjnvrOz5L_Zz0S/exec"
         val MAIN_URL2 = "https://script.google.com/macros/s/AKfycbwEiSKLnvtF1kZ1UH2__J-y2H0FCh9LF8zsXRAqNw4y54p4IBdV2UvjnvrOz5L_Zz0S/"
+        val MAIN_URL_3 = "https://45.153.191.176:5000/api/"
 
     }
 

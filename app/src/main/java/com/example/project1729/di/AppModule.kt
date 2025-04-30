@@ -1,6 +1,5 @@
 package com.example.project1729.di
 
-import com.example.project1729.domain.model.RabkinTest
 import com.example.project1729.ui.view_model.CheckViewModel
 import com.example.project1729.ui.view_model.DopInfoViewModel
 import com.example.project1729.ui.view_model.HistoryContentViewModel

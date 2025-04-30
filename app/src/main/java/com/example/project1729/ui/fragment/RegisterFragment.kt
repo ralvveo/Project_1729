@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.text.isDigitsOnly
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -75,7 +76,7 @@ class RegisterFragment : Fragment() {
         }
 
 
-        if (state.year.length == 4){
+        if ((state.year.length == 4) and (state.year.isDigitsOnly())){
             binding.registerEnterYear.background = requireActivity().getDrawable(R.drawable.rounded_corner_shape_active)
             binding.registerEnterYearActiveText.visibility = View.VISIBLE
         }
@@ -134,7 +135,7 @@ class RegisterFragment : Fragment() {
             }
             TryRegisterState.Success -> {
                 binding.progressIndicator.visibility = View.GONE
-                Toast.makeText(requireActivity(), "Registration Successfull!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "Успешная регистрация!", Toast.LENGTH_LONG).show()
                 lifecycleScope.launch {
                     delay(2000L)
                     findNavController().navigateUp()

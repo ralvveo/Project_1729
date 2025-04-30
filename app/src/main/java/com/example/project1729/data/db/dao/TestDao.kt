@@ -18,3 +18,4 @@ interface TestDao {
     @Query("DELETE FROM test_table WHERE type = :type")
     suspend fun deleteTests(type: String)
 }
+

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.project1729.domain.model.UserLogin
-import com.example.project1729.domain.repository.RetrofitSheetsRepository
+import com.example.project1729.domain.repository.NetworkRepository
 import com.example.project1729.domain.state.TryLoginState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ class LoginViewModel: ViewModel(), KoinComponent {
     private val state = MutableLiveData<UserLogin>()
     private val loginState = MutableLiveData<TryLoginState>()
 
-    private val retrofitRepository: RetrofitSheetsRepository by inject()
+    private val retrofitRepository: NetworkRepository by inject()
     init{
         state.value = UserLogin("", "")
     }

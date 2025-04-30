@@ -37,7 +37,11 @@ class RabkinResultsFragment : Fragment() {
     private val viewModel by viewModel<RabkinTestViewModel>()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentRabkinResultsBinding.inflate(inflater, container, false)
 
@@ -68,35 +72,29 @@ class RabkinResultsFragment : Fragment() {
         return binding.root
     }
 
-    private fun initializeFragment(){
+    private fun initializeFragment() {
 
         val resultPicture: Int
         binding.rabkinResultsFinishButton.isEnabled = false
-        if (CURRENT_MEASURE == "rabkin"){
+        if (CURRENT_MEASURE == "rabkin") {
             binding.rabkinResultsText.setText(R.string.rabkin_results_text)
-            if (RABKIN_RIGHT_ANSWERS >= RABKIN_MAX_RIGHT_ANSWERS){
+            if (RABKIN_RIGHT_ANSWERS >= RABKIN_MAX_RIGHT_ANSWERS) {
                 resultPicture = R.drawable.picture_normal_colors
                 binding.rabkinResultsResultText.setText(R.string.rabkin_okay)
                 binding.rabkinResultBottomSheetTitle.setText(R.string.rabkin_okay)
                 binding.rabkinResultBottomSheetText.setText(R.string.rabkin_results_guide_okay)
 
-            }
-
-            else if (RABKIN_PROTANOPY_ANSWERS == RABKIN_MAX_WRONG_ANSWERS){
+            } else if (RABKIN_PROTANOPY_ANSWERS == RABKIN_MAX_WRONG_ANSWERS) {
                 resultPicture = R.drawable.picture_protanopy
                 binding.rabkinResultsResultText.setText(R.string.rabkin_protanopy)
                 binding.rabkinResultBottomSheetTitle.setText(R.string.rabkin_protanopy)
                 binding.rabkinResultBottomSheetText.setText(R.string.rabkin_results_guide_protanopy)
-            }
-
-            else if (RABKIN_DEITERANOPY_ANSWERS == RABKIN_MAX_WRONG_ANSWERS){
+            } else if (RABKIN_DEITERANOPY_ANSWERS == RABKIN_MAX_WRONG_ANSWERS) {
                 resultPicture = R.drawable.picture_deiteranopy
                 binding.rabkinResultsResultText.setText(R.string.rabkin_deiteranopy)
                 binding.rabkinResultBottomSheetTitle.setText(R.string.rabkin_deiteranopy)
                 binding.rabkinResultBottomSheetText.setText(R.string.rabkin_results_guide_deiteranopy)
-            }
-
-            else {
+            } else {
                 resultPicture = R.drawable.picture_dihromazy
                 binding.rabkinResultsResultText.setText(R.string.rabkin_dihromasuim)
                 binding.rabkinResultBottomSheetTitle.setText(R.string.rabkin_dihromasuim)
@@ -110,17 +108,14 @@ class RabkinResultsFragment : Fragment() {
                 .placeholder(R.drawable.picture_normal_colors)
                 .into(binding.rabkinResultsResultImage)
 
-        }
-
-        else{
+        } else {
             binding.rabkinResultsText.setText(R.string.sivtsev_results_text)
-            if (SIVTSEV_RESULT == "OK"){
+            if (SIVTSEV_RESULT == "OK") {
                 binding.rabkinResultsResultText.setText(R.string.rabkin_okay)
                 resultPicture = R.drawable.sivtsev_result_ok
                 binding.rabkinResultBottomSheetTitle.setText(R.string.rabkin_okay)
                 binding.rabkinResultBottomSheetText.setText(R.string.sivtsev_results_guide_okay)
-            }
-            else{
+            } else {
                 binding.rabkinResultsResultText.setText(R.string.sivtsev_bad)
                 resultPicture = R.drawable.sivtsev_result_bad
                 binding.rabkinResultBottomSheetTitle.setText(R.string.sivtsev_bad)
@@ -159,6 +154,7 @@ class RabkinResultsFragment : Fragment() {
                     }
                 }
             }
+
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
             }
@@ -166,7 +162,8 @@ class RabkinResultsFragment : Fragment() {
 
 
         lifecycleScope.launch {
-            binding.rabkinResultsFinishButton.background = requireActivity().getDrawable(R.drawable.btn_start)
+            binding.rabkinResultsFinishButton.background =
+                requireActivity().getDrawable(R.drawable.btn_start)
             binding.rabkinResultsFinishButtonText.setTextColor(requireActivity().getColor(R.color.white))
             delay(1000L)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -176,7 +173,7 @@ class RabkinResultsFragment : Fragment() {
 
 
             delay(10000L)
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED){
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
 

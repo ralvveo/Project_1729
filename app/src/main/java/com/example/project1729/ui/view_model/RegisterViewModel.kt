@@ -5,12 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.project1729.domain.model.UserLogin
 import com.example.project1729.domain.model.UserRegister
-import com.example.project1729.domain.repository.RetrofitSheetsRepository
-import com.example.project1729.domain.state.TryLoginState
+import com.example.project1729.domain.repository.NetworkRepository
 import com.example.project1729.domain.state.TryRegisterState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -19,7 +16,7 @@ class RegisterViewModel: ViewModel(), KoinComponent {
 
     private val state = MutableLiveData<UserRegister>()
     private val registerState = MutableLiveData<TryRegisterState>()
-    private val retrofitRepository: RetrofitSheetsRepository by inject()
+    private val retrofitRepository: NetworkRepository by inject()
 
     init{
         state.value = UserRegister("", "", "", "", "")

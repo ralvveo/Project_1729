@@ -93,14 +93,14 @@ class LoginFragment : Fragment() {
             }
             TryLoginState.Fail -> {
                 binding.progressIndicator.visibility = View.GONE
-                Toast.makeText(requireActivity(), "Login Failed! Incorrect login or password", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "Не удалось войти в аккаунт. Неверный логин или пароль!", Toast.LENGTH_LONG).show()
             }
             TryLoginState.Loading -> {
                 binding.progressIndicator.visibility = View.VISIBLE
             }
             TryLoginState.Success -> {
                 binding.progressIndicator.visibility = View.GONE
-                Toast.makeText(requireActivity(), "Login Successfull!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), "Успешный вход в аккаунт", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
             }
 

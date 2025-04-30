@@ -2,8 +2,11 @@ package com.example.project1729.domain.converter
 
 import com.example.project1729.data.db.entity.CheckEntity
 import com.example.project1729.data.db.entity.TestEntity
+import com.example.project1729.data.model.MeasurementResponse
 import com.example.project1729.domain.model.Check
+import com.example.project1729.domain.model.ConvertedMeasurement
 import com.example.project1729.domain.model.Test
+import kotlin.random.Random
 
 object Converter {
 
@@ -69,5 +72,18 @@ object Converter {
             result = test.result
         )
 
+    }
+
+    fun convert(measurementResponse: MeasurementResponse): Test{
+        var type = "Sivtsev"
+        if (measurementResponse.type == "цветоощущение"){
+            type = "Rabkin"
+        }
+        return Test(
+            testId = Random.nextLong(),
+            type = type,
+            dateAndTime = measurementResponse.date,
+            result = measurementResponse.result
+        )
     }
 }
