@@ -7,6 +7,7 @@ import com.example.project1729.bt.bluetooth.BluetoothController
 import com.example.project1729.di.appModule
 import com.example.project1729.di.dataModule
 import com.example.project1729.di.repositoryModule
+import com.example.project1729.voice.VoiceAssistantManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -30,16 +31,13 @@ class App : Application() {
         val btAdapter = bManager.adapter
         bluetoothController = BluetoothController(this, btAdapter)
         super.onCreate()
+        VoiceAssistantManager.stop()
 
         startKoin{
             androidContext(this@App)
             modules(appModule, repositoryModule, dataModule)
         }
     }
-
-
-
-
 }
 
 

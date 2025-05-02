@@ -24,29 +24,29 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 class VoiceAssistant(
     private val context: Context,
-    private val callback: VoiceCallback
-) {
+    private var callback: VoiceCallback
+)
+{
     interface VoiceCallback {
         fun onVoiceCommandRecognized(command: String)
         fun onVoiceTextRecognized(text: String, type: String)
         fun onError(error: String)
-        fun onRecordingStarted()
-        fun onRecordingStopped()
+        fun onMessage(message: String) // Новый метод для сообщений
     }
 
     // Audio configuration
     private var audioRecord: AudioRecord? = null
-    private var isRecording = false
     private val executor = Executors.newSingleThreadExecutor()
-    private var lastRecordedFile: File? = null
     private val sampleRate = 44100
     private val channelConfig = AudioFormat.CHANNEL_IN_MONO
     private val audioFormat = AudioFormat.ENCODING_PCM_16BIT
     private val bufferSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
-
+    private val targetBytesPer3Sec = 3 * sampleRate * 2 // 3 секунды в байтах
+    private val isRecording = AtomicBoolean(false)
     // API configuration
     private val apiClient by lazy {
         Retrofit.Builder()
@@ -56,24 +56,31 @@ class VoiceAssistant(
             .create(VoiceApiService::class.java)
     }
 
-    fun toggleRecording() {
-        if (isRecording) {
-            stopRecording()
-        } else {
-            startRecording()
-        }
+    fun start() {
+        if (isRecording.get()) return
+        isRecording.set(true)
+        startRecording()
     }
 
+    fun updateCallback(newCallback: VoiceCallback) {
+        this.callback = newCallback
+    }
+
+    fun stop() {
+        if (!isRecording.get()) return
+        isRecording.set(false)
+        stopRecording()
+    }
+
+    fun isRecording() = isRecording.get()
+
     private fun startRecording() {
-        isRecording = true
-        callback.onRecordingStarted()
-
-
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            callback.onError("Permission denied")
             return
         }
 
@@ -85,32 +92,28 @@ class VoiceAssistant(
             bufferSize
         )
 
-        executor.execute {
-            audioRecord?.startRecording()
-            val buffer = ByteArray(bufferSize)
-            val outputStream = ByteArrayOutputStream()
+        audioRecord?.startRecording()
 
-            while (isRecording) {
+        executor.execute {
+            val buffer = ByteArray(bufferSize)
+            val accumulatedData = ByteArrayOutputStream()
+
+            while (isRecording.get()) {
                 val bytesRead = audioRecord?.read(buffer, 0, bufferSize) ?: 0
                 if (bytesRead > 0) {
-                    outputStream.write(buffer, 0, bytesRead)
+                    accumulatedData.write(buffer, 0, bytesRead)
+                    processAccumulatedData(accumulatedData)
                 }
             }
 
-            saveAsWav(outputStream.toByteArray())
-            outputStream.close()
+            accumulatedData.close()
         }
     }
 
     private fun stopRecording() {
-        isRecording = false
-        callback.onRecordingStopped()
-
         audioRecord?.apply {
             try {
-                if (recordingState == AudioRecord.RECORDSTATE_RECORDING) {
-                    stop()
-                }
+                stop()
                 release()
             } catch (e: IllegalStateException) {
                 Log.e("AudioRecord", "Error stopping recording", e)
@@ -118,21 +121,6 @@ class VoiceAssistant(
             }
         }
         audioRecord = null
-    }
-
-    private fun saveAsWav(pcmData: ByteArray) {
-        val wavFile = File(
-            context.getExternalFilesDir(Environment.DIRECTORY_MUSIC),
-            "recording_${System.currentTimeMillis()}.wav"
-        )
-        lastRecordedFile = wavFile
-
-        FileOutputStream(wavFile).use { fos ->
-            fos.write(createWavHeader(pcmData.size))
-            fos.write(pcmData)
-        }
-
-        uploadAudioFile(wavFile)
     }
 
     private fun createWavHeader(dataSize: Int): ByteArray {
@@ -186,13 +174,40 @@ class VoiceAssistant(
     }
 
     private fun handleRecognitionResult(result: RecognitionResult) {
-        if (result.recognized && result.item != null) {
+        if (result.recognized && result.item != null && result.item.isNotEmpty()) {
             when (result.type) {
                 "command" -> callback.onVoiceCommandRecognized(result.item)
                 else -> callback.onVoiceTextRecognized(result.item, result.type ?: "unknown")
             }
         } else {
-            callback.onError("Command not recognized")
+            callback.onMessage("Говорите громче")
+        }
+    }
+
+    private fun saveAndUploadChunk(chunk: ByteArray) {
+        val wavFile = File(
+            context.getExternalFilesDir(Environment.DIRECTORY_MUSIC),
+            "chunk_${System.currentTimeMillis()}.wav"
+        )
+
+        FileOutputStream(wavFile).use { fos ->
+            fos.write(createWavHeader(chunk.size))
+            fos.write(chunk)
+        }
+
+        uploadAudioFile(wavFile)
+    }
+
+    private fun processAccumulatedData(data: ByteArrayOutputStream) {
+        while (data.size() >= targetBytesPer3Sec) {
+            val chunk = data.toByteArray().copyOf(targetBytesPer3Sec)
+            saveAndUploadChunk(chunk)
+            val remaining = data.toByteArray().copyOfRange(
+                targetBytesPer3Sec,
+                data.size()
+            )
+            data.reset()
+            data.write(remaining)
         }
     }
 
@@ -225,7 +240,7 @@ class VoiceAssistant(
     )
 
     data class RecognitionResult(
-        val recognized: Boolean,
+        val recognized: Boolean,  // Основной флаг распознавания
         val item: String?,
         val type: String?,
         val confidence: Float?,

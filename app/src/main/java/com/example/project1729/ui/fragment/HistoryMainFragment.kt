@@ -1,24 +1,37 @@
 package com.example.project1729.ui.fragment
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project1729.R
 import com.example.project1729.databinding.FragmentHistoryMainBinding
 import com.example.project1729.voice.VoiceAssistant
+import com.example.project1729.voice.VoiceAssistantManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
 
     private lateinit var binding: FragmentHistoryMainBinding
     private lateinit var voiceAssistant: VoiceAssistant
+    private val prefs by lazy {
+        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    }
+    private val HISTORY_HELP_SHOWN_KEY = "help_shown"
+    private val COMMANDS_TOAST_SHOWN_MAIN_HISTORY = "commands_toast_shown_main_history"
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -31,6 +44,7 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        showFirstTimeHelp()
 
 //        binding.historyMainThirdItem.setOnClickListener {
 //            findNavController().navigate(
@@ -45,6 +59,20 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
 //                HistoryContentFragment.createArgs(HISTORY_CONTENT_KCHSM)
 //            )
 //        }
+    }
+
+    private fun showFirstTimeHelp() {
+        if (!prefs.getBoolean(HISTORY_HELP_SHOWN_KEY, false)) {
+            lifecycleScope.launch {
+                delay(500) // Небольшая задержка для полной инициализации UI
+                Toast.makeText(
+                    context,
+                    "Используйте голосовые команды для навигации - скажите: Меню!",
+                    Toast.LENGTH_LONG
+                ).show()
+                prefs.edit().putBoolean(HISTORY_HELP_SHOWN_KEY, true).apply()
+            }
+        }
     }
 
 
@@ -68,14 +96,24 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
             )
         }
 
-        binding.menuVoiceButton.setOnClickListener {
-            if (checkAudioPermission()) {
-                voiceAssistant.toggleRecording()
+        binding.rabkinTestVoiceButton.setOnClickListener {
+            if (VoiceAssistantManager.isRecording()) {
+                VoiceAssistantManager.stop()
             } else {
-                requestAudioPermission()
+                if (checkAudioPermission()) {
+                    VoiceAssistantManager.start()
+                }
             }
+            updateButtonState()
         }
 
+    }
+
+    private fun updateButtonState() {
+        binding.rabkinTestVoiceButton.setImageResource(
+            if (VoiceAssistantManager.isRecording()) R.drawable.ic_mic_on
+            else R.drawable.audio_mic_off_24
+        )
     }
 
     private fun checkAudioPermission(): Boolean {
@@ -100,9 +138,36 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 200
     }
 
+    private val availableCommands = listOf(
+        "Первый тест" to "Выбрать цветовосприятие",
+        "Вротой тест" to "Выбрать остроту зрения",
+        "меню" to "Показать список доступных команд",
+        "назад" to "Завершить просмотр истории",
+    )
+
     override fun onVoiceCommandRecognized(command: String) {
         activity?.runOnUiThread {
             when (command) {
+                "меню" -> {
+                    val commandsText = availableCommands.joinToString("\n") {
+                        "• ${it.first} - ${it.second}"
+                    }
+                    Toast.makeText(
+                        context,
+                        "Доступные команды:\n$commandsText",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                "команды" -> {
+                    val commandsText = availableCommands.joinToString("\n") {
+                        "• ${it.first} - ${it.second}"
+                    }
+                    Toast.makeText(
+                        context,
+                        "Доступные команды:\n$commandsText",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
                 "назад" -> {
                     findNavController().navigateUp()
                 }
@@ -160,18 +225,58 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
         }
     }
 
-    override fun onRecordingStarted() {
-        activity?.runOnUiThread {
-            binding.menuVoiceButton.setImageResource(R.drawable.audio_mic_off_24)
-            Toast.makeText(context, "Запись...", Toast.LENGTH_SHORT).show()
+    private fun showCommandsToast() {
+        val commandsText = availableCommands.joinToString("\n") {
+            "• ${it.first} - ${it.second}"
+        }
+
+        // Создаем кастомный Toast
+        val toast = Toast(context).apply {
+            duration = Toast.LENGTH_LONG
+            view = layoutInflater.inflate(R.layout.toast_wide_layout, null).apply {
+                findViewById<TextView>(R.id.toast_text).text = "Доступные команды:\n$commandsText"
+            }
+        }
+
+        // Настраиваем ширину и позиционирование
+        toast.setGravity(Gravity.TOP or Gravity.FILL_HORIZONTAL, 0, 32.toPx())
+        toast.show()
+    }
+
+    private fun Int.toPx(): Int = (this * resources.displayMetrics.density).toInt()
+
+
+    override fun onResume() {
+        super.onResume()
+        showCommandsToastIfNeeded()
+
+        VoiceAssistantManager.registerCallback(this)
+        updateButtonState()
+    }
+
+    private fun showCommandsToastIfNeeded() {
+        if (!prefs.getBoolean(COMMANDS_TOAST_SHOWN_MAIN_HISTORY, false)) {
+            showCommandsToast()
+            prefs.edit().putBoolean(COMMANDS_TOAST_SHOWN_MAIN_HISTORY, true).apply()
         }
     }
 
-    override fun onRecordingStopped() {
+    override fun onPause() {
+        super.onPause()
+        VoiceAssistantManager.unregisterCallback()
+    }
+
+
+    override fun onMessage(message: String) {
         activity?.runOnUiThread {
-            binding.menuVoiceButton.setImageResource(R.drawable.ic_mic_on)
-            Toast.makeText(context, "Обработка...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Говорите громче!", Toast.LENGTH_SHORT).show()
+
+            lifecycleScope.launch {
+                delay(3000)
+
+            }
         }
     }
+
 
 }

@@ -1,10 +1,13 @@
 package com.example.project1729.ui.fragment
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -28,6 +31,7 @@ import com.example.project1729.databinding.FragmentRabkinResultsBinding
 import com.example.project1729.ui.fragment.MenuFragment.Companion
 import com.example.project1729.ui.view_model.RabkinTestViewModel
 import com.example.project1729.voice.VoiceAssistant
+import com.example.project1729.voice.VoiceAssistantManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -40,6 +44,11 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel by viewModel<RabkinTestViewModel>()
+    private val prefs by lazy {
+        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+    }
+    private val HISTORY_HELP_SHOWN_KEY = "help_shown"
+    private val COMMANDS_TOAST_SHOWN_KEY_RESULT = "commands_toast_shown_result"
 
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
@@ -50,6 +59,7 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
         voiceAssistant = VoiceAssistant(requireContext(), this)
         initializeFragment()
         setupUI()
+        showFirstTimeHelp()
 
         return binding.root
     }
@@ -57,11 +67,14 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
     private fun setupUI() {
         // Voice assistant button click listener
         binding.rabkinTestVoiceButton.setOnClickListener {
-            if (checkAudioPermission()) {
-                voiceAssistant.toggleRecording()
+            if (VoiceAssistantManager.isRecording()) {
+                VoiceAssistantManager.stop()
             } else {
-                requestAudioPermission()
+                if (checkAudioPermission()) {
+                    VoiceAssistantManager.start()
+                }
             }
+            updateButtonState()
         }
 
         binding.rabkinResultsFinishButton.setOnClickListener {
@@ -74,6 +87,20 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
 
         binding.rabkinResultOverlay.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+    }
+
+    private fun showFirstTimeHelp() {
+        if (!prefs.getBoolean(HISTORY_HELP_SHOWN_KEY, false)) {
+            lifecycleScope.launch {
+                delay(500) // Небольшая задержка для полной инициализации UI
+                Toast.makeText(
+                    context,
+                    "Используйте голосовые команды для навигации - скажите: Меню!",
+                    Toast.LENGTH_LONG
+                ).show()
+                prefs.edit().putBoolean(HISTORY_HELP_SHOWN_KEY, true).apply()
+            }
         }
     }
 
@@ -202,9 +229,49 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    private fun showCommandsToast() {
+        val commandsText = availableCommands.joinToString("\n") {
+            "• ${it.first} - ${it.second}"
+        }
+
+        // Создаем кастомный Toast
+        val toast = Toast(context).apply {
+            duration = Toast.LENGTH_LONG
+            view = layoutInflater.inflate(R.layout.toast_wide_layout, null).apply {
+                findViewById<TextView>(R.id.toast_text).text = "Доступные команды:\n$commandsText"
+            }
+        }
+
+        // Настраиваем ширину и позиционирование
+        toast.setGravity(Gravity.TOP or Gravity.FILL_HORIZONTAL, 0, 32.toPx())
+        toast.show()
     }
+
+    private fun Int.toPx(): Int = (this * resources.displayMetrics.density).toInt()
+
+    override fun onResume() {
+        super.onResume()
+        showCommandsToastIfNeeded()
+        VoiceAssistantManager.registerCallback(this)
+        updateButtonState()
+    }
+
+    private fun showCommandsToastIfNeeded() {
+        if (!prefs.getBoolean(COMMANDS_TOAST_SHOWN_KEY_RESULT, false)) {
+            showCommandsToast()
+            prefs.edit().putBoolean(COMMANDS_TOAST_SHOWN_KEY_RESULT, true).apply()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        VoiceAssistantManager.unregisterCallback()
+    }
+
+    private val availableCommands = listOf(
+        "завершить" to "Завершить тест и вернуться в меню",
+        "меню" to "Показать список доступных команд"
+    )
 
     override fun onVoiceCommandRecognized(command: String) {
         activity?.runOnUiThread {
@@ -214,7 +281,26 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
                         navigateToMenu()
                     }
                 }
-
+                "меню" -> {
+                    val commandsText = availableCommands.joinToString("\n") {
+                        "• ${it.first} - ${it.second}"
+                    }
+                    Toast.makeText(
+                        context,
+                        "Доступные команды:\n$commandsText",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                "команды" -> {
+                    val commandsText = availableCommands.joinToString("\n") {
+                        "• ${it.first} - ${it.second}"
+                    }
+                    Toast.makeText(
+                        context,
+                        "Доступные команды:\n$commandsText",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
                 else -> Toast.makeText(
                     context,
                     "Команда '$command' не поддерживается",
@@ -223,6 +309,13 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
             }
         }
 
+    }
+
+    private fun updateButtonState() {
+        binding.rabkinTestVoiceButton.setImageResource(
+            if (VoiceAssistantManager.isRecording()) R.drawable.ic_mic_on
+            else R.drawable.audio_mic_off_24
+        )
     }
 
     override fun onVoiceTextRecognized(text: String, type: String) {
@@ -235,17 +328,15 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
         }
     }
 
-    override fun onRecordingStarted() {
+    override fun onMessage(message: String) {
         activity?.runOnUiThread {
-            binding.rabkinTestVoiceButton.setImageResource(R.drawable.audio_mic_off_24)
-            Toast.makeText(context, "Запись...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Говорите громче!", Toast.LENGTH_SHORT).show()
+
+            lifecycleScope.launch {
+                delay(3000)
+
+            }
         }
     }
 
-    override fun onRecordingStopped() {
-        activity?.runOnUiThread {
-            binding.rabkinTestVoiceButton.setImageResource(R.drawable.ic_mic_on)
-            Toast.makeText(context, "Обработка...", Toast.LENGTH_SHORT).show()
-        }
-    }
 }
