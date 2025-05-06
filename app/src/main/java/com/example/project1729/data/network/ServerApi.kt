@@ -6,8 +6,7 @@ import com.example.project1729.data.model.MeasurementRequest
 import com.example.project1729.data.model.MeasurementResponse
 import com.example.project1729.data.model.MeasurementsResponse
 import com.example.project1729.data.model.RegisterResponse
-import com.example.project1729.data.model.SignupRequest
-import com.example.project1729.domain.model.Measurement
+import com.example.project1729.data.model.RegisterRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,7 +18,7 @@ interface ServerApi {
     suspend fun postLogin(@Body request: LoginRequest): Response<LoginResponse>
 
     @POST("auth/signup")
-    suspend fun post(@Body request: SignupRequest): Response<RegisterResponse>
+    suspend fun post(@Body request: RegisterRequest): Response<RegisterResponse>
 
     @POST("measurements/add-results")
     suspend fun addMeasurement(@Body request: MeasurementRequest): Response<MeasurementResponse>

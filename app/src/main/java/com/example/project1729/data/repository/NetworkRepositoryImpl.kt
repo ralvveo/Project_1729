@@ -3,15 +3,14 @@ package com.example.project1729.data.repository
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.annotation.UiThread
 import com.example.project1729.data.db.Database
+import com.example.project1729.data.model.DeleteRequest
+import com.example.project1729.data.model.DeleteResponse
 import com.example.project1729.data.model.LoginRequest
-import com.example.project1729.data.model.MeasurementRequest
-import com.example.project1729.data.model.SignupRequest
+import com.example.project1729.data.model.RegisterRequest
 import com.example.project1729.data.model.User
 import com.example.project1729.data.network.ServerApi
 import com.example.project1729.domain.converter.Converter
-import com.example.project1729.domain.model.Measurement
 import com.example.project1729.domain.model.UserLogin
 import com.example.project1729.domain.model.UserRegister
 import com.example.project1729.domain.repository.NetworkRepository
@@ -63,6 +62,8 @@ class NetworkRepositoryImpl(val context: Context, val serverApi: ServerApi, val 
 
 
     override fun registerNewUser(user: UserRegister): Flow<TryRegisterState> = flow {
+        val a = DeleteResponse("", "")
+        val b = DeleteRequest("", "")
         emit(TryRegisterState.Loading)
         try {
             var diagnoz = ""
@@ -70,15 +71,17 @@ class NetworkRepositoryImpl(val context: Context, val serverApi: ServerApi, val 
                 diagnoz = "ok"
             }
             val request =
-                SignupRequest(
+                RegisterRequest(
                     login = user.login,
                     password = user.password,
                     fio = user.fio,
                     year = user.year,
                     diagnoz = diagnoz,
                 )
+            Log.d("RRRRRK", request.toString())
             val response = serverApi.post(request)
             val message = response.body()?.message ?: "no message"
+            Log.d("RRRRR", message)
             if (message == "Пользователь успешно зарегистрирован") {
                 emit(TryRegisterState.Success)
             } else {
