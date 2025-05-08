@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project1729.R
+import com.example.project1729.data.keys.RABKIN_RESULTS.CURRENT_MEASURE
 import com.example.project1729.databinding.FragmentHistoryMainBinding
 import com.example.project1729.voice.VoiceAssistant
 import com.example.project1729.voice.VoiceAssistantManager
@@ -78,6 +79,11 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
 
     private fun setupUI() {
 
+        binding.rabkinTestVoiceButton.setOnLongClickListener {
+            showCommandsToast()
+            true
+        }
+
         binding.historyMainButtonBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -139,36 +145,73 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "Первый тест" to "Выбрать цветовосприятие",
-        "Вротой тест" to "Выбрать остроту зрения",
+        "Первый" to "Выбрать цветовосприятие",
+        "Второй" to "Выбрать остроту зрения",
         "меню" to "Показать список доступных команд",
-        "назад" to "Завершить просмотр истории",
+        "вперед" to "Завершить просмотр истории",
     )
+
+    override fun onVoiceTextRecognized(text: String, type: String) {
+        activity?.runOnUiThread {
+            when (type) {
+                "command" -> onVoiceCommandRecognized(text)
+                "number" -> handleNumberCommand(text)
+                else -> handleCustomLogic(text, type)
+            }
+        }
+    }
+
+    private fun handleNumberCommand(number: String) {
+        when (number) {
+            "один" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_RABKIN)
+                )
+            }
+            "два" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
+                )
+            }
+            "первый" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_RABKIN)
+                )
+            }
+            "второй" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
+                )
+            }
+            "треугольник" -> {
+
+            }
+        }
+    }
+
+    private fun handleCustomLogic(text: String, type: String?) {
+        Toast.makeText(context, "Распознано: $text ($type)", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onVoiceCommandRecognized(command: String) {
         activity?.runOnUiThread {
             when (command) {
                 "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
+
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "назад" -> {
+                    findNavController().navigateUp()
+                }
+
+                "вперед" -> {
                     findNavController().navigateUp()
                 }
                 "цветоощущение" -> {
@@ -185,6 +228,13 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     )
                 }
 
+                "один" -> {
+                    findNavController().navigate(
+                        R.id.action_historyMainFragment_to_historyContentFragment,
+                        HistoryContentFragment.createArgs(HISTORY_CONTENT_RABKIN)
+                    )
+                }
+
                 "цветовосприятие" -> {
                     findNavController().navigate(
                         R.id.action_historyMainFragment_to_historyContentFragment,
@@ -192,7 +242,27 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     )
                 }
 
+                "первый" -> {
+                    findNavController().navigate(
+                        R.id.action_historyMainFragment_to_historyContentFragment,
+                        HistoryContentFragment.createArgs(HISTORY_CONTENT_RABKIN)
+                    )
+                }
+                "второй" -> {
+                    findNavController().navigate(
+                        R.id.action_historyMainFragment_to_historyContentFragment,
+                        HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
+                    )
+                }
+
                 "острота зрения" -> {
+                    findNavController().navigate(
+                        R.id.action_historyMainFragment_to_historyContentFragment,
+                        HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
+                    )
+                }
+
+                "два" -> {
                     findNavController().navigate(
                         R.id.action_historyMainFragment_to_historyContentFragment,
                         HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
@@ -213,10 +283,6 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 ).show()
             }
         }
-    }
-
-    override fun onVoiceTextRecognized(text: String, type: String) {
-        TODO("Not yet implemented")
     }
 
     override fun onError(error: String) {

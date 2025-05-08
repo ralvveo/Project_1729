@@ -96,6 +96,11 @@ class RabkinTestFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 currentText = text.toString()
             }
 
+            binding.rabkinTestVoiceButton.setOnLongClickListener {
+                showCommandsToast()
+                true
+            }
+
             rabkinTestButton.setOnClickListener {
                 val finish = doAnswer()
                 if (finish) {
@@ -335,24 +340,10 @@ class RabkinTestFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     }
                 }
                 "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "назад" -> showExitDialog()
                 else -> Toast.makeText(context, "Команда '$command' не поддерживается", Toast.LENGTH_SHORT).show()

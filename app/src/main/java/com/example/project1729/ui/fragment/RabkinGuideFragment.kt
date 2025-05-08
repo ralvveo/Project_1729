@@ -70,6 +70,11 @@ class RabkinGuideFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 SHOW_QUESTION = true
             }
         }
+
+        binding.rabkinTestVoiceButton.setOnLongClickListener {
+            showCommandsToast()
+            true
+        }
         if (CURRENT_MEASURE == "rabkin"){
             binding.rabkinGuideTitle.setText(R.string.rabkin_guide_title)
             binding.rabkinGuideText.setText(R.string.rabkin_guide_text)
@@ -174,25 +179,19 @@ class RabkinGuideFragment : Fragment(), VoiceAssistant.VoiceCallback {
                         Toast.makeText(context, "Дождитесь окончания таймера", Toast.LENGTH_SHORT).show()
                     }
                 }
-                "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
+                "вперед" -> {
+                    if (binding.rabkinStartButton.isEnabled) {
+                        startTest()
+                    } else {
+                        Toast.makeText(context, "Дождитесь окончания таймера", Toast.LENGTH_SHORT).show()
                     }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                }
+                "меню" -> {
+                    showCommandsToast()
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
+
                 }
                 else -> Toast.makeText(context, "Команда '$command' не поддерживается", Toast.LENGTH_SHORT).show()
             }
@@ -200,7 +199,24 @@ class RabkinGuideFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     override fun onVoiceTextRecognized(text: String, type: String) {
-        TODO("Not yet implemented")
+        activity?.runOnUiThread {
+            when (type) {
+                "command" -> onVoiceCommandRecognized(text)
+                "number" -> handleNumberCommand(text)
+                else -> handleCustomLogic(text, type)
+            }
+        }
+    }
+
+    private fun handleNumberCommand(number: String) {
+        when (number) {
+            "треугольник" -> {
+            }
+        }
+    }
+
+    private fun handleCustomLogic(text: String, type: String?) {
+        Toast.makeText(context, "Распознано: $text ($type)", Toast.LENGTH_SHORT).show()
     }
 
     override fun onError(error: String) {

@@ -72,6 +72,11 @@ class HistoryContentFragment : Fragment(), VoiceAssistant.VoiceCallback {
             findNavController().navigateUp()
         }
 
+        binding.rabkinTestVoiceButton.setOnLongClickListener {
+            showCommandsToast()
+            true
+        }
+
         binding.historyContentClearButton.setOnClickListener {
             deleteHistory()
         }
@@ -219,26 +224,16 @@ class HistoryContentFragment : Fragment(), VoiceAssistant.VoiceCallback {
         activity?.runOnUiThread {
             when (command) {
                 "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "назад" -> {
+                    findNavController().navigateUp()
+                }
+
+                "вперед" -> {
                     findNavController().navigateUp()
                 }
                 else -> Toast.makeText(
@@ -295,7 +290,25 @@ class HistoryContentFragment : Fragment(), VoiceAssistant.VoiceCallback {
 
 
     override fun onVoiceTextRecognized(text: String, type: String) {
-        TODO("Not yet implemented")
+        activity?.runOnUiThread {
+            when (type) {
+                "command" -> onVoiceCommandRecognized(text)
+                "number" -> handleNumberCommand(text)
+                else -> handleCustomLogic(text, type)
+            }
+        }
+    }
+
+    private fun handleCustomLogic(text: String, type: String?) {
+        Toast.makeText(context, "Распознано: $text ($type)", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleNumberCommand(number: String) {
+        when (number) {
+            "треугольник" -> {
+
+            }
+        }
     }
 
     override fun onError(error: String) {

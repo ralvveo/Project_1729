@@ -48,6 +48,7 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
         updateButtonState()
         setupUI()
         showFirstTimeHelp()
+        requestAudioPermission()
     }
 
     private fun showFirstTimeHelp() {
@@ -76,6 +77,11 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
         }
         binding.menuProfileArrow.setOnClickListener {
             showExitDialog()
+        }
+
+        binding.rabkinTestVoiceButton.setOnLongClickListener {
+            showCommandsToast()
+            true
         }
 
         binding.menuProfileHistoryButton.setOnClickListener {
@@ -154,36 +160,26 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "Первый тест" to "Выбрать цветовосприятие",
-        "Второй тест" to "Выбрать остроту зрения",
+        "Первый" to "Выбрать цветовосприятие",
+        "Второй" to "Выбрать остроту зрения",
         "меню" to "Показать список доступных команд",
-        "История" to "Перейти к меню Истории",
+        "Вперед" to "Перейти к меню Истории",
     )
 
     override fun onVoiceCommandRecognized(command: String) {
         activity?.runOnUiThread {
             when (command) {
                 "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 "история" -> {
+                    findNavController().navigate(R.id.action_menuFragment_to_historyMainFragment)
+                }
+
+                "вперед" -> {
                     findNavController().navigate(R.id.action_menuFragment_to_historyMainFragment)
                 }
                 "цветоощущение" -> {
@@ -192,6 +188,11 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 }
 
                 "первый тест" -> {
+                    findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                    CURRENT_MEASURE = "rabkin"
+                }
+
+                "один" -> {
                     findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
                     CURRENT_MEASURE = "rabkin"
                 }
@@ -207,6 +208,20 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 }
 
                 "второй тест" -> {
+                    findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                    CURRENT_MEASURE = "sivtsev"
+                }
+
+                "первый" -> {
+                    findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                    CURRENT_MEASURE = "rabkin"
+                }
+                "второй" -> {
+                    findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                    CURRENT_MEASURE = "sivtsev"
+                }
+
+                "два" -> {
                     findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
                     CURRENT_MEASURE = "sivtsev"
                 }
@@ -255,7 +270,41 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     override fun onVoiceTextRecognized(text: String, type: String) {
-        TODO("Not yet implemented")
+        activity?.runOnUiThread {
+            when (type) {
+                "command" -> onVoiceCommandRecognized(text)
+                "number" -> handleNumberCommand(text)
+                else -> handleCustomLogic(text, type)
+            }
+        }
+    }
+
+    private fun handleCustomLogic(text: String, type: String?) {
+        Toast.makeText(context, "Распознано: $text ($type)", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleNumberCommand(number: String) {
+        when (number) {
+            "один" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "rabkin"
+            }
+            "два" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "sivtsev"
+            }
+            "первый" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "rabkin"
+            }
+            "второй" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "sivtsev"
+            }
+            "треугольник" -> {
+
+            }
+        }
     }
 
     override fun onError(error: String) {

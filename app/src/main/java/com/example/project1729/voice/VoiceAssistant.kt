@@ -45,12 +45,12 @@ class VoiceAssistant(
     private val channelConfig = AudioFormat.CHANNEL_IN_MONO
     private val audioFormat = AudioFormat.ENCODING_PCM_16BIT
     private val bufferSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
-    private val targetBytesPer3Sec = 3 * sampleRate * 2 // 3 секунды в байтах
+    private val targetBytesPer3Sec = 5 * sampleRate * 2 // 3 секунды в байтах
     private val isRecording = AtomicBoolean(false)
     // API configuration
     private val apiClient by lazy {
         Retrofit.Builder()
-            .baseUrl("http://185.207.0.128:5000")
+            .baseUrl("http://192.168.99.183:5000")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VoiceApiService::class.java)

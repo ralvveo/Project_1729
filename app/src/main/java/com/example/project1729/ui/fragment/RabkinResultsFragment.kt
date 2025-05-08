@@ -77,6 +77,11 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
             updateButtonState()
         }
 
+        binding.rabkinTestVoiceButton.setOnLongClickListener {
+            showCommandsToast()
+            true
+        }
+
         binding.rabkinResultsFinishButton.setOnClickListener {
             navigateToMenu()
         }
@@ -269,7 +274,7 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "завершить" to "Завершить тест и вернуться в меню",
+        "вперед" to "Завершить тест и вернуться в меню",
         "меню" to "Показать список доступных команд"
     )
 
@@ -281,25 +286,16 @@ class RabkinResultsFragment : Fragment(), VoiceAssistant.VoiceCallback {
                         navigateToMenu()
                     }
                 }
-                "меню" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
+                "вперед" -> {
+                    activity?.runOnUiThread {
+                        navigateToMenu()
                     }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                }
+                "меню" -> {
+                    showCommandsToast()
                 }
                 "команды" -> {
-                    val commandsText = availableCommands.joinToString("\n") {
-                        "• ${it.first} - ${it.second}"
-                    }
-                    Toast.makeText(
-                        context,
-                        "Доступные команды:\n$commandsText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showCommandsToast()
                 }
                 else -> Toast.makeText(
                     context,
