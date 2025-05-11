@@ -50,7 +50,7 @@ class VoiceAssistant(
     // API configuration
     private val apiClient by lazy {
         Retrofit.Builder()
-            .baseUrl("http://185.207.0.128:5000")
+            .baseUrl("http://192.168.99.183:5000")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VoiceApiService::class.java)
