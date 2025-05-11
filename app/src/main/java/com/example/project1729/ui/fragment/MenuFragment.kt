@@ -160,10 +160,10 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "Первый" to "Выбрать цветовосприятие",
-        "Второй" to "Выбрать остроту зрения",
-        "меню" to "Показать список доступных команд",
-        "Вперед" to "Перейти к меню Истории",
+        "Цветовосприятие, первый тест, первый" to "Выбрать цветовосприятие",
+        "Острота зрения, второй тест, второй" to "Выбрать остроту зрения",
+        "меню, команды" to "Показать список доступных команд",
+        "Вперед, история" to "Перейти к меню Истории",
     )
 
     override fun onVoiceCommandRecognized(command: String) {
@@ -298,6 +298,14 @@ class MenuFragment : Fragment(), VoiceAssistant.VoiceCallback {
                 CURRENT_MEASURE = "rabkin"
             }
             "второй" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "sivtsev"
+            }
+            "цветовосприятие" -> {
+                findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
+                CURRENT_MEASURE = "rabkin"
+            }
+            "острота зрения" -> {
                 findNavController().navigate(R.id.action_menuFragment_to_rabkinGuideFragment)
                 CURRENT_MEASURE = "sivtsev"
             }

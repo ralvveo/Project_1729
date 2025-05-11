@@ -216,8 +216,8 @@ class HistoryContentFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "назад" to "Вернуться назад",
-        "меню" to "Показать список доступных команд"
+        "назад, вперед, завершить" to "Вернуться назад",
+        "меню, команды" to "Показать список доступных команд"
     )
 
     override fun onVoiceCommandRecognized(command: String) {
@@ -230,6 +230,10 @@ class HistoryContentFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     showCommandsToast()
                 }
                 "назад" -> {
+                    findNavController().navigateUp()
+                }
+
+                "завершить" -> {
                     findNavController().navigateUp()
                 }
 

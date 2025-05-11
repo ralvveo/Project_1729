@@ -165,8 +165,8 @@ class RabkinGuideFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "начать" to "Начать тест",
-        "меню" to "Показать список доступных команд"
+        "начать, вперед," to "Начать тест",
+        "меню, команды" to "Показать список доступных команд"
     )
 
     override fun onVoiceCommandRecognized(command: String) {

@@ -145,10 +145,10 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
     }
 
     private val availableCommands = listOf(
-        "Первый" to "Выбрать цветовосприятие",
-        "Второй" to "Выбрать остроту зрения",
-        "меню" to "Показать список доступных команд",
-        "вперед" to "Завершить просмотр истории",
+        "цветовосприятие, первый" to "Выбрать цветовосприятие",
+        "острота зрения, второй" to "Выбрать остроту зрения",
+        "меню, команды" to "Показать список доступных команд",
+        "вперед, завершить" to "Завершить просмотр истории",
     )
 
     override fun onVoiceTextRecognized(text: String, type: String) {
@@ -187,6 +187,18 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
                 )
             }
+            "цветовосприятие" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_RABKIN)
+                )
+            }
+            "острота зрения" -> {
+                findNavController().navigate(
+                    R.id.action_historyMainFragment_to_historyContentFragment,
+                    HistoryContentFragment.createArgs(HISTORY_CONTENT_SIVTSEV)
+                )
+            }
             "треугольник" -> {
 
             }
@@ -208,6 +220,10 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     showCommandsToast()
                 }
                 "назад" -> {
+                    findNavController().navigateUp()
+                }
+
+                "завершить" -> {
                     findNavController().navigateUp()
                 }
 
