@@ -132,7 +132,7 @@ class RabkinRepositoryImpl(private val database: Database, val context: Context,
         val correctAnswer = sivtsevTest.answer
         if (correctAnswer == userAnswer.uppercase()){
 
-            if (SIVTSEV_NUMBER_TO_SHOW_FROM_LEVEL == 1){
+            if ((SIVTSEV_NUMBER_TO_SHOW_FROM_LEVEL == 1) or (SIVTSEV_CURRENT_LEVEL <= 5)){
                 if (SIVTSEV_CURRENT_LEVEL == SIVTSEV_MAX_LEVEL){
                     SIVTSEV_NUMBER_TO_SHOW_FROM_LEVEL = 2
                     SIVTSEV_CURRENT_LEVEL_WRONG = 0

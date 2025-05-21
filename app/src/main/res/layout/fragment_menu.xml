@@ -99,7 +99,7 @@
             android:id="@+id/menuImage"
             android:layout_width="190dp"
             android:layout_height="130dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/picture_2"
             android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_title"
+                android:layout_marginTop="4dp"
                 android:layout_gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,6 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_text"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menuTitle" />
@@ -129,14 +131,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/menuFirstItem"
                 android:layout_width="0dp"
-                android:layout_height="92dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menuText"
                 app:layout_constraintBottom_toTopOf="@+id/menuSecondItem"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/menu_item_bg"
                 android:clickable="true"
                 android:focusable="true"
@@ -193,7 +195,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/menuSecondItem"
                 android:layout_width="0dp"
-                android:layout_height="92dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,13 +256,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/menuThirdItem"
                 android:layout_width="0dp"
-                android:layout_height="92dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/menuSecondItem"
-                app:layout_constraintBottom_toTopOf="@+id/menuFourthItem"
+                app:layout_constraintBottom_toTopOf="@+id/menuInvisibleView"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/menu_item_bg"
                 android:clickable="true"
@@ -278,7 +280,7 @@
                     app:layout_constraintBottom_toTopOf="@id/menuThirdItemText"
                     app:layout_constraintVertical_chainStyle="packed"
                     android:layout_marginStart="16dp"
-                    android:text="@string/menu_third_title"
+                    android:text="@string/menu_fourth_title"
                     style="@style/MenuItemTitleStyle"
                     />
 
@@ -293,7 +295,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="4dp"
-                    android:text="@string/menu_third_descr"
+                    android:text="@string/menu_fourth_descr"
                     style="@style/MenuItemTextStyle"
                     android:ellipsize="end"
                     />
@@ -312,71 +314,13 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/menuFourthItem"
-                android:layout_width="0dp"
-                android:layout_height="92dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menuThirdItem"
-                app:layout_constraintBottom_toBottomOf="@id/menuInvisibleView"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/menu_item_bg"
-                android:clickable="true"
-                android:focusable="true"
-                >
 
-                <TextView
-                    android:id="@+id/menuFourthItemTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/menuFourthItemText"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/menu_fourth_title"
-                    style="@style/MenuItemTitleStyle"
-                    />
-
-
-                <TextView
-                    android:id="@+id/menuFourthItemText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/menuFourthItemArrow"
-                    app:layout_constraintTop_toBottomOf="@id/menuFourthItemTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="@string/menu_fourth_descr"
-                    style="@style/MenuItemTextStyle"
-                    android:ellipsize="end"
-                    />
-
-                <ImageView
-                    android:id="@+id/menuFourthItemArrow"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:src="@drawable/menu_item_arrow"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="16dp"
-                    />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/menuInvisibleView"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                app:layout_constraintTop_toBottomOf="@id/menuFourthItem"
+                app:layout_constraintTop_toBottomOf="@id/menuThirdItem"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
