@@ -55,6 +55,10 @@ class MenuFragment : Fragment() {
             CURRENT_MEASURE = "sivtsev"
         }
 
+        binding.menuThirdItem.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_kchsmFragment)
+        }
+
         binding.menuProfileHistoryButton.setOnClickListener {
             findNavController().navigate(R.id.action_menuFragment_to_historyMainFragment)
         }

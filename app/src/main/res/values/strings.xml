@@ -7,7 +7,7 @@
     <string name="testing_eye">Тестируемый глаз</string>
     <string name="measurement_method">Метод измерения</string>
     <string name="radiation_intensity">Интенсивность</string>
-    <string name="diode_color">Цвет светодиода</string>
+    <string name="diode_color">Выберите цвет светодиода</string>
     <string name="measure_kchsm">Измерить КЧСМ</string>
     <string name="stop">Подключиться</string>
     <string name="KCHSM">КЧСМ:</string>
@@ -173,12 +173,13 @@
 
     <string name="history_rabkin_title">Тесты на цветовосприятие</string>
     <string name="history_sivtsev_title">Тесты на остроту зрения</string>
+    <string name="history_kchsm_title">Измерения КЧСМ</string>
     <string name="history_photo_title">Cнимки глазного дна</string>
     <string name="history_KCHSM_title">Измерения КЧСМ</string>
     <string name="history_rabkin_text">Здесь находятся результаты\nтестов на цветовосприятие</string>
     <string name="history_sivtsev_text">Здесь находятся результаты\nтестов на остроту зрения</string>
+    <string name="history_kchsm_text">Здесь находятся результаты\nизмерений КЧСМ</string>
     <string name="history_photo_text">Здесь находятся снимки\nглазного дна</string>
-    <string name="history_KCHSM_text">Здесь находятся результаты\nизмерений КЧСМ</string>
     <string name="history_placeholder_title">Здесь пока ничего нет :(</string>
     <string name="history_placeholder_text">Пройдите первый тест,\nчтобы увидеть ваш результат</string>
 
@@ -191,4 +192,11 @@
     <string name="exit_account_descr">Вы будете перенесены на страницу входа.</string>
     <string name="exit_account_confirm">Выйти</string>
     <string name="exit_account_cancel">Остаться</string>
+
+    <string name="kchsm_title">Измерение КЧСМ</string>
+    <string name="kchsm_text">Измеряйте значение критической\nчастоты слияния световых мельканий</string>
+    <string name="kchsm_text2">Выберите глаз для проведения измерений</string>
+    <string name="kchsm_result">-- Гц</string>
+
+
 </resources>

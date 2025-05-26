@@ -111,6 +111,15 @@ class NetworkRepositoryImpl(val context: Context, val serverApi: ServerApi, val 
                 database.testDao().insertTest(Converter.convert(test = test))
             }
 
+            val responseList3 = serverApi.getMeasurements(userId = userID?.toInt() ?: 1, type = "кчсм").body()?.measurements
+            val testsList3 = responseList3?.map {measurement -> Converter.convert(measurement) } ?: listOf()
+            database.testDao().deleteTests("KCHSM")
+            for (test in testsList3){
+                database.testDao().insertTest(Converter.convert(test = test))
+            }
+
+
+
         }
     }
 

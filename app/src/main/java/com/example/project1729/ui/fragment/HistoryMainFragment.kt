@@ -43,19 +43,14 @@ class HistoryMainFragment : Fragment() {
         }
 
 
-//        binding.historyMainThirdItem.setOnClickListener {
-//            findNavController().navigate(
-//                R.id.action_historyMainFragment_to_historyContentFragment,
-//                HistoryContentFragment.createArgs(HISTORY_CONTENT_KCHSM)
-//            )
-//        }
-//
-//        binding.historyMainFourthItem.setOnClickListener {
-//            findNavController().navigate(
-//                R.id.action_historyMainFragment_to_historyContentFragment,
-//                HistoryContentFragment.createArgs(HISTORY_CONTENT_KCHSM)
-//            )
-//        }
+        binding.historyMainThirdItem.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_historyMainFragment_to_historyContentFragment,
+                HistoryContentFragment.createArgs(HISTORY_CONTENT_KCHSM)
+            )
+        }
+
+
     }
 
 

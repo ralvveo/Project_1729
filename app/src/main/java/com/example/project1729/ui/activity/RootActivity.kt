@@ -1,27 +1,31 @@
 package com.example.project1729.ui.activity
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.project1729.R
+import com.example.project1729.bt.basic.BluetoothConstants
+import com.example.project1729.bt.basic.ItemAdapter
+import com.example.project1729.bt.basic.ListItem
 import com.example.project1729.databinding.ActivityRootBinding
 
 
-class RootActivity : AppCompatActivity(){
+class RootActivity : AppCompatActivity(), ItemAdapter.Listener{
 
     private lateinit var binding: ActivityRootBinding
-
-
+    private var preference: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        preference = getSharedPreferences(BluetoothConstants.PREFERENCE, Context.MODE_PRIVATE)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         val navInflater = navController.navInflater
@@ -50,6 +54,15 @@ class RootActivity : AppCompatActivity(){
                 }
             }
         }
+    }
+
+    override fun onClick(item: ListItem) {
+        saveMac(item.device.address)
+    }
+    private fun saveMac(mac: String){ //для сохранения мак адреса выбранного устройства
+        val editor = preference?.edit()
+        editor?.putString(BluetoothConstants.MAC, mac)
+        editor?.apply()
     }
 
     companion object{

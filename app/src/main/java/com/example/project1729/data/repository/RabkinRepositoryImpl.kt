@@ -184,6 +184,8 @@ class RabkinRepositoryImpl(private val database: Database, val context: Context,
         if (type == "Sivtsev"){
             newType = "острота"
         }
+        if (type == "KCHSM")
+            newType = "кчсм"
 
         val currentMeasurement = MeasurementRequest(userID = userID?.toInt() ?: 1, type = newType, result = resultConverter(result), date = currentDate)
         saveMeasurement(currentMeasurement)
@@ -203,6 +205,8 @@ class RabkinRepositoryImpl(private val database: Database, val context: Context,
             "protanopy" -> "Протанопия"
             "deiteranopy" -> "Дейтеранопия"
             "bad" -> "Близорукость"
+            "low" -> "Низкое знач."
+            "high" -> "Высокое знач."
             else -> "Норма"
 
         }

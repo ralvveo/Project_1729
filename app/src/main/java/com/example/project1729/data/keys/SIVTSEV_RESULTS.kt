@@ -10,5 +10,5 @@ object SIVTSEV_RESULTS {
     var SIVTSEV_RESULT = ""
     var SIVTSEV_CURRENT_TEST = SivtsevTest("","","")
 
-    const val SIVTSEV_MAX_LEVEL = 3
+    const val SIVTSEV_MAX_LEVEL = 10
 }

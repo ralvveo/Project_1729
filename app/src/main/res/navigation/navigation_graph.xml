@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_menuFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_kchsmFragment"
+            app:destination="@id/kchsmFragment" />
     </fragment>
     <fragment
         android:id="@+id/rabkinGuideFragment"
@@ -117,4 +120,26 @@
         android:name="com.example.project1729.ui.fragment.HistoryContentFragment"
         android:label="fragment_history_content"
         tools:layout="@layout/fragment_history_content" />
+    <fragment
+        android:id="@+id/kchsmFragment"
+        android:name="com.example.project1729.ui.fragment.KchsmFragment"
+        android:label="fragment_kchsm"
+        tools:layout="@layout/fragment_kchsm" >
+        <action
+            android:id="@+id/action_kchsmFragment_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
+        <action
+            android:id="@+id/action_kchsmFragment_to_buttonFragment"
+            app:destination="@id/buttonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceFragment"
+        android:name="com.example.project1729.ui.fragment.DeviceFragment"
+        android:label="fragment_device"
+        tools:layout="@layout/fragment_device" />
+    <fragment
+        android:id="@+id/buttonFragment"
+        android:name="com.example.project1729.ui.fragment.ButtonFragment"
+        android:label="fragment_button"
+        tools:layout="@layout/fragment_button" />
 </navigation>

@@ -28,7 +28,11 @@ class HistoryContentFragment : Fragment() {
     private var currentMeasure = HISTORY_CONTENT_RABKIN
     private val viewModel by viewModel<HistoryContentViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentHistoryContentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,7 +40,7 @@ class HistoryContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        currentMeasure = requireArguments().getString(CURRENT_MEASURE)?: HISTORY_CONTENT_RABKIN
+        currentMeasure = requireArguments().getString(CURRENT_MEASURE) ?: HISTORY_CONTENT_RABKIN
 
         binding.historyContentButtonBack.setOnClickListener {
             findNavController().navigateUp()
@@ -46,8 +50,7 @@ class HistoryContentFragment : Fragment() {
             deleteHistory()
         }
 
-        viewModel.getHistoryContentLiveData().observe(viewLifecycleOwner){ historyList ->
-
+        viewModel.getHistoryContentLiveData().observe(viewLifecycleOwner) { historyList ->
             render(historyList)
 
         }
@@ -55,18 +58,24 @@ class HistoryContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun render(historyList: MutableList<Test>){
+    private fun render(historyList: MutableList<Test>) {
         var showList: MutableList<Test>
-        binding.historyContentList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, true)
-        when (currentMeasure){
+        binding.historyContentList.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, true)
+        when (currentMeasure) {
             HISTORY_CONTENT_RABKIN -> {
                 showList = historyList.filter { test -> test.type == "Rabkin" }.toMutableList()
             }
-            else -> {
+
+            HISTORY_CONTENT_SIVTSEV -> {
                 showList = historyList.filter { test -> test.type == "Sivtsev" }.toMutableList()
             }
+
+            else -> {
+                showList = historyList.filter { test -> test.type == "KCHSM" }.toMutableList()
+            }
         }
-        if (showList.isEmpty()){
+        if (showList.isEmpty()) {
             binding.historyContentPlaceholderText.visibility = View.VISIBLE
             binding.historyContentPlaceholderTitle.visibility = View.VISIBLE
             binding.historyContentPlaceholderImage.visibility = View.VISIBLE
@@ -74,9 +83,7 @@ class HistoryContentFragment : Fragment() {
             binding.historyContentClearButton.visibility = View.GONE
             binding.historyContentClearButtonText.visibility = View.GONE
             binding.historyContentText.visibility = View.GONE
-        }
-
-        else{
+        } else {
             binding.historyContentPlaceholderText.visibility = View.GONE
             binding.historyContentPlaceholderTitle.visibility = View.GONE
             binding.historyContentPlaceholderImage.visibility = View.GONE
@@ -88,26 +95,34 @@ class HistoryContentFragment : Fragment() {
         binding.historyContentList.adapter = HistoryContentAdapter(showList)
     }
 
-    private fun initializeFragment(){
+    private fun initializeFragment() {
 
-        when (currentMeasure){
+        when (currentMeasure) {
             HISTORY_CONTENT_RABKIN -> {
                 binding.historyContentTitle.setText(R.string.history_rabkin_title)
                 binding.historyContentText.setText(R.string.history_rabkin_text)
-                binding.historyContentImage.background = requireActivity().getDrawable(R.drawable.picture_history_rabkin)
+                binding.historyContentImage.background =
+                    requireActivity().getDrawable(R.drawable.picture_history_rabkin)
             }
 
-            else -> {
+            HISTORY_CONTENT_SIVTSEV -> {
                 binding.historyContentTitle.setText(R.string.history_sivtsev_title)
                 binding.historyContentText.setText(R.string.history_sivtsev_text)
-                binding.historyContentImage.background = requireActivity().getDrawable(R.drawable.picture_history_sivtsev)
+                binding.historyContentImage.background =
+                    requireActivity().getDrawable(R.drawable.picture_history_sivtsev)
+            }
+            else -> {
+                binding.historyContentTitle.setText(R.string.history_kchsm_title)
+                binding.historyContentText.setText(R.string.history_kchsm_text)
+                binding.historyContentImage.background =
+                    requireActivity().getDrawable(R.drawable.picture_history_kchsm)
             }
         }
 
 
     }
 
-    private fun deleteHistory(){
+    private fun deleteHistory() {
         MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialog2)
             .setTitle(getString(R.string.delete_title)) // Заголовок диалога
             .setMessage(getString(R.string.delete_descr)) // Описание диалога
@@ -117,21 +132,24 @@ class HistoryContentFragment : Fragment() {
 
             .setPositiveButton(R.string.delete_confirm) { dialog, which -> // Добавляет кнопку «Да»
                 var deleteTest = "Rabkin"
-                if (currentMeasure == HISTORY_CONTENT_SIVTSEV){
+                if (currentMeasure == HISTORY_CONTENT_SIVTSEV) {
                     deleteTest = "Sivtsev"
-                }
+                } else if (currentMeasure == HISTORY_CONTENT_KCHSM)
+                    deleteTest = "KCHSM"
                 viewModel.deleteTests(deleteTest)
                 lifecycleScope.launch {
                     delay(300L)
                     viewModel.checkData()
                 }
 
-                val toast = Toast.makeText(requireActivity(), "История успешно очищена", Toast.LENGTH_SHORT)
+                val toast =
+                    Toast.makeText(requireActivity(), "История успешно очищена", Toast.LENGTH_SHORT)
                 toast.show()
             }
             .show()
     }
-    companion object{
+
+    companion object {
         private const val CURRENT_MEASURE = "current_measure"
         fun createArgs(currentMeasure: String): Bundle = bundleOf(CURRENT_MEASURE to currentMeasure)
         const val HISTORY_CONTENT_RABKIN = "history_content_rabkin"

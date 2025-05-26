@@ -79,6 +79,9 @@ object Converter {
         if (measurementResponse.type == "цветоощущение"){
             type = "Rabkin"
         }
+        if (measurementResponse.type == "кчсм"){
+            type = "KCHSM"
+        }
         return Test(
             testId = Random.nextLong(),
             type = type,
