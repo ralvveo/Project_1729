@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
+    <!-- Конфиг для 45.153.191.176: ТОЛЬКО HTTPS с кастомным сертификатом -->
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="false">45.153.191.176</domain>
         <trust-anchors>
-            <certificates src="@raw/cert" />
+            <certificates src="@raw/cert"/> <!-- Ваш кастомный сертификат -->
         </trust-anchors>
+    </domain-config>
+
+    <!-- Конфиг для 185.207.0.128: Разрешить HTTP -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">185.207.0.128</domain>
     </domain-config>
 </network-security-config>

@@ -7,6 +7,20 @@
     android:background="@color/white"
     tools:context=".ui.fragment.ButtonFragment">
 
+    <TextView
+        android:id="@+id/rabkinTestVoiceMessage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/rounded_message_background"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Говорите громче" />
+
     <Button
         android:id="@+id/firstMeasureButton"
         android:layout_width="match_parent"
@@ -113,6 +127,17 @@
         app:layout_constraintEnd_toEndOf="@id/bigRoundButton"
         app:layout_constraintBottom_toBottomOf="@id/luxName"
         />
+
+    <ImageButton
+        android:id="@+id/voiceButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_button"
+        android:src="@drawable/ic_mic_on"
+        app:layout_constraintBottom_toTopOf="@+id/firstMeasureButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

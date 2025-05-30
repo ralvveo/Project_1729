@@ -12,6 +12,31 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+        <ImageButton
+            android:id="@+id/rabkinTestVoiceButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_mic_on"
+            android:background="@drawable/round_button"
+            app:layout_constraintBottom_toTopOf="@+id/rabkinResultsTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rabkinStartButton" />
+
+        <TextView
+            android:id="@+id/rabkinTestVoiceMessage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/rounded_message_background"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Говорите громче"/>
+
         <TextView
             android:id="@+id/rabkinResultsTitle"
             style="@style/screenTitleStyle"

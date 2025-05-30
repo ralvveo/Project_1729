@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "1.9.23"
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,11 +45,12 @@ android {
 }
 val koinVersion = "3.2.2"
 val coroutineVersion = "1.7.1"
-val roomVersion = "2.7.1"
+val roomVersion = "2.6.1"
 dependencies {
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.23")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
     implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0")
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
@@ -84,13 +85,13 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
-    kapt ("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     //
 
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.14.2")
-    kapt ("com.github.bumptech.glide:compiler:4.14.2")
+    ksp ("com.github.bumptech.glide:ksp:4.14.2")
 
     //Graphics
     implementation ("com.diogobernardino:williamchart:3.10.1")
