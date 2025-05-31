@@ -278,6 +278,13 @@ class HistoryMainFragment : Fragment(), VoiceAssistant.VoiceCallback {
                     )
                 }
 
+                "световые мелькания" -> {
+                    findNavController().navigate(
+                        R.id.action_historyMainFragment_to_historyContentFragment,
+                        HistoryContentFragment.createArgs(HISTORY_CONTENT_KCHSM)
+                    )
+                }
+
                 "два" -> {
                     findNavController().navigate(
                         R.id.action_historyMainFragment_to_historyContentFragment,
