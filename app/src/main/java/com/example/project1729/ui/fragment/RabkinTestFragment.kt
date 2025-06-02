@@ -10,11 +10,14 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -24,15 +27,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.project1729.R
-import com.example.project1729.data.keys.RABKIN_RESULTS
 import com.example.project1729.data.keys.RABKIN_RESULTS.CURRENT_MEASURE
-import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_DEITERANOPY_ANSWERS
-import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_PROTANOPY_ANSWERS
-import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_RIGHT_ANSWERS
-import com.example.project1729.data.keys.RABKIN_RESULTS.RABKIN_WRONG_ANSWERS
 import com.example.project1729.data.keys.RABKIN_RESULTS.SHOW_QUESTION
-import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_CURRENT_LEVEL
-import com.example.project1729.data.keys.SIVTSEV_RESULTS.SIVTSEV_CURRENT_LEVEL_WRONG
 import com.example.project1729.databinding.FragmentRabkinTestBinding
 import com.example.project1729.domain.model.RabkinTest
 import com.example.project1729.domain.model.SivtsevTest
@@ -70,6 +66,9 @@ class RabkinTestFragment : Fragment(), VoiceAssistant.VoiceCallback {
         }
     }
 
+    private var keyboardListener: ViewTreeObserver.OnGlobalLayoutListener? = null
+    private var rootView: View? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentRabkinTestBinding.inflate(inflater, container, false)
@@ -86,6 +85,25 @@ class RabkinTestFragment : Fragment(), VoiceAssistant.VoiceCallback {
         initializeFragment()
         setupObservers()
         setupBottomSheet()
+        lifecycleScope.launch{
+            delay(1000L)
+            justStarted = false
+        }
+
+        rootView = requireActivity().findViewById(android.R.id.content)
+        keyboardListener = ViewTreeObserver.OnGlobalLayoutListener {
+            val rect = Rect()
+            rootView?.getWindowVisibleDisplayFrame(rect)
+            val screenHeight = rootView?.rootView?.height ?: 0
+            val keypadHeight = screenHeight - rect.bottom
+
+            if (keypadHeight > screenHeight * 0.15) {
+                binding.rabkinTestQuestionButton.visibility = View.GONE
+            } else {
+                binding.rabkinTestQuestionButton.visibility = View.VISIBLE
+            }
+        }
+        rootView?.viewTreeObserver?.addOnGlobalLayoutListener(keyboardListener)
     }
 
     private fun setupObservers() {
@@ -542,8 +560,30 @@ class RabkinTestFragment : Fragment(), VoiceAssistant.VoiceCallback {
         addOnLayoutChangeListener { _, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             val rect = Rect(left, top, right, bottom)
             val oldRect = Rect(oldLeft, oldTop, oldRight, oldBottom)
-            runnable(rect.height() < oldRect.height())
+            if (rect.height() < oldRect.height()) {
+                SHOW_QUESTION = false
+                checkQuestion()
+            }
+            else{
+                if (!justStarted){
+                    SHOW_QUESTION = true
+                    checkQuestion()
+                }
+
+            }
+
         }
     }
+
+    override fun onDestroyView() {
+        // Важно удалить listener, иначе будет утечка памяти!
+        keyboardListener?.let { listener ->
+            rootView?.viewTreeObserver?.removeOnGlobalLayoutListener(listener)
+        }
+        rootView = null
+        keyboardListener = null
+        super.onDestroyView()
+    }
+
 
 }
